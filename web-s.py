@@ -1,5 +1,8 @@
 import requests;
+# parse html
 from bs4 import BeautifulSoup;
+# # extract data
+import pandas as pd;
 
 URL = "https://www.paulaschoice.com/ingredient-dictionary"
 page=requests.get(URL)
@@ -8,9 +11,25 @@ soup = BeautifulSoup(page.content, "html.parser")
 
 results = soup.find_all("tr", {"class": "ingredient-result"})
 
-# get ingredient rating
-print(results[0].td.text)
-#get ingredient name
-print(results[0].a.text)
-#get ingredient description
-print(results[0].p.text)
+rating = [];
+name = [];
+description=[];
+
+for ingredient in results:
+    ingredient_rating = ingredient.td.text
+    ingredient_name = ingredient.a.text
+
+    rating.append(ingredient_rating)
+    name.append(ingredient_name)
+    
+    if ingredient.p is not None:
+        description.append(ingredient.p.text.strip())
+    else:
+        description.append('No Description')
+
+df = pd.DataFrame({'Rating':rating,'Ingredient_Name':name, 'Ingredient_desc': description}) 
+df.to_csv('products.csv', index=False, encoding='utf-8')   
+
+
+
+
