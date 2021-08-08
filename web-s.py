@@ -1,6 +1,7 @@
 import requests;
 # parse html
 from bs4 import BeautifulSoup;
+from selenium import webdriver;
 # # extract data
 import pandas as pd;
 
