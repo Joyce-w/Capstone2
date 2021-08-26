@@ -1,0 +1,13 @@
+.NavBar{
+    background-color: #A7D7C5;
+    opacity: 75%;
+    height: 65px;
+    display: flex;
+    justify-content: center;
+    z-index: 0.9;
+}
+
+.NavBar a {
+    margin: auto 1em;
+    text-decoration: none;
+}
