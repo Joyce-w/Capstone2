@@ -13,8 +13,8 @@ CREATE TABLE plant_users(
 CREATE TABLE user_lists(
     id SERIAL PRIMARY KEY,
     list_name VARCHAR(20),
-    user_id INTEGER REFERENCES plant_users(id) ON DELETE CASCADE,
-    plant_list_id INTEGER REFERENCES plant_list(id) ON DELETE CASCADE
+    user_id INTEGER
+        REFERENCES plant_users(id) ON DELETE CASCADE,
 );
 
 CREATE TABLE plants(
@@ -36,5 +36,8 @@ CREATE TABLE plants(
 
 CREATE TABLE plant_list(
     id SERIAL PRIMARY KEY,
-    plant_id VARCHAR(25) REFERENCES plants(id) ON DELETE CASCADE
-)
+    plant_list_id INTEGER 
+        REFERENCES plant_list(id) ON DELETE CASCADE,
+    plant_id VARCHAR(25) 
+        REFERENCES plants(id) ON DELETE CASCADE
+);
