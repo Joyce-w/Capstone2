@@ -34,6 +34,7 @@
     width: 70%;
     height: 70vh;
     margin: auto;
+    overflow: auto;
 }
 
 .Home h1{
@@ -42,6 +43,22 @@
     margin-top: 0;
 }
 
+.Home-signup-btn{
+    position: relative;
+    width: 11em;
+    height: 2.5em;
+    background-color: #A7D7C5;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Montserrat',
+    sans-serif;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.Home-signup-btn:hover {
+    background-color: #84c7aee7;
+}
 
 /**MEDIA QUERIES**/
 @media screen and (max-width: 1024px) {

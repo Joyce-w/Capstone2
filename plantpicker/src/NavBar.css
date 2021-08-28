@@ -5,9 +5,22 @@
     display: flex;
     justify-content: center;
     z-index: 0.9;
+    font-family: 'Montserrat',
+    sans-serif;
 }
 
 .NavBar a {
-    margin: auto 1em;
+    position: relative;
+    display: inline-block;
+    height: 65px;
     text-decoration: none;
+    margin: 0 1em;
+    padding-top:1%;
+    vertical-align: sub;
 }
+
+.plants{
+    /* margin-top: 1%; */
+}
+
+

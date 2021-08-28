@@ -1,5 +1,8 @@
 var express = require('express');
-var router = express.Router();
+var router = new express.Router();
+
+//require the db
+const db = "../db"
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
