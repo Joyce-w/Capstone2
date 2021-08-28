@@ -1,4 +1,4 @@
-
+"use strict";
 
 /**Class that handles  */
 class PlantList {

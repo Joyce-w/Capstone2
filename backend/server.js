@@ -1,24 +1,8 @@
-const express = require('express');
+"use strict";
 
-const app = express();
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
+const app = require("./app");
+const { PORT } = require("./config");
 
-//fake db
-const CANDIES = [
-    {name: 'snickers', qty: 43, price: 1.50},
-    {name: 'skittles', qty: 26, price: 0.99}
-]
-
-
-app.get("/candies", (req, res) => {
-    res.send(CANDIES)
-})
-    
-app.post("/candies", (req, res) => {
-    CANDIES.push(req.body);
-    res.status(201).json(CANDIES)
-})
-app.listen(3000, function () {
-    console.log('App on port 3000')
-})
+app.listen(PORT, function () {
+  console.log(`Started on http://localhost:${PORT}`);
+});
