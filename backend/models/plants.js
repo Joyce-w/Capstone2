@@ -24,7 +24,7 @@ class Plants {
         /**Insert data into plant table in db */
         const res = await db.query(
             `INSERT INTO plants
-            plant_id,
+            id,
             plant_name,
             description,
             lighting,
@@ -67,7 +67,7 @@ class Plants {
     static async getAllPlants() {
         const res = await db.query(
             `SELECT
-            plant_id,
+            id,
             plant_name,
             description,
             lighting,
