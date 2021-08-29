@@ -3,10 +3,6 @@ CREATE DATABASE plantpicker;
 
 \c plantpicker;
 
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS plants;
-DROP TABLE IF EXISTS plants_list;
-DROP TABLE IF EXISTS user_lists;
 
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,
