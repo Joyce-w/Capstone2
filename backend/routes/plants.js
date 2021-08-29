@@ -1,5 +1,6 @@
-var express = require('express');
-var router = new express.Router();
+const express = require('express');
+const router = new express.Router();
+const {BadRequestError} = require("../ExpressError");
 
 //require plant model
 const Plant = require("../models/plants");
@@ -13,6 +14,21 @@ router.get('/', async function (req, res, next) {
         next(e)
     }
 });
+
+router.get("/:id", async function (req, res, next) {
+    try {
+        //get plant id from params
+        const { id } = req.params;
+        
+        let plant = await Plant.getPlant(id);
+        
+        if (!plant) throw new BadRequestError;
+
+        return res.json(plant);
+    } catch (e) {
+        next(e);
+    }
+})
 
 
 module.exports = router;

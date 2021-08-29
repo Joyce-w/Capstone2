@@ -51,14 +51,28 @@ class Plants {
     /**grabs a plant based on plant_name 
      * Additional Implementations***
     */
-    static async getPlant(id) {
+    static async getPlant(plant_id) {
         const res = await db.query(
-            `SELECT id
+            `SELECT
+            id,
+            plant_name,
+            description,
+            lighting,
+            kid_friendly,
+            pet_friendly,
+            max_height,
+            flowering,
+            ideal_temp,
+            environment,
+            ideal_positions,
+            general_shape,
+            drought_tolerant,
+            img
             FROM plants
             WHERE id = $1`,
-            [id]
+            [plant_id]
         )
-        return res.result[0];
+        return res.rows[0]
     }
 
     /**grabs a plant based on plant_name 
@@ -78,7 +92,7 @@ class Plants {
             FROM plants`
         )
 
-        return res;
+        return res.rows;
     }
 
     // /**Updates an existing plant based in plant_name, desc, light, k_friendly, p_friendly, height, flower, ideal_temp, environment */
