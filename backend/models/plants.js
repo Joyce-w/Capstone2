@@ -7,42 +7,28 @@ const { BadRequestError } = require("../ExpressError");
 class Plants {
 
 
-    /**Adds plants  with minimum of id, plant_name, description, lighting, kid_friendly, pet_friendly, max_height, flowering, ideal_temp,environment*/
-    static async addPlant(id, name, desc, lighting, k_fren, p_fren, height, has_flower, temp, envir, placements, shape, drought_tol,img) {
+    /**Adds plants  with minimum of id, plant_name, details, lighting, kid_friendly, pet_friendly, max_height, flowering, ideal_temp,environment*/
+static async addPlant({id, name, desc, lighting, k_fren, p_fren, height, has_flower, temp, envir, placements, shape, drought_tol,img}) {
         /**Check if there is a duplicate plant name */
-        const dupeCheck = await db.query(
-            `SELECT plant_name
-            FROM plants
-            WHERE username = $1`,
-            [name]
-        );
+        // const dupeCheck = await db.query(
+        //     `SELECT id, plant_name, details
+        //     FROM plants
+        //     WHERE id = $1`,
+        //     [id]
+        // );
 
-        if (dupeCheck.rows[0]) {
-            throw new BadRequestError(`There is already a ${name} in the database.`)
-        }
+        // if (dupeCheck.rows[0]) {
+        //     throw new BadRequestError(`There is already a ${name} in the database.`)
+        // }
         
         /**Insert data into plant table in db */
         const res = await db.query(
-            `INSERT INTO plants
-            id,
-            plant_name,
-            description,
-            lighting,
-            kid_friendly,
-            pet_friendly,
-            max_height,
-            flowering,
-            ideal_temp,
-            environment,
-            ideal_positions,
-            general_shape,
-            drought_tolerant,
-            img
+            `INSERT INTO plants(id,plant_name,details,lighting,kid_friendly,pet_friendly,max_height,flowering,ideal_temp,environment,ideal_positions,general_shape,drought_tolerant,img)
             VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)
-            RETURNING plant_id, plant_name`,
+            RETURNING id, plant_name`,
             [id, name, desc, lighting, k_fren, p_fren, height, has_flower, temp, envir, placements, shape, drought_tol,img]
         )
-        const plant = res.row[0];
+        console.log(res)
 
         return plant;
     }
@@ -56,7 +42,7 @@ class Plants {
             `SELECT
             id,
             plant_name,
-            description,
+            details,
             lighting,
             kid_friendly,
             pet_friendly,
@@ -83,7 +69,7 @@ class Plants {
             `SELECT
             id,
             plant_name,
-            description,
+            details,
             lighting,
             kid_friendly,
             pet_friendly,

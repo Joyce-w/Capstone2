@@ -27,7 +27,7 @@ describe("GET /plants", function () {
         [{
             "id": "wisteria",
             "plant_name": "wisteria",
-            "description": "vines that can be trained into trees",
+            "details": "vines that can be trained into trees",
             "lighting": "bright",
             "kid_friendly": false,
             "pet_friendly": false,

@@ -30,5 +30,17 @@ router.get("/:id", async function (req, res, next) {
     }
 })
 
+router.post("/", async function (req, res, next) {
+    try {
+        //get plant id from params
+         console.log(req.body)
+    let plant = await Plant.addPlant(req.body);
+       
+        return res.status(201).json(plant)
+    } catch (e) {
+        next(e);
+    }
+})
+
 
 module.exports = router;
