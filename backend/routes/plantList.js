@@ -49,44 +49,35 @@ router.patch("/:list_id", async function (req, res, next) {
     }
 })
 
-// /* Add new plant data int db
-// * requires: {id,plant_name,details,lighting,kid_friendly,pet_friendly,max_height,flowering,ideal_temp,environment} => id, plant_name
-// */
-// router.post("/", async function (req, res, next) {
-//     try {
-//         const plant = await Plant.create(req.body);
-//         return res.status(201).json(plant);
-//     } catch (e) {
-        
-//     }
-// })
+router.delete("/:list_id", async function (req, res, next) {
+    try {
+        await PlantList.delete(req.params.id);
+        return res.json({message: `List deleted`})
+    } catch (e) {
+        next(e);
+    }
+})
 
-// /**Updates a plant with the following optional properties: {details,lighting,kid_friendly,pet_friendly,max_height,flowering,ideal_temp,environment,ideal_positions,general_shape,drought_tolerant,img} 
-//  * No updates to id or name. Plant must be deleted and remade in that case.
-// */
-// router.put("/:id", async function (req, res, next) {
-//     try {
-//         // const { details, lighting, kid_friendly, pet_friendly, max_height, flowering, ideal_temp, environment, ideal_positions, general_shape, drought_tolerant, img } = req.body;
+router.post("/:list_id", async function (req, res, next) {
+    try {
+        const { plant_id } = req.body;
+        console.log(plant_id)
+        let plant = await PlantList.addPlant(req.params.list_id, plant_id);
+        return res.json({new: plant});
+    } catch (e) {
+        next(e);
+    }
+});
 
-
-//         const plant = await Plant.update(req.params.id, req.body);
-//         console.log('plant',plant);
-//         return res.json({Updated: plant})
-
-//     } catch(e) {
-//         next(e)
-//     }
-// })
-
-// /**Deletes a plant from db based of id */
-// router.delete("/:id", async function (req, res, next) {
-//     try {
-//         await Plant.delete(req.params.id);
-//         return res.json({message: `Deleted ${req.params.id}`})
-//     } catch (e) {
-//         next(e)
-//     }
-// });
-
+router.delete("/:list_id/:plant_id", async function (req, res, next) {
+    try {
+        const { list_id, plant_id } = req.params;
+        console.log( list_id, plant_id )
+        await PlantList.removePlant(list_id, plant_id);
+        return res.json({message: `Deleted ${plant_id}`})
+    } catch (e) {
+        next(e);
+    }
+});
 
 module.exports = router;

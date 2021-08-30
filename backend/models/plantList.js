@@ -55,6 +55,11 @@ class PlantList {
             GROUP BY  ul.id, ul.list_name,u.username;
         `, [list_id])
 
+        //check to see if list exists
+        if (listRes.rows.length === 0) {
+            throw new ExpressError("List cannot be found", 404);
+        }
+
         const plants = await db.query(`
             SELECT pl.plant_id, p.plant_name FROM user_lists ul
             JOIN plant_list pl ON pl.user_list_id = ul.user_id
@@ -80,6 +85,15 @@ class PlantList {
     static async updateList(list_id, listName) {
         //check to see if it is the user, add parameter!
 
+        //check if list exists
+        let checkList = await db.query(`
+        SELECT * FROM user_lists
+        WHERE id = $1
+        `, [list_id])
+        
+        if(checkList.rows.length === 0) throw new ExpressError("List cannot be found", 404);
+        
+
         //update list name in db
         let res = await db.query(`
             UPDATE user_lists
@@ -92,14 +106,57 @@ class PlantList {
         return res.rows[0];
     }
 
-    // /**Delete the plant list if it is own user */
-    // static async deletePlantList(user_id)
+    /**Delete the plant list if it is own user */
+    static async delete(list_id) {
+        let res = await db.query(`
+        DELETE FROM user_lists
+        WHERE id = $1 
+        RETURNING id
+        `, [list_id])
+
+        // Check if there is an id to be deleted
+        if (res.rows.length === 0) {
+            throw new ExpressError("Plant cannot be found", 404);
+        }
+
+    }
     
-    // /**Add plant to plant_list */
-    // static async addPlantToList(list_id, plant_id)
 
-    // static async removePlantFromList(list_id, plant_id)
 
+    /**Add plant to plant_list */
+    static async addPlant(list_id, plant) {
+        //check for duplicates in plant list
+        let checkDupe = await db.query(`
+            SELECT plant_id
+            FROM plant_list
+            WHERE plant_id = $1
+        `, [plant])
+        
+        if(checkDupe.rows[0]) throw new BadRequestError('Duplicate plant in list.');
+
+
+        let newPlant = await db.query(`
+            INSERT INTO plant_list
+            (user_list_id, plant_id)
+            VALUES ($1, $2)
+            RETURNING user_list_id, plant_id
+        `, [list_id, plant])
+        return newPlant.rows[0];
+    }
+
+    static async removePlant(list_id, plant) {
+        
+        let res = await db.query(`
+            DELETE FROM plant_list
+            WHERE user_list_id = $1 AND plant_id = $2
+            RETURNING id plant_id
+        `, [list_id, plant])
+
+        // Check if there is an id to be deleted
+        if (res.rows.length === 0) {
+            throw new ExpressError("Plant cannot be found", 404);
+        }
+    }
 }
 
 

@@ -18,9 +18,10 @@ class Plants {
             WHERE id = $1`,
             [id]
         );
-            console.log('dupecheck', dupeCheck)
+        
         // condition is catching but nothing is throwing! 
-        if (dupeCheck.rows[0]){throw new ExpressError("Duplicate plant", 400)};
+        console.log(dupeCheck)
+        if(dupeCheck.rows[0]) throw new BadRequestError(`${plant_name} already exists`)
 
         /**Insert data into plant table in db */
         const res = await db.query(
