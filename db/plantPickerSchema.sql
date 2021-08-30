@@ -28,20 +28,20 @@ CREATE TABLE plants(
     img              VARCHAR(14)
 );
 
-CREATE TABLE plant_list(
-    id SERIAL PRIMARY KEY,
-    plant_list_id INTEGER 
-        REFERENCES plant_list(id) ON DELETE CASCADE,
-    plant_id VARCHAR(25) 
-        REFERENCES plants(id) ON DELETE CASCADE
-);
 
 CREATE TABLE user_lists(
     id SERIAL PRIMARY KEY,
     list_name VARCHAR(20),
     user_id INTEGER
-        REFERENCES users(id) ON DELETE CASCADE,
+        REFERENCES users ON DELETE CASCADE,
     plant_list_id SERIAL
 );
 
+CREATE TABLE plant_list(
+    id SERIAL PRIMARY KEY,
+    user_list_id INTEGER 
+        REFERENCES user_lists ON DELETE CASCADE,
+    plant_id VARCHAR(25) 
+        REFERENCES plants ON DELETE CASCADE
+);
 

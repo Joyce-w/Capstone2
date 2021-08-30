@@ -22,7 +22,18 @@ router.get("/", async function (req, res, next) {
     try {
         console.log('plant-list route HIT');
         let plantList = await PlantList.getPlantList();
-        return res.json({plantList});
+        return res.json(plantList);
+    } catch (e) {
+        next(e);
+    }
+})
+
+/**GET a single plant list based on list_id */
+router.get("/:list_id", async function (req, res, next) {
+    try {
+        console.log(req.params.list_id)
+        let plantList = await PlantList.getList(req.params.list_id);
+        return res.json(plantList);
     } catch (e) {
         next(e);
     }
