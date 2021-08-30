@@ -1,16 +1,50 @@
-var express = require('express');
-var router = new express.Router();
+const express = require('express');
+const router = new express.Router();
 
-//require the db
-const db = "../db"
+const Users = require("../models/user")
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+/* GET users listing and their corresponding list */
+router.get('/', async function (req, res, next) {
+  try {
+    const users = await Users.getAllUsers();
+    return res.json(users);    
+  } catch (e) {
+    next(e)
+  }
+
+
 });
 
-router.get("/", (req, res) => {
-  
+router.get("/:user", async function (req, res,next ) {
+  try {
+    const user = await Users.getUser(req.params.user);
+    return res.json(user);    
+  } catch (e) {
+    next(e)
+  }
+});
+
+/** POST create new user
+ * Requires: username, email and password
+*/
+router.post('/', async function (req, res, next) {
+  try {    
+    let newUser = await Users.register(req.body);
+    return res.status(201).json(newUser);    
+  } catch(e) {
+    next(e)
+  }
+});
+
+router.delete('/:user', async function (req, res, next) {
+  try {
+    
+    await Users.remove(req.params.user);
+    return res.status(201).json({messsage:`Removed user: ${req.params.user}`});  
+  } catch (e) {
+     next(e)
+  }
 })
+
 
 module.exports = router;
