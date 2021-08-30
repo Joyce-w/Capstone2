@@ -1,6 +1,7 @@
 "use strict";
 const db = require("../db");
 const { BadRequestError, ExpressError, NotFoundError } = require("../ExpressError");
+const sqlForPartialUpdate = require("../helpers/sqlForPartialUpdate")
 
 class User {
 
@@ -70,7 +71,25 @@ class User {
     /**Edit and update user
      * Requires current password to make changes to username, email, password
     */
-    // static async update()
+    // static async update(id, data) {
+    //     const { setCols, values } = sqlForPartialUpdate(data,
+    //         {
+    //             username: "username",
+    //             email: "email",
+    //             password: "password"
+    //         });
+        
+    //     const userQuery = (`
+    //         UPDATE users
+    //         SET ${setCols}
+    //         WHERE id = ${id}
+    //         RETURN username, email
+    //     `);
+
+    //     const result = await db.query(userQuery, [...values])
+    //     let user = result.rows[0];
+    //     return user;
+    // }
 
     /**Remove users */
     static async remove(username) {

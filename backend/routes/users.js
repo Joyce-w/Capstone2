@@ -1,4 +1,5 @@
 const express = require('express');
+const User = require('../models/user');
 const router = new express.Router();
 
 const Users = require("../models/user")
@@ -45,6 +46,15 @@ router.delete('/:user', async function (req, res, next) {
      next(e)
   }
 })
+
+router.patch("/:user", async function (req, res, next) {
+  try {
+    const user = await User.update(req.params.id, req.body);
+    return res.json({ user });
+  } catch (e) {
+    next(e)
+  }
+});
 
 
 module.exports = router;

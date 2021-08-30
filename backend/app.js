@@ -5,6 +5,7 @@ const { NotFoundError } = require("./ExpressError")
 //Import routes file that you will be using
 const plantRoutes = require("./routes/plants")
 const userRoutes = require("./routes/users")
+const plantListRoutes = require("./routes/plantList")
 
 const morgan = require("morgan");
 const app = express();
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/plants", plantRoutes);
 app.use("/users", userRoutes);
+app.use("/listing", plantListRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
