@@ -28,7 +28,6 @@ CREATE TABLE plants(
     img              VARCHAR(14)
 );
 
-
 CREATE TABLE user_lists(
     id SERIAL PRIMARY KEY,
     list_name VARCHAR(20),

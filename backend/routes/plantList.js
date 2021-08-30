@@ -31,7 +31,6 @@ router.get("/", async function (req, res, next) {
 /**GET a single plant list based on list_id */
 router.get("/:list_id", async function (req, res, next) {
     try {
-        console.log(req.params.list_id)
         let plantList = await PlantList.getList(req.params.list_id);
         return res.json(plantList);
     } catch (e) {
@@ -39,7 +38,16 @@ router.get("/:list_id", async function (req, res, next) {
     }
 })
 
-
+router.patch("/:list_id", async function (req, res, next) {
+    try {
+        const { id, list_name } = req.body;
+        let updateList = await PlantList.updateList(id, list_name);
+        
+        return res.json(updateList);
+    } catch (e) {
+        next(e)
+    }
+})
 
 // /* Add new plant data int db
 // * requires: {id,plant_name,details,lighting,kid_friendly,pet_friendly,max_height,flowering,ideal_temp,environment} => id, plant_name

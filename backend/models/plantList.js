@@ -47,8 +47,6 @@ class PlantList {
     /**Gets a single list based off list id */
     static async getList(list_id) {
 
-        console.log('id is here', list_id);
-
         const listRes = await db.query(`
             SELECT ul.id, ul.list_name, u.username
             FROM user_lists ul
@@ -64,12 +62,14 @@ class PlantList {
             WHERE ul.id = $1;
         `,[list_id])
 
-        const {id, list_name, username} = listRes.rows[0];
+        const { id, list_name, username } = listRes.rows[0];
+        //return an array of each plant's id and name
         const plants_list = plants.rows.map(p => ({
             plant_id: p.plant_id,
             plant_name: p.plant_name
                 
-        }))
+        }));
+
         return ({id, list_name, username, plants_list})
 
     }
@@ -77,7 +77,20 @@ class PlantList {
 
 
     // /**Edit list name if it is own user*/
-    // static async updateListName(user_id)
+    static async updateList(list_id, listName) {
+        //check to see if it is the user, add parameter!
+
+        //update list name in db
+        let res = await db.query(`
+            UPDATE user_lists
+            SET list_name = $1
+            WHERE id = $2
+            RETURNING  id, list_name, user_id;
+        `,[listName,list_id])
+
+        console.log(res.rows[0])
+        return res.rows[0];
+    }
 
     // /**Delete the plant list if it is own user */
     // static async deletePlantList(user_id)
