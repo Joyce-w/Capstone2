@@ -6,7 +6,7 @@ const {BadRequestError} = require("../ExpressError");
 const Plant = require("../models/plants");
 
 /* GET details about all plants 
-[{id,plant_name,details,lighting,kid_friendly,pet_friendly,max_height,flowering,ideal_temp,environment,ideal_positions,general_shape,drought_tolerant,img},...]
+[{id,plant_name,details,lighting,kid_friendly,pet_friendly,max_height,flowering,min_temp, max_temp,environment,placements,drought_tolerant,img},...]
 */
 router.get('/', async function (req, res, next) {
     try {
@@ -18,7 +18,7 @@ router.get('/', async function (req, res, next) {
 });
 
 /* GET details about a single plant based off plant_id 
-[{id,plant_name,details,lighting,kid_friendly,pet_friendly,max_height,flowering,ideal_temp,environment,ideal_positions,general_shape,drought_tolerant,img},...]
+[{id,plant_name,details,lighting,kid_friendly,pet_friendly,max_height,flowering,min_temp, max_temp, environment,placements,drought_tolerant,img},...]
 */
 router.get("/:id", async function (req, res, next) {
     try {
@@ -36,25 +36,27 @@ router.get("/:id", async function (req, res, next) {
 })
 
 /* Add new plant data int db
-* requires: {id,plant_name,details,lighting,kid_friendly,pet_friendly,max_height,flowering,ideal_temp,environment} => id, plant_name
+* requires: {id,plant_name,details,lighting,kid_friendly,pet_friendly,max_height,flowering,min_temp, max_temp,environment} => id, plant_name
 */
 router.post("/", async function (req, res, next) {
+    debugger;
     try {
+        console.log('created new plant')
         const plant = await Plant.create(req.body);
+        
         return res.status(201).json(plant);
     } catch (e) {
-        
+        next(e)
     }
 })
 
-/**Updates a plant with the following optional properties: {details,lighting,kid_friendly,pet_friendly,max_height,flowering,ideal_temp,environment,ideal_positions,general_shape,drought_tolerant,img} 
+/**Updates a plant with the following optional properties: {details,lighting,kid_friendly,pet_friendly,max_height,flowering,min_temp, max_temp,environment,placements,drought_tolerant,img} 
  * No updates to id or name. Plant must be deleted and remade in that case.
 */
 router.put("/:id", async function (req, res, next) {
+    debugger;
     try {
-        // const { details, lighting, kid_friendly, pet_friendly, max_height, flowering, ideal_temp, environment, ideal_positions, general_shape, drought_tolerant, img } = req.body;
-
-
+        // const { details, lighting, kid_friendly, pet_friendly, max_height, flowering, min_temp, max_temp, environment, placements,, drought_tolerant, img } = req.body;
         const plant = await Plant.update(req.params.id, req.body);
         console.log('plant',plant);
         return res.json({Updated: plant})

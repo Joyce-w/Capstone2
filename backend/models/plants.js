@@ -8,8 +8,9 @@ const sqlForPartialUpdate = require("../helpers/sqlForPartialUpdate")
 class Plants {
 
 
-    /**Adds plants  with minimum of: id, plant_name, details, lighting, kid_friendly, pet_friendly, max_height, flowering, ideal_temp,environment*/
-    static async create({id, plant_name, details, lighting, kid_friendly, pet_friendly, max_height, flowering=null, ideal_temp=null, environment=null, ideal_positions=null, general_shape=null, drought_tolerant=null, img=null}) {
+    /**Adds plants  with minimum of: id, plant_name, details, lighting, kid_friendly, pet_friendly, max_height, flowering, min_temp, max_temp,environment*/
+    static async create(req) {
+        const { id, plant_name, details, lighting, kid_friendly, pet_friendly, max_height, flowering = null, min_temp = null, max_temp = null, environment = null, placements = null, drought_tolerant = null, img = null, air_purifying = null } = req;
 
         /**Check if there is a duplicate plant name */
         const dupeCheck = await db.query(
@@ -18,11 +19,12 @@ class Plants {
             WHERE id = $1`,
             [id]
         );
-        
-        // condition is catching but nothing is throwing! 
-        console.log(dupeCheck)
-        if(dupeCheck.rows[0]) throw new BadRequestError(`${plant_name} already exists`)
 
+        // condition is catching but nothing is throwing! 
+        if (dupeCheck.rows[0]) {
+           throw new BadRequestError(`${id} already exists`) 
+        } 
+        
         /**Insert data into plant table in db */
         const res = await db.query(
             `INSERT INTO plants
@@ -34,15 +36,31 @@ class Plants {
             pet_friendly,
             max_height,
             flowering,
-            ideal_temp,
+            min_temp,
+            max_temp,
             environment,
-            ideal_positions,
-            general_shape
-            ,drought_tolerant,
-            img)
-            VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)
-            RETURNING id, plant_name`,
-            [id, plant_name, details, lighting, kid_friendly, pet_friendly, max_height, flowering, ideal_temp, environment, ideal_positions, general_shape, drought_tolerant, img]
+            placements,
+            drought_tolerant,
+            img,
+            air_purifying)
+            VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)
+            RETURNING
+            id,
+            plant_name,
+            details,
+            lighting,
+            kid_friendly,
+            pet_friendly,
+            max_height,
+            flowering,
+            min_temp,
+            max_temp,
+            environment,
+            placements,
+            drought_tolerant,
+            img,
+            air_purifying`,
+            [id, plant_name, details, lighting, kid_friendly, pet_friendly, max_height, flowering, min_temp, max_temp, environment, placements,drought_tolerant, img, air_purifying]
         )
 
         return (res.rows[0]);
@@ -63,12 +81,12 @@ class Plants {
             pet_friendly,
             max_height,
             flowering,
-            ideal_temp,
+            min_temp, max_temp,
             environment,
-            ideal_positions,
-            general_shape,
+            placements,
             drought_tolerant,
-            img
+            img,
+            air_purifying
             FROM plants
             WHERE id = $1`,
             [plant_id]
@@ -90,12 +108,13 @@ class Plants {
             pet_friendly,
             max_height,
             flowering
-            ideal_temp,
+            min_temp,
+            max_temp,
             environment,
-            ideal_positions,
-            general_shape,
+            placements,
             drought_tolerant,
-            img
+            img,
+            air_purifying
             FROM plants`
         )
 
@@ -118,10 +137,12 @@ class Plants {
         }
     }
 
-    // /**Updates an existing plant based in plant_name, desc, light, k_friendly, p_friendly, height, flower, ideal_temp, environment */
+    // /**Updates an existing plant based in plant_name, desc, light, k_friendly, p_friendly, height, flower, min_temp, max_temp, environment */
     static async update(plant_id, req_body) {
-        const { id, plant_name, details, lighting, kid_friendly, pet_friendly, max_height, flowering, ideal_temp, environment, ideal_positions, general_shape, drought_tolerant, img } = req_body;
-    console.log(id, plant_name, details, lighting, kid_friendly, pet_friendly, max_height, flowering, ideal_temp, environment, ideal_positions, general_shape, drought_tolerant, img)        
+        const { id, plant_name, details, lighting, kid_friendly, pet_friendly, max_height, flowering, min_temp, max_temp, environment, placements, drought_tolerant, img, air_purifying } = req_body;
+        
+        console.log(req_body)
+    // console.log(id, plant_name, details, lighting, kid_friendly, pet_friendly, max_height, flowering, min_temp, max_temp, environment, placements, drought_tolerant, img,air_purifying)        
 
         const result = await db.query(`
         UPDATE plants
@@ -133,15 +154,16 @@ class Plants {
         pet_friendly = $6,
         max_height = $7,
         flowering = $8,
-        ideal_temp = $9,
-        environment = $10,
-        ideal_positions = $11,
-        general_shape = $12,
+        min_temp = $9,
+        max_temp = $10,
+        environment = $11,
+        placements = $12,
         drought_tolerant = $13,
-        img=$14
+        img=$14,
+        air_purifying=$15
         WHERE id = $1
-        RETURNING id, plant_name, details, lighting, kid_friendly, pet_friendly, max_height, flowering, ideal_temp, environment, ideal_positions, general_shape, drought_tolerant, img`,
-            [id, plant_name, details, lighting, kid_friendly, pet_friendly, max_height, flowering, ideal_temp, environment, ideal_positions, general_shape, drought_tolerant, img]);
+        RETURNING id, plant_name, details, lighting, kid_friendly, pet_friendly, max_height, flowering, min_temp, max_temp, environment, placements,drought_tolerant, img, air_purifying`,
+            [id, plant_name, details, lighting, kid_friendly, pet_friendly, max_height, flowering, min_temp,max_temp, environment, placements, drought_tolerant, img,air_purifying]);
 
         return result.rows[0];
     }

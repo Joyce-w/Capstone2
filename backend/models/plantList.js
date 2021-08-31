@@ -15,11 +15,10 @@ class PlantList {
             FROM user_lists
             WHERE user_id =$1 AND
             list_name=$2;
-        `,[user, title])
+        `, [user, title]);
 
         //throw error if there is duplicate title with same user
         if (checkDupe.rows[0]) throw new BadRequestError('Duplicate list name');
-        
         //add new list to db
         let newList = await db.query(`
             INSERT INTO user_lists
@@ -118,11 +117,8 @@ class PlantList {
         if (res.rows.length === 0) {
             throw new ExpressError("Plant cannot be found", 404);
         }
-
     }
     
-
-
     /**Add plant to plant_list */
     static async addPlant(list_id, plant) {
         //check for duplicates in plant list
@@ -133,7 +129,6 @@ class PlantList {
         `, [plant])
         
         if(checkDupe.rows[0]) throw new BadRequestError('Duplicate plant in list.');
-
 
         let newPlant = await db.query(`
             INSERT INTO plant_list
