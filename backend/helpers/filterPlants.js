@@ -27,28 +27,43 @@ async function filterPlants(searchFilters = {}) {
 
     let whereExpressions = [];
     let queryValues = [];
+    
 
+    /** For each parameter in searchFilter:
+     * Adds the value into queryValue array 
+     * Adds the current queryValues.length which will be used as the position for sql injection
+     * */
+
+    if (pos !== undefined) {
+        queryValues.push(pos)
+        whereExpressions.push(`placements=$${queryValues.length}`)
+    }
+    if (lighting !== undefined) {
+        queryValues.push(lighting)
+        whereExpressions.push(`lighting=$${queryValues.length}`)
+    }
+    if (watering !== undefined) {
+        queryValues.push(watering)
+        whereExpressions.push(`drought_tolerant=$${queryValues.length}`)
+    }
     //write query and add value for keys with bool values
     if (has_kids !== undefined) {
         //pushes the value into queryValues
-        //Make sure bool values are capitalized for sql query
-        queryValues.push(has_kids); //false
+        queryValues.push(has_kids); 
         //pushes into where expression with sql injection
         whereExpressions.push(`kid_friendly = $${queryValues.length}`);
     }
 
     if (has_pets !== undefined) {
         //pushes the value into queryValues
-        //Make sure bool values are capitalized for sql query
-        queryValues.push(has_pets); // true
+        queryValues.push(has_pets);
         //pushes into where expression with sql injection
         whereExpressions.push(`pet_friendly = $${queryValues.length}`);
     }
 
     if (does_flower !== undefined) {
         //pushes the value into queryValues
-        //Make sure bool values are capitalized for sql query
-        queryValues.push(does_flower); // true
+        queryValues.push(does_flower);
         //pushes into where expression with sql injection
         whereExpressions.push(`flowering = $${queryValues.length}`);
     }
@@ -58,11 +73,12 @@ async function filterPlants(searchFilters = {}) {
       query += " WHERE " + whereExpressions.join(" AND ");
     }
 
-     console.log('whereExpressions', whereExpressions)
-    console.log('queryValues', queryValues)
-    
-    let filteredPlants = await db.query(query, queryValues)
-    console.log(filteredPlants.rows)
+    console.log(whereExpressions)
+    console.log(queryValues)
+
+    let filteredPlants = await db.query(query, queryValues);
+
+    return filteredPlants.rows;
 
 
 }
