@@ -34,10 +34,6 @@ async function filterPlants(searchFilters = {}) {
      * Adds the current queryValues.length which will be used as the position for sql injection
      * */
 
-    if (pos !== undefined) {
-        queryValues.push(pos)
-        whereExpressions.push(`placements=$${queryValues.length}`)
-    }
     if (lighting !== undefined) {
         queryValues.push(lighting)
         whereExpressions.push(`lighting=$${queryValues.length}`)
@@ -53,19 +49,21 @@ async function filterPlants(searchFilters = {}) {
         //pushes into where expression with sql injection
         whereExpressions.push(`kid_friendly = $${queryValues.length}`);
     }
-
     if (has_pets !== undefined) {
         //pushes the value into queryValues
         queryValues.push(has_pets);
         //pushes into where expression with sql injection
         whereExpressions.push(`pet_friendly = $${queryValues.length}`);
     }
-
     if (does_flower !== undefined) {
         //pushes the value into queryValues
         queryValues.push(does_flower);
         //pushes into where expression with sql injection
         whereExpressions.push(`flowering = $${queryValues.length}`);
+    }
+    if (pos !== undefined) {
+        queryValues.push(pos)
+        whereExpressions.push(`placements LIKE $${queryValues.length}`)
     }
 
     //if there are expression, add WHERE syntax and join the values with 'AND'
@@ -73,13 +71,10 @@ async function filterPlants(searchFilters = {}) {
       query += " WHERE " + whereExpressions.join(" AND ");
     }
 
-    console.log(whereExpressions)
-    console.log(queryValues)
 
-    let filteredPlants = await db.query(query, queryValues);
-
-    return filteredPlants.rows;
-
+    let res = await db.query(query, queryValues);
+    let filteredPlants = res.rows.map(p => p.id)
+    return filteredPlants;
 
 }
 

@@ -5,7 +5,8 @@ const {BadRequestError} = require("../ExpressError");
 
 //require plant model
 const PlantList = require("../models/plantList");
-const plantFilter = require("../helpers/filterPlants")
+const plantFilter = require("../helpers/filterPlants");
+const filterPlants = require('../helpers/filterPlants');
 /** Creates a new list that stores plants for a user */
 router.post('/create', async function (req, res, next) {
     try {
@@ -93,8 +94,10 @@ router.delete("/:list_id/:plant_id", async function (req, res, next) {
 //test route for filterPlants
 router.get('/filter/filter', async function (req, res, next) {
     try {
-        return res.send(plantFilter(req.body))
-        
+        let results = await filterPlants(req.body);
+        console.log(results)
+        return res.json(results);
+
   } catch (e) {
     next(e)
   }
