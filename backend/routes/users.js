@@ -53,14 +53,7 @@ router.patch("/:users", async function (req, res, next) {
   }
 })
 
-// router.patch("/:user", async function (req, res, next) {
-//   try {
-//     const user = await User.update(req.params.user, req.body);
-//     return res.json({ user });
-//   } catch (e) {
-//     next(e)
-//   }
-// });
+
 
 
 
