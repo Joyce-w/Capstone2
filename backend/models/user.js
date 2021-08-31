@@ -39,6 +39,7 @@ class User {
         `, [username])
 
         const user = userQuery.rows[0];
+        if (!user) throw new NotFoundError(`Username '${username}' not found`)
 
         const listQuery = await db.query(`
         SELECT ul.list_name
@@ -80,20 +81,28 @@ class User {
      * Requires current password to make changes to username, email, password
     */
     
-    static async update(id, data) {
+    static async update(username, data) {
+        //check if there is a dupe Username
+        const checkDupe = await db.query(`
+            SELECT id, username
+            FROM users
+            WHERE username = $1
+        `, [username]);
+
+        //check if there is a duplicat username before changing the username!
+
         const { setCols, values } = sqlForPartialUpdate(data, {});
-        console.log(setCols, values)
         //sets the plant id to be 1 + the values length;
         const idVarIdx = "$" + (values.length + 1);
         console.log(idVarIdx)
         const userQuery = (`
             UPDATE users
             SET ${setCols}
-            WHERE id = ${idVarIdx}
+            WHERE username = ${idVarIdx}
             RETURNING username, email
         `);
         
-        const result = await db.query(userQuery, [...values, id]);
+        const result = await db.query(userQuery, [...values, username]);
         let user = result.rows[0];
 
         //check if there is existing user.

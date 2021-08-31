@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/plants", plantRoutes);
 app.use("/users", userRoutes);
-app.use("/listing", plantListRoutes);
+app.use("/lists", plantListRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

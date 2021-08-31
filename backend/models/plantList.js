@@ -34,10 +34,10 @@ class PlantList {
     */
     static async getPlantList() {
         const lists = await db.query(`
-            SELECT ul.list_name, u.username
+            SELECT ul.id, ul.list_name, u.username as user
             FROM user_lists ul
             JOIN users u ON u.id = ul.user_id
-            GROUP BY ul.list_name, u.username;
+            GROUP BY ul.id, ul.list_name, u.username;
         `);
 
         return lists.rows
@@ -63,8 +63,10 @@ class PlantList {
             SELECT pl.plant_id, p.plant_name FROM user_lists ul
             JOIN plant_list pl ON pl.user_list_id = ul.user_id
             JOIN plants p ON pl.plant_id = p.id
-            WHERE ul.id = $1;
+            WHERE pl.user_list_id = $1
+            GROUP BY pl.plant_id, p.plant_name;
         `,[list_id])
+
 
         const { id, list_name, username } = listRes.rows[0];
         //return an array of each plant's id and name
@@ -78,9 +80,7 @@ class PlantList {
 
     }
 
-
-
-    // /**Edit list name if it is own user*/
+    // /**allow only list name to be updated*/
     static async updateList(list_id, listName) {
         //check to see if it is the user, add parameter!
 
@@ -107,15 +107,16 @@ class PlantList {
 
     /**Delete the plant list if it is own user */
     static async delete(list_id) {
+
         let res = await db.query(`
-        DELETE FROM user_lists
-        WHERE id = $1 
-        RETURNING id
-        `, [list_id])
+            DELETE FROM user_lists
+            WHERE id = $1
+            RETURNING id;`, [list_id]
+        );
 
         // Check if there is an id to be deleted
         if (res.rows.length === 0) {
-            throw new ExpressError("Plant cannot be found", 404);
+            throw new BadRequestError("List cannot be found ", 404);
         }
     }
     

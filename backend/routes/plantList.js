@@ -7,7 +7,7 @@ const {BadRequestError} = require("../ExpressError");
 const PlantList = require("../models/plantList");
 
 /**POST Creates a new list that stores plants for a user */
-router.post('/newList', async function (req, res, next) {
+router.post('/create', async function (req, res, next) {
     try {
         const {  list_name, user_id } = req.body;
         let plants = await PlantList.create(list_name, user_id);
@@ -31,6 +31,7 @@ router.get("/", async function (req, res, next) {
 /**GET a single plant list based on list_id */
 router.get("/:list_id", async function (req, res, next) {
     try {
+        console.log(req.params.list_id);
         let plantList = await PlantList.getList(req.params.list_id);
         return res.json(plantList);
     } catch (e) {
@@ -49,15 +50,22 @@ router.patch("/:list_id", async function (req, res, next) {
     }
 })
 
+//**Deletes entire list */
 router.delete("/:list_id", async function (req, res, next) {
     try {
-        await PlantList.delete(req.params.id);
+        await PlantList.delete(req.params.list_id);
         return res.json({message: `List deleted`})
     } catch (e) {
         next(e);
     }
 })
 
+
+
+
+/**Methods for adding and removing plants from a list */
+
+/*Adds a plant to a list based on list id*/
 router.post("/:list_id", async function (req, res, next) {
     try {
         const { plant_id } = req.body;
@@ -69,6 +77,7 @@ router.post("/:list_id", async function (req, res, next) {
     }
 });
 
+/**Removes a plant from a list with the list id and plant id */
 router.delete("/:list_id/:plant_id", async function (req, res, next) {
     try {
         const { list_id, plant_id } = req.params;
