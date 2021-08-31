@@ -12,8 +12,6 @@ router.get('/', async function (req, res, next) {
   } catch (e) {
     next(e)
   }
-
-
 });
 
 router.get("/:user", async function (req, res,next ) {
@@ -39,7 +37,6 @@ router.post('/', async function (req, res, next) {
 
 router.delete('/:user', async function (req, res, next) {
   try {
-    
     await Users.remove(req.params.user);
     return res.status(201).json({messsage:`Removed user: ${req.params.user}`});  
   } catch (e) {
@@ -47,14 +44,24 @@ router.delete('/:user', async function (req, res, next) {
   }
 })
 
-router.patch("/:user", async function (req, res, next) {
+router.patch("/:users", async function (req, res, next) {
   try {
-    const user = await User.update(req.params.id, req.body);
-    return res.json({ user });
+    const user = await User.update(req.params.users, req.body);
+    return res.json(user);
   } catch (e) {
-    next(e)
+    next(e);
   }
-});
+})
+
+// router.patch("/:user", async function (req, res, next) {
+//   try {
+//     const user = await User.update(req.params.user, req.body);
+//     return res.json({ user });
+//   } catch (e) {
+//     next(e)
+//   }
+// });
+
 
 
 module.exports = router;

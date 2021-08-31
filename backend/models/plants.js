@@ -2,7 +2,7 @@
 
 const db = require("../db");
 const { BadRequestError, ExpressError, NotFoundError } = require("../ExpressError");
-const sqlForPartialUpdate = require("../helpers/sqlForPartialUpdate")
+const sqlForPartialUpdate = require("../helpers/sqlForPartialUpdate");
 
 /**Class that handles  */
 class Plants {
@@ -139,33 +139,39 @@ class Plants {
 
     // /**Updates an existing plant based in plant_name, desc, light, k_friendly, p_friendly, height, flower, min_temp, max_temp, environment */
     static async update(plant_id, req_body) {
-        const { id, plant_name, details, lighting, kid_friendly, pet_friendly, max_height, flowering, min_temp, max_temp, environment, placements, drought_tolerant, img, air_purifying } = req_body;
-        
-        console.log(req_body)
-    // console.log(id, plant_name, details, lighting, kid_friendly, pet_friendly, max_height, flowering, min_temp, max_temp, environment, placements, drought_tolerant, img,air_purifying)        
+        const { setCols, values } = sqlForPartialUpdate(req_body, {});
 
-        const result = await db.query(`
-        UPDATE plants
-        SET
-        plant_name = $2,
-        details = $3,
-        lighting = $4,
-        kid_friendly = $5,
-        pet_friendly = $6,
-        max_height = $7,
-        flowering = $8,
-        min_temp = $9,
-        max_temp = $10,
-        environment = $11,
-        placements = $12,
-        drought_tolerant = $13,
-        img=$14,
-        air_purifying=$15
-        WHERE id = $1
-        RETURNING id, plant_name, details, lighting, kid_friendly, pet_friendly, max_height, flowering, min_temp, max_temp, environment, placements,drought_tolerant, img, air_purifying`,
-            [id, plant_name, details, lighting, kid_friendly, pet_friendly, max_height, flowering, min_temp,max_temp, environment, placements, drought_tolerant, img,air_purifying]);
+        //sets the plant id to be 1 + the values length;
+        const idVarIdx = "$" + (values.length + 1);
 
-        return result.rows[0];
+        const querySql =
+            `UPDATE plants
+            SET ${setCols}
+            WHERE id = ${idVarIdx}
+            RETURNING
+            id,
+            plant_name,
+            details,
+            lighting,
+            kid_friendly,
+            pet_friendly,
+            max_height,
+            flowering
+            min_temp,
+            max_temp,
+            environment,
+            placements,
+            drought_tolerant,
+            img,
+            air_purifying
+            `
+        const result = await db.query(querySql, [...values, plant_id]);
+        const plant = result.rows[0];
+
+        if (!plant) throw new NotFoundError(`No plant: ${plant_id}`);
+
+        return plant;
+       
     }
 
 }

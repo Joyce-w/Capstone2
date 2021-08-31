@@ -32,21 +32,29 @@ class User {
      * {"username": "test1", "email": "t1@gmail.com","list_name": "first_list"}
     */
     static async getUser(username) {
-        console.log('username', username)
-        const res = await db.query(`
-        SELECT
-        users.username,
-        users.email,
-        user_lists.list_name
-        FROM user_lists
-        FULL JOIN users ON user_lists.user_id = users.id
-        FULL JOIN plant_list ON plant_list.plant_list_id = user_lists.id
-        WHERE users.username = $1
-        GROUP BY user_lists.list_name, users.username, users.email;`
-        , [username])
-        
-        return(res.rows[0])
+        const userQuery = await db.query(`
+            SELECT id, username, email
+            FROM users
+            WHERE username=$1;
+        `, [username])
+
+        const user = userQuery.rows[0];
+
+        const listQuery = await db.query(`
+        SELECT ul.list_name
+        FROM user_lists ul
+        FULL JOIN  users u ON u.id = ul.user_id
+        WHERE u.username = $1;
+        `,[username])
+
+        const list = listQuery.rows.map(l => {return l.list_name})
+
+        return {
+            user,
+            "plant_lists": list
+        }
     }
+
 
     /**Gets all users from db with their plant lists
      * [{"username": "test1", "email": "t1@gmail.com","list_name": "first_list"},
@@ -61,7 +69,7 @@ class User {
             user_lists.list_name
             FROM user_lists
             FULL JOIN users ON user_lists.user_id = users.id
-            FULL JOIN plant_list ON plant_list.plant_list_id = user_lists.id
+            FULL JOIN plant_list ON plant_list.user_list_id = user_lists.id
             GROUP BY user_lists.list_name, users.username, users.email;
         `)
 
@@ -71,25 +79,27 @@ class User {
     /**Edit and update user
      * Requires current password to make changes to username, email, password
     */
-    // static async update(id, data) {
-    //     const { setCols, values } = sqlForPartialUpdate(data,
-    //         {
-    //             username: "username",
-    //             email: "email",
-    //             password: "password"
-    //         });
+    
+    static async update(id, data) {
+        const { setCols, values } = sqlForPartialUpdate(data, {});
+        console.log(setCols, values)
+        //sets the plant id to be 1 + the values length;
+        const idVarIdx = "$" + (values.length + 1);
+        console.log(idVarIdx)
+        const userQuery = (`
+            UPDATE users
+            SET ${setCols}
+            WHERE id = ${idVarIdx}
+            RETURNING username, email
+        `);
         
-    //     const userQuery = (`
-    //         UPDATE users
-    //         SET ${setCols}
-    //         WHERE id = ${id}
-    //         RETURN username, email
-    //     `);
+        const result = await db.query(userQuery, [...values, id]);
+        let user = result.rows[0];
 
-    //     const result = await db.query(userQuery, [...values])
-    //     let user = result.rows[0];
-    //     return user;
-    // }
+        //check if there is existing user.
+        if (!user) throw new NotFoundError(`No user found`);
+        return user;
+    }
 
     /**Remove users */
     static async remove(username) {

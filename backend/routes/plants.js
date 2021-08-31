@@ -53,12 +53,10 @@ router.post("/", async function (req, res, next) {
 /**Updates a plant with the following optional properties: {details,lighting,kid_friendly,pet_friendly,max_height,flowering,min_temp, max_temp,environment,placements,drought_tolerant,img} 
  * No updates to id or name. Plant must be deleted and remade in that case.
 */
-router.put("/:id", async function (req, res, next) {
-    debugger;
+router.patch("/:id", async function (req, res, next) {
     try {
         // const { details, lighting, kid_friendly, pet_friendly, max_height, flowering, min_temp, max_temp, environment, placements,, drought_tolerant, img } = req.body;
         const plant = await Plant.update(req.params.id, req.body);
-        console.log('plant',plant);
         return res.json({Updated: plant})
 
     } catch(e) {
