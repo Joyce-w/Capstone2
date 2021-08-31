@@ -54,27 +54,24 @@ class PlantList {
             GROUP BY  ul.id, ul.list_name,u.username;
         `, [list_id])
 
+        console.log(listRes.rows[0])
+
         //check to see if list exists
         if (listRes.rows.length === 0) {
             throw new ExpressError("List cannot be found", 404);
         }
 
         const plants = await db.query(`
-            SELECT pl.plant_id, p.plant_name FROM user_lists ul
-            JOIN plant_list pl ON pl.user_list_id = ul.user_id
-            JOIN plants p ON pl.plant_id = p.id
-            WHERE pl.user_list_id = $1
-            GROUP BY pl.plant_id, p.plant_name;
+            SELECT plant_id
+            FROM plant_list
+            WHERE user_list_id = $1
         `,[list_id])
-
 
         const { id, list_name, username } = listRes.rows[0];
         //return an array of each plant's id and name
-        const plants_list = plants.rows.map(p => ({
-            plant_id: p.plant_id,
-            plant_name: p.plant_name
-                
-        }));
+        const plants_list = plants.rows.map(p => (
+            p.plant_id                
+        ));
 
         return ({id, list_name, username, plants_list})
 
@@ -122,22 +119,34 @@ class PlantList {
     
     /**Add plant to plant_list */
     static async addPlant(list_id, plant) {
+        //Check if plant exists in db
+        let checkPlant = await db.query(`
+            SELECT id, plant_name
+            FROM plants
+            WHERE id = $1;
+        `, [plant])
+        if (!checkPlant.rows[0]) throw new BadRequestError('No such plant exists.');
+        
         //check for duplicates in plant list
         let checkDupe = await db.query(`
             SELECT plant_id
             FROM plant_list
-            WHERE plant_id = $1
-        `, [plant])
-        
-        if(checkDupe.rows[0]) throw new BadRequestError('Duplicate plant in list.');
+            WHERE plant_id = $1 AND user_list_id = $2;
+        `, [plant, list_id])
+
+        //check if plant exists
+        console.log(checkDupe.rows)
+        if (checkDupe.rows.length > 0) throw new BadRequestError('Duplicate plant in list.');
 
         let newPlant = await db.query(`
             INSERT INTO plant_list
             (user_list_id, plant_id)
             VALUES ($1, $2)
-            RETURNING user_list_id, plant_id
+            RETURNING user_list_id, plant_id;
         `, [list_id, plant])
+
         return newPlant.rows[0];
+
     }
 
     static async removePlant(list_id, plant) {

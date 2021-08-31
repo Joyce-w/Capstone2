@@ -74,3 +74,9 @@ Explain lighting numbering on backend
 
 Time:
 Week1: 26.5 hrs
+
+
+Seeding: 
+1. plantPickerSchema
+2. plants
+3. seed

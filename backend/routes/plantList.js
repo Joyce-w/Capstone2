@@ -6,7 +6,7 @@ const {BadRequestError} = require("../ExpressError");
 //require plant model
 const PlantList = require("../models/plantList");
 
-/**POST Creates a new list that stores plants for a user */
+/** Creates a new list that stores plants for a user */
 router.post('/create', async function (req, res, next) {
     try {
         const {  list_name, user_id } = req.body;
@@ -69,7 +69,6 @@ router.delete("/:list_id", async function (req, res, next) {
 router.post("/:list_id", async function (req, res, next) {
     try {
         const { plant_id } = req.body;
-        console.log(plant_id)
         let plant = await PlantList.addPlant(req.params.list_id, plant_id);
         return res.json({new: plant});
     } catch (e) {

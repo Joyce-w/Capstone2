@@ -91,6 +91,9 @@ class Plants {
             WHERE id = $1`,
             [plant_id]
         )
+        //check if plant exists in db
+        if (res.rows.length === 0) throw new NotFoundError(`${plant_id} does not exists.`);
+
         return res.rows[0]
     }
 
@@ -133,7 +136,7 @@ class Plants {
         );
         // Check if there is an id to be deleted
         if (res.rows.length === 0) {
-            throw new ExpressError("Plant cannot be found", 404);
+            throw new NotFoundError("Plant cannot be found", 404);
         }
     }
 

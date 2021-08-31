@@ -3,6 +3,10 @@ CREATE DATABASE plantpicker;
 
 \c plantpicker;
 
+DROP TABLE users,
+           plants,
+           user_lists,
+           plant_list;
 
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,

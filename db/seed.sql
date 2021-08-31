@@ -18,6 +18,8 @@ VALUES ('first_list', 1);
 INSERT INTO plant_list (user_list_id, plant_id)
 VALUES
 (1, 'peperomia'), 
+(2, 'hibiscus'), 
+(2, 'anthurium'), 
 (1, 'philodendron');
 
 
