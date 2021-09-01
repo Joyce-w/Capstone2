@@ -1,0 +1,24 @@
+
+.Signup-form {
+    margin:auto;
+    margin-top:5%;
+    border: solid black 1px;
+    border-radius: 5%;
+    padding: 2em;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.Signup label{
+    margin:0.5em;
+}
+.Signup input{
+    width: 50%;
+    margin: 0.5em auto;
+}
+.Signup button{
+    width: 50%;
+    margin: 1em auto;
+}

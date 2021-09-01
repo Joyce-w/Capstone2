@@ -1,0 +1,25 @@
+.Login-form {
+    margin: auto;
+    margin-top: 5%;
+    border: solid black 1px;
+    border-radius: 5%;
+    padding: 2em;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.Login label {
+    margin: 0.5em;
+}
+
+.Login input {
+    width: 50%;
+    margin: 0.5em auto;
+}
+
+.Login button {
+    width: 50%;
+    margin: 1em auto;
+}

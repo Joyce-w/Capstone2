@@ -43,8 +43,9 @@
     margin-top: 0;
 }
 
-.Home-signup-btn{
+.Home button{
     position: relative;
+    margin:1em;
     width: 11em;
     height: 2.5em;
     background-color: #A7D7C5;
@@ -54,11 +55,13 @@
     sans-serif;
     font-size: larger;
     font-weight: bold;
+
 }
 
-.Home-signup-btn:hover {
+.Home button:hover {
     background-color: #84c7aee7;
 }
+
 
 /**MEDIA QUERIES**/
 @media screen and (max-width: 1024px) {

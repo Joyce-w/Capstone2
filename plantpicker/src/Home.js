@@ -1,4 +1,5 @@
 import "./Home.css";
+import { Link } from 'react-router-dom';
 
 function Home() {
     return (
@@ -8,9 +9,10 @@ function Home() {
             <div className="Home-leftDiv">
                 <div className="Home-div" aria-label="Plant picture by @domain on Unsplash.com">
                     <h1> Plant + Pot</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <p>New empty space you want to fill? Want to gift some greenery? Take the quiz to help you get started. Create an account so you can save plants for later or make build on some list so you can create that jungle room.</p>
 
-                <button className="Home-signup-btn">Signup</button>                    
+                <button className="Home-signup-btn"><Link to="/register">Signup</Link></button>                    
+                <button className="Home-quiz-btn"><Link to="/quiz">Quiz Time!</Link></button>                    
                 </div>
 
             </div>
