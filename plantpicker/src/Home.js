@@ -12,7 +12,7 @@ function Home() {
                     <p>New empty space you want to fill? Want to gift some greenery? Take the quiz to help you get started. Create an account so you can save plants for later or make build on some list so you can create that jungle room.</p>
 
                 <button className="Home-signup-btn"><Link to="/register">Signup</Link></button>                    
-                <button className="Home-quiz-btn"><Link to="/quiz">Quiz Time!</Link></button>                    
+                <button className="Home-quiz-btn"><Link to="/quiz">Start Quiz</Link></button>                    
                 </div>
 
             </div>

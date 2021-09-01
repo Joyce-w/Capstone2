@@ -4,6 +4,7 @@ import NavBar from "./NavBar"
 import Home from "./Home";
 import Register from "./forms/Signup";
 import Login from "./forms/Login";
+import PlantList from "./PlantList";
 
 
 function App() {
@@ -15,11 +16,18 @@ function App() {
         <Route exact path="/">
           <Home/>
         </Route>
+
+        {/* Forms component */}
         <Route exact path="/register">
           <Register/>
         </Route>
         <Route exact path="/login">
           <Login/>
+        </Route>
+
+        {/* Plant Component */}
+        <Route exact path="/plants">
+          <PlantList/>
         </Route>
       </BrowserRouter>
 

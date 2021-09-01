@@ -1,0 +1,41 @@
+
+
+.PlantList-List{
+    
+    column-count:  4;
+    column-gap: 1em;
+    margin: auto 10%;
+    /* border: 1px solid black;
+    height: 90vh;
+    margin: auto 5%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; */
+}
+.card {
+    position: relative;
+    background-color: rgba(238, 238, 238, 0.479);
+    display: inline-block;
+    margin: 0 0 1em;
+    width: 100%;
+}
+
+.PlantList img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.plusCircle{
+    position: absolute;
+    color: #74B49B;
+    right: 1%;
+    top: 1%;
+    transition: transform 1s 0s ease-in ;
+}
+
+.plusCircle:hover{
+    transform: rotate(360deg);
+
+}
+
