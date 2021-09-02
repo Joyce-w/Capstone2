@@ -1,7 +1,11 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import "./PlantList.css";
 import { PlusCircle } from "phosphor-react";
-import PlantsApi from "./api";
+import PlantsApi from "../api";
+
+
 
 
 function PlantList() {
@@ -26,15 +30,18 @@ function PlantList() {
             <div className="PlantList-List">
                 
                 {allPlants && allPlants.map(p =>
-                    <div class="card">
-                        <div>
-                            <img src={p.img}></img>
-                        <PlusCircle size={35} className="plusCircle"/>
-                        </div>
-                        
-                        <div class="card-body">
-                            <h3 class="card-title">{ p.plant_name}</h3>
-                        </div>
+                    <div className="card" key={ p.id}>
+                        <Link to={`/plants/${p.id}` }>
+                            <div>
+                                <img src={p.img} alt={ p.plant_name}></img>
+                            <PlusCircle size={35} className="plusCircle"/>
+                            </div>
+                            
+                            <div class="card-body">
+                                <h3 class="card-title">{ p.plant_name}</h3>
+                            </div>                        
+                        </Link>
+
                     </div>                    
                     )
                 }

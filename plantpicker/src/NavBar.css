@@ -59,3 +59,15 @@
     transition: 0.7s all;
     line-height: 60px;
 }
+/**MEDIA QUERIES**/
+@media screen and (max-width: 1024px) {
+    .logo {
+        font-size:xx-large;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .logo {
+        font-size: 20px;
+    }
+}

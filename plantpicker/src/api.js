@@ -31,9 +31,16 @@ class PlantsApi {
 
   // Individual API routes
 
-  /**register user */
+  /**Get all plants */
   static async getAllPlants() {
     let res = await this.request(`plants`);
+    return res;
+  }
+
+  /**Get a single plant based off id */
+  static async getPlant(plant_id) {
+    console.log('plant id ', plant_id)
+    let res = await this.request(`plants/${plant_id}`);
     console.log(res)
     return res;
   }

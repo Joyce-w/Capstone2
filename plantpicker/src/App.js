@@ -4,7 +4,8 @@ import NavBar from "./NavBar"
 import Home from "./Home";
 import Register from "./forms/Signup";
 import Login from "./forms/Login";
-import PlantList from "./PlantList";
+import PlantList from "./Plants/PlantList";
+import Plant from "./Plants/Plant";
 
 
 function App() {
@@ -29,6 +30,12 @@ function App() {
         <Route exact path="/plants">
           <PlantList/>
         </Route>
+
+        <Route exact path="/plants/:plant_name">
+          <Plant/>
+        </Route>
+
+
       </BrowserRouter>
 
     </div>
