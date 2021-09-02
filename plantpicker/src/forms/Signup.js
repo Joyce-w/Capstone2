@@ -25,13 +25,11 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     // const { username, email, pw } = formData;
-    await PlantsApi.userLogin(formData);
+    await PlantsApi.registerUser(formData);
     //passup data to Home component
     setFormData(inital_state)
     history.push('/');
   }
-
-
 
   return (
     <div className="Signup">

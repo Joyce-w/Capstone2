@@ -12,7 +12,7 @@ function Home() {
             <div className="Home-leftDiv">
                 <div className="Home-div" aria-label="Plant picture by @domain on Unsplash.com">
                     <h1> Plant + Pot</h1>
-                    <p>New empty space you want to fill? Want to gift some greenery? Take the quiz to help you get started. Create an account so you can save plants for later or make build on some list so you can create that jungle room.</p>
+                    <p>New empty space you want to fill? Want to gift some greenery? Take the quiz to help you get started with the perfect plant. Create an account so you can save plants for later or make build on some list so you can create that jungle room.</p>
 
                 <button className="Home-signup-btn"><Link to="/register">Signup</Link></button>                    
                 <button className="Home-quiz-btn"><Link to="/quiz">Start Quiz</Link></button>                    
