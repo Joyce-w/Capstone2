@@ -1,0 +1,230 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="Plant-div"
+  >
+    <div
+      class="Plant-leftDiv"
+    >
+      <img />
+    </div>
+    <div
+      class="Plant-rightDiv"
+    >
+      <h1 />
+      <p />
+      <p>
+        Max Height: "
+      </p>
+      <p>
+        Temperature Range: - °F |  °C
+      </p>
+      <p>
+        Produces Flowers: No
+      </p>
+      <hr />
+      <h4>
+        Additional Notes
+      </h4>
+      <p
+        class="pet-friendly"
+      >
+        <svg
+          fill="currentColor"
+          height="20"
+          viewBox="0 0 256 256"
+          width="20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            fill="none"
+            height="256"
+            width="256"
+          />
+          <circle
+            cx="212"
+            cy="108"
+            fill="none"
+            r="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="16"
+          />
+          <circle
+            cx="44"
+            cy="108"
+            fill="none"
+            r="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="16"
+          />
+          <circle
+            cx="92"
+            cy="60"
+            fill="none"
+            r="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="16"
+          />
+          <circle
+            cx="164"
+            cy="60"
+            fill="none"
+            r="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="16"
+          />
+          <path
+            d="M183.23572,155.85352a43.541,43.541,0,0,1-20.667-25.90381l-.00092.001a35.9985,35.9985,0,0,0-69.13562,0l-.00092-.001a43.541,43.541,0,0,1-20.667,25.90381,32.00736,32.00736,0,0,0,27.72266,57.61767,72.51938,72.51938,0,0,1,55.02612,0,32.00679,32.00679,0,0,0,27.72266-57.61767Z"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="16"
+          />
+        </svg>
+        Can be toxic to pets!
+      </p>
+      <p
+        class="kid-friendly"
+      >
+        <svg
+          fill="currentColor"
+          height="20"
+          viewBox="0 0 256 256"
+          width="20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            fill="none"
+            height="256"
+            width="256"
+          />
+          <circle
+            cx="128"
+            cy="128"
+            fill="none"
+            r="96"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="16"
+          />
+          <circle
+            cx="92"
+            cy="128"
+            r="12"
+          />
+          <circle
+            cx="164"
+            cy="128"
+            r="12"
+          />
+          <path
+            d="M154.53832,168.00269a48.03112,48.03112,0,0,1-53.07491.00115"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="16"
+          />
+          <path
+            d="M128,32c-16,20-16,40-16,40a16,16,0,0,0,32,0"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="16"
+          />
+        </svg>
+        Take caution around children
+      </p>
+      <p
+        class="air-purify"
+      >
+        <svg
+          fill="currentColor"
+          height="20"
+          viewBox="0 0 256 256"
+          width="20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            fill="none"
+            height="256"
+            width="256"
+          />
+          <path
+            d="M129.48449,192.32854A24.00285,24.00285,0,1,0,152,160H40"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="16"
+          />
+          <path
+            d="M97.48449,63.67146A24.00285,24.00285,0,1,1,120,96H24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="16"
+          />
+          <path
+            d="M185.48449,95.67146A24.00285,24.00285,0,1,1,208,128H32"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="16"
+          />
+        </svg>
+        Not as effective in purifying the air but still nice to have around!
+      </p>
+      <p
+        class="watering"
+      >
+        <svg
+          fill="currentColor"
+          height="20"
+          viewBox="0 0 256 256"
+          width="20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            fill="none"
+            height="256"
+            width="256"
+          />
+          <path
+            d="M208,144c0-72-80-128-80-128S48,72,48,144a80,80,0,0,0,160,0Z"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="16"
+          />
+          <path
+            d="M136.11987,191.216a47.923,47.923,0,0,0,39.20472-39.1564"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="16"
+          />
+        </svg>
+         Can go a week without watering! 
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;

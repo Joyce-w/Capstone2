@@ -23,13 +23,13 @@ test("if links are on the page", () => {
     expect(header).toBeInTheDocument();
 })
 
-test("redirects to correct component", () => {
+test("redirects to correct component", async () => {
     const { getByText, getByLabelText, debug } = render(<MemoryRouter><Home /></MemoryRouter>);
 
     //toggle button to direct to signup page
-    let signupBtn = getByText("Signup");
-    fireEvent.click(signupBtn);
-    debug()
+    // let signupBtn = getByText("Signup");
+    // fireEvent.click(signupBtn);
+    // fireEvent.click(getByLabelText(/Signup/))
     // const inputNode = screen.getByLabelText('Email', {selector: 'input'})
     // expect(inputNode).toBeInTheDocument();
 })

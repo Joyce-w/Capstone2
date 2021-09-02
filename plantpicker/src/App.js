@@ -2,8 +2,8 @@ import './App.css';
 import { BrowserRouter, Route } from "react-router-dom";
 import NavBar from "./NavBar"
 import Home from "./Home";
-import Register from "./forms/Signup";
-import Login from "./forms/Login";
+import Register from "./Forms/Signup";
+import Login from "./Forms/Login";
 import PlantList from "./Plants/PlantList";
 import Plant from "./Plants/Plant";
 
