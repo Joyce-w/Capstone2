@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="Home"
+  >
+    <img
+      alt="monsterea plant"
+      src="https://images.unsplash.com/photo-1572969057162-d3b00f790462?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1955&q=80"
+    />
+    <div
+      class="Home-leftDiv"
+    >
+      <div
+        aria-label="Plant picture by @domain on Unsplash.com"
+        class="Home-div"
+      >
+        <h1>
+           Plant + Pot
+        </h1>
+        <p>
+          New empty space you want to fill? Want to gift some greenery? Take the quiz to help you get started. Create an account so you can save plants for later or make build on some list so you can create that jungle room.
+        </p>
+        <button
+          class="Home-signup-btn"
+        >
+          <a
+            href="/register"
+          >
+            Signup
+          </a>
+        </button>
+        <button
+          class="Home-quiz-btn"
+        >
+          <a
+            href="/quiz"
+          >
+            Start Quiz
+          </a>
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
