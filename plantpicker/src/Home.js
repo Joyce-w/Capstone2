@@ -1,7 +1,10 @@
 import "./Home.css";
 import { Link } from 'react-router-dom';
 
+
 function Home() {
+
+    
     return (
         <div className="Home">
             <img alt="monsterea plant" src="https://images.unsplash.com/photo-1572969057162-d3b00f790462?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1955&q=80"></img>

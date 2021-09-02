@@ -15,11 +15,9 @@ function PlantList() {
     //Get all plants data
     useEffect(() => {
         async function allPlants() {
-            
             const res = await PlantsApi.getAllPlants();
             setAllPlants(() => res);
         }
-
 
         allPlants() 
     },[])
@@ -37,8 +35,8 @@ function PlantList() {
                             <PlusCircle size={35} className="plusCircle"/>
                             </div>
                             
-                            <div class="card-body">
-                                <h3 class="card-title">{ p.plant_name}</h3>
+                            <div className="card-body">
+                                <h3 className="card-title">{ p.plant_name}</h3>
                             </div>                        
                         </Link>
 

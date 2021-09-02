@@ -44,18 +44,20 @@ class PlantsApi {
     console.log(res)
     return res;
   }
-  // /**Login users */
-  // static async userLogin(formData) {
-  //   let res = await this.request(`auth/token/`,formData, "post")
-  //   return res.token;
-  // }
 
-  // /**Get user info if loggedin */
-  // static async getUserInfo(user) {
-  //   let res = await this.request(`users/${user}/`);
-  //   console.log(res.user)
-  //   return res.user
-  // }
+  /**Login users */
+  static async userLogin(formData) {
+    let res = await this.request(`users`, formData, "post")
+    console.log(formData)
+    return res.token;
+  }
+
+  /**Get user info if loggedin */
+  static async getUserInfo(formData) {
+    let res = await this.request(`users`, formData, "post");
+    console.log(res.user)
+    return res.user
+  }
 
   // /**Apply user to job */
   // static async appliedJob(username, id) {

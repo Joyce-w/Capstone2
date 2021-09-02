@@ -15,7 +15,6 @@ test("if links are on the page", () => {
     const { getByText } = render(<MemoryRouter><PlantList /></MemoryRouter>);
 
     let h1 = getByText("Category of Plants");
-    let pothos = getByText("Pothos");
 
     expect(h1).toBeInTheDocument();
 })
