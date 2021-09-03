@@ -2,6 +2,8 @@
 const db = require("../db");
 const { BadRequestError, ExpressError, NotFoundError } = require("../ExpressError");
 const sqlForPartialUpdate = require("../helpers/sqlForPartialUpdate")
+const bcrypt = require("bcrypt");
+const { BCRYPT_WORK_FACTOR } = require("../config");
 
 class User {
 
@@ -10,20 +12,49 @@ class User {
     static async register(req_body) {
         const { username, email, password } = req_body;
         console.log(username, email, password)
+        //check if all the fields are filled
+        if (!username || !email || !password) {
+            throw new ExpressError("Username, email, and password fields must be filled.", 400)
+        }
 
+        //hash password
+        const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
+        
         let newUser = await db.query(`
         INSERT INTO users
         (username, email, pw)
         VALUES ($1,$2,$3)
         RETURNING username, email;`,
-            [username, email, password])
+            [username, email, hashedPassword])
         
         
         return newUser.rows[0];
     }
 
     // /**Logs a user in given username and password */
-    // static async authorize()
+    static async login(credentials) {
+
+        const { username, password } = credentials;
+        if (!username || !password) throw new ExpressError("Username and password required.", 404)
+
+        let res = await db.query(`
+            SELECT username, pw
+            FROM users
+            WHERE username = $1;
+        `, [username]);
+
+
+        let user = res.rows[0];
+        if (user) {
+            console.log(password, user.pw)
+            if (await bcrypt.compare(password, user.pw)) {
+                return user;
+            }
+        }
+        throw new ExpressError("Invalid username/password!", 400);
+
+
+    }
     // ///////////////////////////////////
 
 

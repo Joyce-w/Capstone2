@@ -25,10 +25,11 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     // const { username, email, pw } = formData;
-    await PlantsApi.loginUser(formData);
-    //passup data to Home component
-    setFormData(inital_state)
-    history.push('/');
+    let res = await PlantsApi.loginUser(formData);
+    console.log('res', res)
+
+    history.push('/');      
+
   }
 
   return (

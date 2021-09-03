@@ -12,7 +12,7 @@ CREATE TABLE users(
     id SERIAL PRIMARY KEY,
     username    VARCHAR(21) NOT NULL,
     email TEXT NOT NULL CHECK (position('@' IN email) > 1),
-    pw    VARCHAR(21) NOT NULL
+    pw    VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE plants(

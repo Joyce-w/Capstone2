@@ -47,15 +47,17 @@ class PlantsApi {
 
   /**Login users */
   static async registerUser(formData) {
+    console.log(formData)
     let res = await this.request(`users/register`, formData, "post")
     console.log(formData)
-    return res.token;
+    return res;
   }
 
   /**Get user info if loggedin */
   static async loginUser(formData) {
+    console.log('formData',formData)
     let res = await this.request(`users/login`, formData, "post");
-    console.log(res.user)
+    console.log(res)
     return res.user
   }
 
