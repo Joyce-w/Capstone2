@@ -57,8 +57,7 @@ class PlantsApi {
   static async loginUser(formData) {
     console.log('formData',formData)
     let res = await this.request(`users/login`, formData, "post");
-    console.log(res)
-    return res.user
+    return res
   }
 
   // /**Apply user to job */

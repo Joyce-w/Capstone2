@@ -19,15 +19,14 @@ function Login() {
       ...formData,
       [name] : value
     }))
-    console.log(formData)
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     // const { username, email, pw } = formData;
-    let res = await PlantsApi.loginUser(formData);
-    console.log('res', res)
-
+    if (await PlantsApi.loginUser(formData)) {
+    };
+    setFormData(inital_state)
     history.push('/');      
 
   }
