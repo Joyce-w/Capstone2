@@ -39,7 +39,6 @@ router.get("/:id", async function (req, res, next) {
 * requires: {id,plant_name,details,lighting,kid_friendly,pet_friendly,max_height,flowering,min_temp, max_temp,environment} => id, plant_name
 */
 router.post("/", async function (req, res, next) {
-    debugger;
     try {
         console.log('created new plant')
         const plant = await Plant.create(req.body);

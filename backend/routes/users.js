@@ -23,7 +23,6 @@ router.get("/:user", async function (req, res,next ) {
   }
 });
 
-
 router.delete('/:user', async function (req, res, next) {
   try {
     await Users.remove(req.params.user);

@@ -28,7 +28,7 @@ function UserLists() {
 
     return (
         <div className="UserLists">
-            <h1> hello {user.username} </h1>
+            <h1> Here are the list(s) you created! </h1>
             {user.plant_list.map(list => <p>{ list }</p>)}
         </div>
 
