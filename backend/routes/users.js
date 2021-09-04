@@ -1,31 +1,7 @@
 const express = require('express');
-const User = require('../models/user');
+// const User = require('../models/user');
 const router = new express.Router();
 const Users = require("../models/user")
-
-/** POST create new user
- * Requires: username, email and password
-*/
-router.post('/register', async function (req, res, next) {
-  try {    
-    let newUser = await Users.register(req.body);
-    return res.status(201).json(newUser);    
-  } catch(e) {
-    next(e)
-  }
-});
-
-
-/**POST route to login users with username and password */
-router.post('/login', async function (req, res, next) {
-  try {
-    let user = await Users.login(req.body);
-    if (user) return true;
-    // return user;
-  } catch (e) {
-    next(e);
-  }
-})
 
 
 /* GET users listing and their corresponding list */

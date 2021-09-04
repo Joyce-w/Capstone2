@@ -47,17 +47,27 @@ class PlantsApi {
 
   /**Login users */
   static async registerUser(formData) {
+
     console.log(formData)
-    let res = await this.request(`users/register`, formData, "post")
-    console.log(formData)
+    let res = await this.request(`auth/register`, formData, "post")
+    
+    //if there is a res set the token to localStorage
+    if (res) {
+      localStorage.setItem('token', res.token);
+    }
     return res;
   }
 
   /**Get user info if loggedin */
   static async loginUser(formData) {
-    console.log('formData',formData)
-    let res = await this.request(`users/login`, formData, "post");
-    return res
+    
+    let res = await this.request(`auth/login`, formData, "post");
+
+    //if there is a res set the token to localStorage
+    if (res) {
+      localStorage.setItem('token', res.token);
+    }
+    return res;
   }
 
   // /**Apply user to job */

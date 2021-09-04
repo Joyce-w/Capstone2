@@ -11,7 +11,6 @@ class User {
     /**Registers user with username, email, password */
     static async register(req_body) {
         const { username, email, password } = req_body;
-        console.log(username, email, password)
         //check if all the fields are filled
         if (!username || !email || !password) {
             throw new ExpressError("Username, email, and password fields must be filled.", 400)
@@ -27,7 +26,7 @@ class User {
         RETURNING username, email;`,
             [username, email, hashedPassword])
         
-        
+        console.log('register model',newUser.rows[0])
         return newUser.rows[0];
     }
 
@@ -46,7 +45,6 @@ class User {
 
         let user = res.rows[0];
         if (user) {
-            console.log(password, user.pw)
             if (await bcrypt.compare(password, user.pw)) {
                 return user;
             }
