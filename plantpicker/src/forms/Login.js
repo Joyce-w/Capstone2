@@ -26,11 +26,9 @@ function Login() {
     // const { username, email, pw } = formData;
     let res = await PlantsApi.loginUser(formData)
     if (res) {
-      console.log('login', res)
+      setFormData(inital_state)
+      history.push('/');     
     };
-    setFormData(inital_state)
-    history.push('/');      
-
   }
 
   return (

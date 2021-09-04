@@ -26,10 +26,10 @@ function Signup() {
     e.preventDefault()
     // const { username, email, pw } = formData;
     let res = await PlantsApi.registerUser(formData);
-    console.log('signup.js', res)
-    //passup data to Home component
-    setFormData(inital_state)
-    history.push('/');
+    if (res) {
+      setFormData(inital_state)
+      history.push('/');     
+    };
   }
 
   return (

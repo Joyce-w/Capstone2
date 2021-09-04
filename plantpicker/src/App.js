@@ -1,24 +1,34 @@
 import './App.css';
-import { BrowserRouter, Route } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { decodeToken } from "react-jwt";
+import { BrowserRouter, Route, } from "react-router-dom";
+import UserContext from './UserContext';
+import PlantsApi from "./api";
 import NavBar from "./NavBar"
 import Home from "./Home";
 import Register from "./Forms/Signup";
 import Login from "./Forms/Login";
 import PlantList from "./Plants/PlantList";
 import Plant from "./Plants/Plant";
+import UserList from "./UserLists";
+
+
 
 
 function App() {
+
+
   return (
     <div className="App">
-
-      <BrowserRouter>
+      {/* <UserContext.Provider value={ user }> */}
+        <BrowserRouter>
+          
         <NavBar />
         <Route exact path="/">
           <Home/>
         </Route>
 
-        {/* Forms component */}
+        {/* Form components */}
         <Route exact path="/register">
           <Register/>
         </Route>
@@ -26,7 +36,7 @@ function App() {
           <Login/>
         </Route>
 
-        {/* Plant Component */}
+        {/* Plant Components */}
         <Route exact path="/plants">
           <PlantList/>
         </Route>
@@ -35,8 +45,14 @@ function App() {
           <Plant/>
         </Route>
 
+        {/* User Components */}
+        <Route exact path="/user-lists">
+          <UserList/>
+        </Route>
+
 
       </BrowserRouter>
+      {/* </UserContext.Provider> */}
 
     </div>
   );

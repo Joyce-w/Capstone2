@@ -50,7 +50,7 @@ class PlantsApi {
 
     console.log(formData)
     let res = await this.request(`auth/register`, formData, "post")
-    
+
     //if there is a res set the token to localStorage
     if (res) {
       localStorage.setItem('token', res.token);
@@ -67,6 +67,15 @@ class PlantsApi {
     if (res) {
       localStorage.setItem('token', res.token);
     }
+    return res;
+  }
+
+  /**Get user info if loggedin */
+  static async getUser(username) {
+    
+    let res = await this.request(`users/${username}`);
+    //if there is a res set the token to localStorage
+
     return res;
   }
 
