@@ -11,6 +11,7 @@ import Login from "./Forms/Login";
 import PlantList from "./Plants/PlantList";
 import Plant from "./Plants/Plant";
 import UserList from "./UserLists";
+import List from "./List"
 
 
 
@@ -48,6 +49,10 @@ function App() {
         {/* User Components */}
         <Route exact path="/user-lists">
           <UserList/>
+        </Route>
+
+        <Route exact path="/user-lists/:list_id">
+          <List />
         </Route>
 
 

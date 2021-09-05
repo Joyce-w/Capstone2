@@ -71,13 +71,18 @@ class User {
         if (!user) throw new NotFoundError(`Username '${username}' not found`)
 
         const listQuery = await db.query(`
-        SELECT ul.list_name
+        SELECT ul.id, ul.list_name
         FROM user_lists ul
         FULL JOIN  users u ON u.id = ul.user_id
         WHERE u.username = $1;
         `,[username])
 
-        const list = listQuery.rows.map(l => {return l.list_name})
+        const list = listQuery.rows.map(l => {
+            return {
+                "list_id": l.id,
+                "list_name": l.list_name
+            }
+        })
 
         return {
             user,

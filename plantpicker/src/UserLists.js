@@ -1,9 +1,10 @@
 // import "./UserLists.css";
 import { useEffect, useState, useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PlantsApi from "./api";
 import UserContext from './UserContext';
 import { decodeToken } from "react-jwt";
+import List from "./"
 
 function UserLists() {
   const [user, setUser] = useState([])
@@ -28,8 +29,11 @@ function UserLists() {
 
     return (
         <div className="UserLists">
-            <h1> Here are the list(s) you created! </h1>
-            {user.plant_list.map(list => <p>{ list }</p>)}
+            <h1> Here are the list(s) you've made so far! </h1>
+            {user && user.plant_list ?
+                user.plant_list.map(list => <Link to={`/user-lists/${list.list_id}` }>{ list.list_name}</Link>) :
+                <p>You are not logged in</p>
+            }
         </div>
 
     )
