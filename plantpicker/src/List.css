@@ -1,0 +1,26 @@
+.List-card-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.Plant-card{
+    margin: 2em;
+}
+
+.Plant-card img {
+    max-width: 30em;
+    border-radius: 10px;
+}
+
+.Plant-card h4 {
+    margin: 0;
+}
+
+/**MEDIA QUERIES**/
+@media screen and (max-width: 1024px) {
+.Plant-card img {
+    max-width: 50em;
+}
+}
