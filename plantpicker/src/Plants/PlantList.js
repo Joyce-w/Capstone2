@@ -43,9 +43,6 @@ function PlantList() {
                     </div>                    
                     )
                 }
-
-
-
             </div>
         </div>
 

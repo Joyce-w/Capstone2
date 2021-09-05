@@ -88,6 +88,18 @@ class PlantsApi {
     return res;
   }
 
+  static async deletePlantFromList(list, plant) {
+    console.log('api', list, plant)
+    let res = await this.request(`lists/${list}/${plant}`, {}, "delete")
+    return res;
+    
+  }
+
+  static async deleteList(list_id, plant_id) {
+    console.log('api', list_id)
+    let res = await this.request(`lists/${list_id}`, {}, "delete")
+    console.log(res)
+  }
 
 }
 
