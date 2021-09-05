@@ -43,7 +43,7 @@ function List(listData) {
         let res = await PlantsApi.deleteList(list_id)
 
         //redirect back to user list
-        history.push(`/user-list/${list_id}`)
+        history.push(`/user-list/`)
     })
 
     const handleTrashClick = async (plant) => {

@@ -83,6 +83,17 @@ class PlantsApi {
 
   /********************** Plant List Routes *********************/
 
+  static async createList(title, user) {
+    let data = {
+      list_name: title,
+      user_id: user
+    }
+
+    console.log(title, user)
+    let res = await this.request(`lists/create`, data, "post");
+    console.log(res)
+  }
+
   static async getList(list_id) {
     let res = await this.request(`lists/${list_id}`);
     return res;
@@ -95,10 +106,10 @@ class PlantsApi {
     
   }
 
-  static async deleteList(list_id, plant_id) {
+  static async deleteList(list_id) {
     console.log('api', list_id)
     let res = await this.request(`lists/${list_id}`, {}, "delete")
-    console.log(res)
+    return res;
   }
 
 }

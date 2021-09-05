@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import PlantsApi from "./api";
 import UserContext from './UserContext';
 import { decodeToken } from "react-jwt";
+import { Note } from "phosphor-react";
 import List from "./"
+import "./UserLists.css"
 
 function UserLists() {
   const [user, setUser] = useState([])
@@ -16,8 +18,8 @@ function UserLists() {
     useEffect(() => {
         async function getUser(currUser) {
             const res = await PlantsApi.getUser(currUser);
-            console.log('userlist res', res)
             setUser({
+                "user_id": res.user.id,
                 "username": res.user.username,
                 "plant_list": res.plant_lists
             })
@@ -25,15 +27,62 @@ function UserLists() {
         getUser(userToken.username)
 
     }, [])
-    console.log(user.plant_list)
 
+    //Toggles dropdown for new list form
+    const handleNewForm = (e) => {
+        e.target.classList.toggle("active")
+        let content = e.target.nextSibling;
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+        } else {
+            content.style.maxHeight = 10 + "em";
+        }
+    }
+
+    const inital_state = "";
+    const [listName, setListName] = useState(inital_state);
+
+    const handleChange = (e) => {
+        setListName(e.target.value)
+    }
+    const handleNewList = async (e) => {
+        await PlantsApi.createList(listName, user.user_id);
+    }
+    
     return (
         <div className="UserLists">
             <h1> Here are the list(s) you've made so far! </h1>
-            {user && user.plant_list ?
-                user.plant_list.map(list => <Link to={`/user-lists/${list.list_id}` }>{ list.list_name}</Link>) :
-                <p>You are not logged in</p>
-            }
+
+            <button onClick={(e) => handleNewForm(e)} className="collapsible"><Note size={25} />New List</button>
+
+
+            <div className="content">
+                <form className="UserLists-form" onSubmit={(e) =>handleNewList(e)}>
+                    <label htmlFor="listName">Make a new list:</label>
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder={ listName}
+                        value={listName}
+                        onChange={(e) => handleChange(e)}
+                    ></input>
+                    <button>Create</button>
+                </form>
+            </div>
+
+
+                    
+
+            <div className="userLists">
+                {user && user.plant_list ?
+                    user.plant_list.map(list => 
+                    <li>
+                        <Link to={`/user-lists/${list.list_id}` }>{ list.list_name}</Link>
+                    </li>) :
+                    <p>No list yet!</p>
+                }                
+            </div>
+
         </div>
 
     )

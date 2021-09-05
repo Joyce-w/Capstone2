@@ -5,8 +5,9 @@ const {BadRequestError} = require("../ExpressError");
 
 //require plant model
 const PlantList = require("../models/plantList");
-const plantFilter = require("../helpers/filterPlants");
 const filterPlants = require('../helpers/filterPlants');
+
+
 /** Creates a new list that stores plants for a user */
 router.post('/create', async function (req, res, next) {
     try {
