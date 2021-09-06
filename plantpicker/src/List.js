@@ -1,7 +1,7 @@
 // import "./UserLists.css";
 import { useEffect, useState, useContext } from 'react';
 import { useHistory, useParams, Link } from 'react-router-dom';
-import { Trash } from "phosphor-react";
+import { Trash, PencilLine } from "phosphor-react";
 import PlantsApi from "./api";
 import "./List.css"
 
@@ -18,8 +18,6 @@ function List(listData) {
         async function getList(id) {
             //get list of plants pertaining to the list_id 
             const res = await PlantsApi.getList(id);
-            console.log('plant_list', res.plants_list)
-
             //gets plant data from res
             getData(res.plants_list)
         }
@@ -40,7 +38,7 @@ function List(listData) {
     //Delete entire list
     const deleteList = (async () => {
         console.log(list_id)
-        let res = await PlantsApi.deleteList(list_id)
+        await PlantsApi.deleteList(list_id)
 
         //redirect back to user list
         history.push(`/user-list/`)
@@ -53,12 +51,56 @@ function List(listData) {
         console.log(res)
         history.push(`/user-list/${list_id}`)
     }
+
+
+
+    //Edit title
+    const [listName, setListName] = useState("");
+    const handleChange = (e) => {
+        setListName(e.target.value)
+    }
+
+    //Toggles dropdown for new list form
+    const handleNewForm = (e) => {
+        e.target.classList.toggle("active")
+        let content = e.target.nextSibling;
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+        } else {
+            content.style.maxHeight = 10 + "em";
+        }
+    }
+
+    const handleNewListName = (async (e) => {
+        await PlantsApi.editListTitle(list_id, listName)
+    });
+
+
     
     return (
         <div className="List">
             <h1>Plant List</h1>
             <p>User information here</p>
-             <button onClick={()=> deleteList()}><Trash size={20}/> Delete Entire List</button>
+                <button onClick={()=> deleteList()}><Trash size={20}/> Delete Entire List</button>
+               
+                <button onClick={(e) => handleNewForm(e)} className="collapsible"><PencilLine size={20} /> Edit Name</button>
+
+                <div className="content">
+                    <form className="List-form" onSubmit={(e) =>handleNewListName(e)}>
+                        <label htmlFor="listName">New Title:</label>
+                        <input
+                            type="text"
+                            name="title"
+                            placeholder={ listName}
+                            value={listName}
+                            onChange={(e) => handleChange(e)}
+                        ></input>
+                        <button>Update Title</button>
+                    </form>
+                </div>
+
+
+
 
             <div className="List-card-container">
                 {plantInfo ?

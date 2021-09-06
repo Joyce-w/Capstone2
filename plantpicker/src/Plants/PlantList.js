@@ -28,21 +28,26 @@ function PlantList() {
             <div className="PlantList-List">
                 
                 {allPlants && allPlants.map(p =>
-                    <div className="card" key={ p.id}>
+                    <div className="card" key={p.id}>
                         <Link to={`/plants/${p.id}` }>
-                            <div>
-                                <img src={p.img} alt={ p.plant_name}></img>
-                            <PlusCircle size={35} className="plusCircle"/>
-                            </div>
-                            
-                            <div className="card-body">
-                                <h3 className="card-title">{ p.plant_name}</h3>
-                            </div>                        
+                        <div class="container">
+                            <img src={ p.img } alt={p.plant_name} class="image"></img>
+                                <div class="overlay">
+                                     <h3 className="card-title">{ p.plant_name}</h3>
+                                    <PlusCircle size={35} className="plusCircle"/>
+                                </div>
+                        </div>
+
                         </Link>
 
+                        
+
                     </div>                    
-                    )
+                )
+                    
                 }
+
+
             </div>
         </div>
 

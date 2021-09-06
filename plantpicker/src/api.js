@@ -89,8 +89,16 @@ class PlantsApi {
       user_id: user
     }
 
-    console.log(title, user)
     let res = await this.request(`lists/create`, data, "post");
+    console.log(res)
+  }
+
+  static async editListTitle(list_id, new_title) {
+    let data = {
+      id: list_id,
+      list_name: new_title
+    }
+    let res = await this.request(`lists/${list_id}`, data, "patch")
     console.log(res)
   }
 

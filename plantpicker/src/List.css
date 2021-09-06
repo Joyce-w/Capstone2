@@ -23,6 +23,31 @@
     border: none;
 }
 
+/* Edit Name button & div  */
+.List-form {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    height: 8em;
+    margin: 1em;
+    padding: 2em;
+
+}
+
+.List-form button {
+    background: none;
+    border-radius: 5px;
+    width: 7em;
+    margin: 0.5em auto;
+    border:1px solid rgba(0, 0, 0, 0.534);
+}
+
+.List-form input {
+    width: 15em;
+    margin: 0.5em auto;
+}
+
+
 
 
 /**MEDIA QUERIES**/

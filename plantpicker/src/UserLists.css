@@ -48,11 +48,12 @@
 .UserLists-form button {
     background: none;
     border-radius: 5px;
-    width: 5em;
-    margin: auto;
+    width: 7em;
+    margin: 0.5em auto;
+    border:1px solid rgba(0, 0, 0, 0.534);
 }
 
 .UserLists-form input {
     width: 15em;
-    margin: auto;
+    margin: 0.5em auto;
 }
