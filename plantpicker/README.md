@@ -74,6 +74,7 @@ Explain lighting numbering on backend
 
 Time:
 Week1: 26.5 hrs
+Week2: 26.5 hrs 
 
 
 Seeding: 

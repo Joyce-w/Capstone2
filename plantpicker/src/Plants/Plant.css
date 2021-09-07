@@ -25,6 +25,14 @@ img{
     width: 35em;
 }
 
+/* regular select menu */
+select{
+    border-radius: 10px;
+}
+button{
+    background: none;
+    border: none;
+}
 /* Drop down menu */
 .dropbtn {
     background-color: #3498DB;

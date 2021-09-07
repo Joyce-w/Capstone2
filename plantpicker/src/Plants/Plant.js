@@ -65,7 +65,11 @@ function Plant() {
         }
     }
 
-
+    //handle add to list
+    // const addPlant = (e) => {
+    //     e.preventDefault();
+    //     console.log(e)
+    // }
 
 
     return (
@@ -91,28 +95,18 @@ function Plant() {
                     <p className="watering"><Drop size={20} /> {water} </p>
                     <br></br>
 
-                    <label for="plant-list"><PlusCircle size={30} /> Add to List</label>
+                    {/* Select user list to add */}
                     
 
-                    <button onClick={(e) => toggleDropdown(e)} className="dropbtn"><PlusCircle size={30} /> Add to List</button>
-                    <div ref={dropDownRef} class="dropdown-content">
-                            {user.map(list=> 
-                                <p ref={listRef} value={list.list_id}>{list.list_name}</p>
-                            )}  
-                    </div>
-                    
+                    <label for="plant-list"> Add to List </label>
+                    <select id="plant-list" name="plant-list" form="plantList">
+                        {/* <option> Add to List</option> */}
+                            {user.map(list => <option value={ list.list_id}>{list.list_name}</option> )}
+                    </select>
+                    <button > <PlusCircle size={30} /></button>
 
 
-{/* <select id="plant-list">
-        {user.map(list=> 
-            <option value={list.list_id}>{list.list_name}</option>
-        )}
 
-</select>                     */}
-                    
-
-                    
-                    
                 </div>
                 
         </div>
