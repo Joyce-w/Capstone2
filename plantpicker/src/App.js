@@ -12,6 +12,7 @@ import PlantList from "./Plants/PlantList";
 import Plant from "./Plants/Plant";
 import UserList from "./UserLists";
 import List from "./List"
+import Quiz from "./Quiz"
 
 
 
@@ -55,6 +56,10 @@ function App() {
           <List />
         </Route>
 
+
+        <Route exact path="/quiz">
+          <Quiz />
+        </Route>
 
       </BrowserRouter>
       {/* </UserContext.Provider> */}
