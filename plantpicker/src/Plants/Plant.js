@@ -63,7 +63,7 @@ function Plant() {
     //handle form submit when a list is selected
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await PlantsApi.addPlantToList(list, plant_name)
+        await PlantsApi.addPlantToList(list, plant_name)
         history.push(`/user-lists/${list}`)
     }
 
@@ -106,8 +106,6 @@ function Plant() {
                         </select>
                         <button > <PlusCircle size={30} /></button>
                     </form>
-
-
 
                 </div>
                 
