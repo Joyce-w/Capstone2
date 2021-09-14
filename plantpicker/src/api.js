@@ -120,6 +120,12 @@ class PlantsApi {
     return res;
   }
 
+  static async addPlantToList(list_id, plant_id) {
+    console.log(list_id, plant_id);
+    let res = await this.request(`lists/${list_id}`, { plant_id: plant_id }, "post")
+    console.log(res)
+  }
+
 }
 
 // for now, put token ("testuser" / "password" on class)

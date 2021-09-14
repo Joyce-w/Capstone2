@@ -89,7 +89,6 @@ button{
         margin: none;
     }
     .Plant-leftDiv {
-        border: 1px solid red;
         width:80%;
         position: relative;
         margin: 0 0;
@@ -99,7 +98,6 @@ button{
     }
     
     .Plant-rightDiv {
-        border: 1px solid blue;
         padding: 2em;
         margin: 0 0;
         width:80%;

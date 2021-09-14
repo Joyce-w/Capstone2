@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useHistory } from "react-router-dom";
 import { PawPrint, Baby, Wind, Drop, PlusCircle } from "phosphor-react";
 import "./Plant.css";
 import PlantsApi from "../api";
@@ -48,28 +48,25 @@ function Plant() {
 
     }, [])
 
-    const dropDownRef = useRef();
-    const listRef = useRef();
-    const toggleDropdown = (e) => {
-        console.log(e)
-        if (e.target.className === 'dropbtn') {
-            console.log('whats next')
-            let dropdown = dropDownRef.current.className;
 
-            for (let i = 0; i < dropdown.length; i++) {
-            var openDropdown = dropdown[i];
-            if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
-            }
-            }
-        }
+    //create state to store list option
+    const [list, setList] = useState(0);
+
+    //handle any change on select dropdown options
+    const handleChange = (list_id) => {
+        setList(list_id)
+        console.log(list_id)
     }
 
-    //handle add to list
-    // const addPlant = (e) => {
-    //     e.preventDefault();
-    //     console.log(e)
-    // }
+    const history = useHistory();
+
+    //handle form submit when a list is selected
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const res = await PlantsApi.addPlantToList(list, plant_name)
+        history.push(`/user-lists/${list}`)
+    }
+
 
 
     return (
@@ -97,13 +94,18 @@ function Plant() {
 
                     {/* Select user list to add */}
                     
+                    <form onSubmit={(e) => handleSubmit(e)}>
+                        <label for="plant-list"> Add to a list: </label>
+                        <select value={list} onChange={(e) => handleChange(e.target.value)}>
 
-                    <label for="plant-list"> Add to List </label>
-                    <select id="plant-list" name="plant-list" form="plantList">
-                        {/* <option> Add to List</option> */}
-                            {user.map(list => <option value={ list.list_id}>{list.list_name}</option> )}
-                    </select>
-                    <button > <PlusCircle size={30} /></button>
+                            {/* <option> Add to List</option> */}
+                            {user.map(list =>
+                                <option value={ list.list_id }>
+                                    {list.list_name}
+                                </option>)}
+                        </select>
+                        <button > <PlusCircle size={30} /></button>
+                    </form>
 
 
 
