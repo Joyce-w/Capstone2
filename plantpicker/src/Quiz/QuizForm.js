@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form'
 
 function QuizForm() {
     
@@ -19,16 +20,15 @@ function QuizForm() {
     const nextStep = () => {
         let nextStep = step + 1
 
-        if (nextStep > 5) {
-            alert("Go to results page")
-        }
+        // if (nextStep > 5) {
+        //     alert("Go to results page")
+        // }
 
         setStep(nextStep)
     }
     // proceed to prev step
     const prevStep = () => {
         let prevStep = step - 1;
-
         setStep(prevStep)
     }
 
@@ -41,31 +41,53 @@ function QuizForm() {
             ...quizAnswers,
             [name] : value
         }))
-
     }
-    
+
+    const { register, watch, handleSubmit, setValue } = useForm();
+    console.log(watch())
+
+    function checked(e) {
+        console.log(e.target.value)
+    }
     return (
         <>
-            <form>
+            <form onSubmit={ handleSubmit((data) => console.log(data))}>
                 {step === 0 && <section>
                     <label>Where do you plan on placing your plant?</label>
                     <div>
-                        <input type="checkbox" id="pos" name="F"></input>
-                        <label for="F">Floor</label>
+                        <input
+                            type="checkbox"
+                            name="pos"
+                            value="F"
+                            onChange={(e) => checked(e) } 
+                        ></input>
+                        <label  for="F">Floor</label>
                     </div>
                     <div>
-                        <input type="checkbox" id="pos" name="H"
-                                ></input>
+                        <input
+                            type="checkbox"
+                            name="pos"
+                            value="H"
+                            onChange={(e) => checked(e) } 
+                        ></input>
                         <label for="H">Hanging plant!</label>
                     </div>
                     <div>
-                        <input type="checkbox" id="pos" name="T"
-                                ></input>
+                        <input
+                            type="checkbox"
+                            name="pos"
+                            value="T"
+                            onChange={(e) => checked(e) } 
+                        ></input>
                         <label for="T">Table or a desk</label>
                     </div>
                     <div>
-                        <input type="checkbox" id="pos" name="W"
-                                ></input>
+                        <input
+                            type="checkbox"
+                            name="pos"
+                            value="W"
+                            onChange={(e) => checked(e) } 
+                        ></input>
                         <label for="W">Window</label>
                     </div>
                 </section>}
@@ -94,11 +116,18 @@ function QuizForm() {
                 {step === 2 && <section>
                     <label>Are there kids around?</label>
                         <div>
-                            <input type="radio" id="kids" name="kids"></input>
+                        <input type="radio"
+                            id="kids" {...register("has_kids")}
+                            onClick={() => setValue("has_kids", true)}>
+                            
+                            </input>
                             <label for="kids">Yes!</label>
                         </div>
                         <div>
-                            <input type="radio" id="kids" name="kids"></input>
+                        <input type="radio"
+                            id="kids" {...register("has_kids")}
+                            onClick={() => setValue("has_kids", true)}>
+                            </input>
                             <label for="kids">Nope</label>
                     </div>
                 </section>}
@@ -106,11 +135,17 @@ function QuizForm() {
                 {step === 3 && <section>
                     <label>Are there pets around?</label>
                         <div>
-                            <input type="radio" id="pets" name="pets"></input>
+                        <input type="radio"
+                            id="pets" {...register("has_pets")} >
+                            
+                            </input>
                             <label for="pets">Yes!</label>
                         </div>
                         <div>
-                            <input type="radio" id="pets" name="pets"></input>
+                        <input type="radio"
+                            id="pets" {...register("has_pets")} >
+                            
+                            </input>
                             <label for="pets">Nope</label>
                         </div>
                 </section>}
@@ -118,15 +153,21 @@ function QuizForm() {
                 {step === 4 && <section>
                     <label>Do you want a flowering plant?</label>
                         <div>
-                            <input type="radio" id="flowering" name="flowering"></input>
+                        <input type="radio"
+                            id="flowering" {...register("flowering")} >
+                            </input>
                             <label for="flowering">Yes!</label>
                         </div>
                         <div>
-                            <input type="radio" id="flowering" name="flowering"></input>
+                        <input type="radio"
+                            id="flowering" {...register("flowering")} >
+                            </input>
                             <label for="flowering">Noo</label>
                         </div>
                         <div>
-                            <input type="radio" id="flowering" name="flowering"></input>
+                        <input type="radio"
+                            id="flowering" {...register("flowering")} >
+                            </input>
                             <label for="flowering">Doesn't matter</label>
                     </div>
                 </section>}
@@ -135,25 +176,39 @@ function QuizForm() {
                 {step === 5 && <section>
                     <label>How are you with watering?</label>
                         <div>
-                            <input type="radio" id="watering" name="watering"></input>
+                            <input type="radio" 
+                            id="watering" 
+                            {...register("watering")} >
+                            </input>
                             <label for="watering">Not sure, I'm a beginner</label>
                         </div>
                         <div>
-                            <input type="radio" id="watering" name="watering"></input>
+                            <input type="radio" 
+                            id="watering" 
+                            {...register("watering")} >
+                            </input>
                             <label for="watering">I'm dedicated to keeping them alive!</label>
                         </div>
                         <div>
-                            <input type="radio" id="watering" name="watering"></input>
+                            <input type="radio" 
+                            id="watering" 
+                            {...register("watering")} >
+                            </input>
                             <label for="watering">I forget now and then</label>
                         </div>
                         <div>
-                            <input type="radio" id="watering" name="watering"></input>
+                            <input type="radio" 
+                            id="watering" 
+                            {...register("watering")} >
+                            </input>
                             <label for="watering">I am pretty forgetful</label>
                         </div>                
                 </section>}
 
-                {step > 0 && <button type="button" onClick={ prevStep }>Previous</button>}
-                <button type="button" onClick={ nextStep }>Next</button>
+                {step > 0 &&  <button type="button" onClick={ prevStep }>Previous</button>}
+                {step < 6 ? <button type="button" onClick={nextStep}>Next</button> :
+                <button>Submit Form</button>
+                }
 
             </form>
         </>
