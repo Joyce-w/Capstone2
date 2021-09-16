@@ -15,15 +15,11 @@ function QuizForm() {
     }
 
     const [quizAnswers, setQuizAnswers] = useState(initalAnswers);
+    //stores the checked answers to the question that asks where you would like the plant placedconsole.log(quizAnswers)
 
     // proceed to next step
     const nextStep = () => {
         let nextStep = step + 1
-
-        // if (nextStep > 5) {
-        //     alert("Go to results page")
-        // }
-
         setStep(nextStep)
     }
     // proceed to prev step
@@ -43,15 +39,58 @@ function QuizForm() {
         }))
     }
 
-    const { register, watch, handleSubmit, setValue } = useForm();
-    console.log(watch())
-
+    const [pos, setPos] = useState([]);
+    //check which boxes were checked from question 1 and saved the answers
+    // let plantPositions = new Set();
+    
     function checked(e) {
-        console.log(e.target.value)
+        const { value } = e.target;
+
+        if (e.target.checked) {
+            if (!pos.includes(e.target.value)) {
+                setPos((pos) => ([...pos, value]))
+                console.log(pos)
+            } 
+        } else {
+            if (pos.includes(e.target.value)) {
+                setPos(pos => pos.filter(el => el !== value))
+                console.log(pos)
+            } 
+        }
     }
+    
+
+
+
+
+        // //check if the box was checked
+        // if (e.target.checked) {
+        //     plantPositions.add(e.target.value)
+        // } else {
+        //     plantPositions.delete(e.target.value)
+        // }
+        // //turns the set into string, alphabatized
+        // let positions = Array.from(plantPositions).sort().join('')
+        // console.log(positions)
+
+
+    
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        
+        let positions = pos.sort().join('')
+
+        setQuizAnswers((quizAnswers) => ({
+            ...quizAnswers,
+            "pos" : positions
+        }))
+        console.log(quizAnswers)
+    }
+
     return (
         <>
-            <form onSubmit={ handleSubmit((data) => console.log(data))}>
+            <form onSubmit={(e)=> handleSubmit(e) }>
                 {step === 0 && <section>
                     <label>Where do you plan on placing your plant?</label>
                     <div>
@@ -95,7 +134,25 @@ function QuizForm() {
                 
                 {step === 1 && <section>
                     <label>How much lighting will that it get?</label>
+
+
                     <div>
+                        <label for="lighting">Dim</label>
+
+                        <input onChange={(e) => handleChange(e)}
+                            type="range"
+                            id="lighting"
+                            name="lighting"
+                            min="1"
+                            max="6"
+                            list="lighting">
+                        </input>
+                        
+                        <label for="lighting">Bright</label>
+                    </div>
+
+                    {/* Checkbox method for lighting selections */}
+                    {/* <div>
                         <input type="checkbox" id="low" name="low"></input>
                         <label for="low">low/dim</label>
                     </div>
@@ -110,23 +167,28 @@ function QuizForm() {
                     <div>
                         <input type="checkbox" id="bright" name="unsure"></input>
                         <label for="unsure">Not sure</label>
-                    </div>
+                    </div> */}
+
                 </section>}
 
                 {step === 2 && <section>
                     <label>Are there kids around?</label>
                         <div>
                         <input type="radio"
-                            id="kids" {...register("has_kids")}
-                            onClick={() => setValue("has_kids", true)}>
+                            id="kids"
+                            value="1"
+                            name="has_kids"
+                            onClick={(e) => handleChange(e)}>
                             
                             </input>
                             <label for="kids">Yes!</label>
                         </div>
                         <div>
                         <input type="radio"
-                            id="kids" {...register("has_kids")}
-                            onClick={() => setValue("has_kids", true)}>
+                            id="kids"
+                            value="0"
+                            name="has_kids"
+                            onClick={(e) => handleChange(e)}>
                             </input>
                             <label for="kids">Nope</label>
                     </div>
@@ -136,15 +198,19 @@ function QuizForm() {
                     <label>Are there pets around?</label>
                         <div>
                         <input type="radio"
-                            id="pets" {...register("has_pets")} >
-                            
+                            id="pets"
+                            value="1"
+                            name="has_pets"
+                            onClick={(e) => handleChange(e)}>
                             </input>
                             <label for="pets">Yes!</label>
                         </div>
                         <div>
                         <input type="radio"
-                            id="pets" {...register("has_pets")} >
-                            
+                            id="pets"
+                            value="0"
+                            name="has_pets"
+                            onClick={(e) => handleChange(e)}>
                             </input>
                             <label for="pets">Nope</label>
                         </div>
@@ -154,60 +220,77 @@ function QuizForm() {
                     <label>Do you want a flowering plant?</label>
                         <div>
                         <input type="radio"
-                            id="flowering" {...register("flowering")} >
+                            id="flowering"
+                            value="1"
+                            name="does_flower"
+                            onClick={(e) => handleChange(e)}>
                             </input>
                             <label for="flowering">Yes!</label>
                         </div>
                         <div>
                         <input type="radio"
-                            id="flowering" {...register("flowering")} >
+                            id="flowering"
+                            value="0"
+                            name="does_flower"
+                            onClick={(e) => handleChange(e)}>
                             </input>
                             <label for="flowering">Noo</label>
                         </div>
                         <div>
-                        <input type="radio"
-                            id="flowering" {...register("flowering")} >
+                            <input type="radio"
+                                id="flowering"
+                                value=""
+                                name="does_flower"
+                                onClick={(e) => handleChange(e)}>
                             </input>
                             <label for="flowering">Doesn't matter</label>
-                    </div>
+                        </div>
                 </section>}
 
 
                 {step === 5 && <section>
                     <label>How are you with watering?</label>
                         <div>
-                            <input type="radio" 
-                            id="watering" 
-                            {...register("watering")} >
+                            <input type="radio"
+                                id="watering"
+                                value=""
+                                name="watering"
+                                onClick={(e) => handleChange(e)}>
                             </input>
                             <label for="watering">Not sure, I'm a beginner</label>
                         </div>
                         <div>
-                            <input type="radio" 
-                            id="watering" 
-                            {...register("watering")} >
+                            <input type="radio"
+                                id="watering"
+                                value="low"
+                                name="watering"
+                                onClick={(e) => handleChange(e)}>
                             </input>
                             <label for="watering">I'm dedicated to keeping them alive!</label>
                         </div>
                         <div>
-                            <input type="radio" 
-                            id="watering" 
-                            {...register("watering")} >
+                            <input type="radio"
+                                id="watering"
+                                value="medium"
+                                name="watering"
+                                onClick={(e) => handleChange(e)}>
                             </input>
                             <label for="watering">I forget now and then</label>
                         </div>
                         <div>
-                            <input type="radio" 
-                            id="watering" 
-                            {...register("watering")} >
+                            <input type="radio"
+                                id="watering"
+                                value="high"
+                                name="watering"
+                                onClick={(e) => handleChange(e)}>
                             </input>
                             <label for="watering">I am pretty forgetful</label>
                         </div>                
                 </section>}
 
                 {step > 0 &&  <button type="button" onClick={ prevStep }>Previous</button>}
-                {step < 6 ? <button type="button" onClick={nextStep}>Next</button> :
-                <button>Submit Form</button>
+                {step < 5 ? <button type="button" onClick={nextStep}>Next</button> :
+                    <button>Submit Form</button>
                 }
 
             </form>
