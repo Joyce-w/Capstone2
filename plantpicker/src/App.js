@@ -12,8 +12,7 @@ import PlantList from "./Plants/PlantList";
 import Plant from "./Plants/Plant";
 import UserList from "./UserLists";
 import List from "./List"
-import Quiz from "./Quiz"
-
+import QuizForm from './Quiz/QuizForm';
 
 
 
@@ -58,7 +57,7 @@ function App() {
 
 
         <Route exact path="/quiz">
-          <Quiz />
+          <QuizForm />
         </Route>
 
       </BrowserRouter>
