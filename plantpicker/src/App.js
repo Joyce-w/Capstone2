@@ -13,11 +13,27 @@ import Plant from "./Plants/Plant";
 import UserList from "./UserLists";
 import List from "./List"
 import QuizForm from './Quiz/QuizForm';
-
+import Results from "./Quiz/Results"
 
 
 function App() {
 
+  const [data, setData] = useState({})
+
+  const getData = (answers, positions) => {
+    const {lighting, watering, has_kids, has_pets, does_flower} = answers;
+    setData(() => ({
+      ...data,
+      lighting,
+      watering,
+      has_kids,
+      has_pets,
+      does_flower,
+      "pos": positions
+    }))
+
+    //write helper to format the object correctly
+  }
 
   return (
     <div className="App">
@@ -55,13 +71,17 @@ function App() {
           <List />
         </Route>
 
-
+        
         <Route exact path="/quiz">
-          <QuizForm />
-        </Route>
+          <QuizForm getData={getData}/>
+        </Route >
 
+        <Route exact path="/results">
+          <Results data={ data}/>
+          </Route >
+          
+        
       </BrowserRouter>
-      {/* </UserContext.Provider> */}
 
     </div>
   );

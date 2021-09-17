@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form'
+import { useHistory } from 'react-router-dom';
 
-function QuizForm() {
+function QuizForm({getData}) {
     
     const [step, setStep] = useState(0)
 
@@ -10,8 +10,7 @@ function QuizForm() {
         watering: '',
         has_kids: '',
         has_pets: '',
-        does_flower: '',
-        pos:''
+        does_flower: ''
     }
 
     const [quizAnswers, setQuizAnswers] = useState(initalAnswers);
@@ -40,9 +39,7 @@ function QuizForm() {
     }
 
     const [pos, setPos] = useState([]);
-    //check which boxes were checked from question 1 and saved the answers
-    // let plantPositions = new Set();
-    
+    //check which boxes were checked from question 1 and saved the answers   
     function checked(e) {
         const { value } = e.target;
 
@@ -58,34 +55,21 @@ function QuizForm() {
             } 
         }
     }
-    
-
-
-
-
-        // //check if the box was checked
-        // if (e.target.checked) {
-        //     plantPositions.add(e.target.value)
-        // } else {
-        //     plantPositions.delete(e.target.value)
-        // }
-        // //turns the set into string, alphabatized
-        // let positions = Array.from(plantPositions).sort().join('')
-        // console.log(positions)
-
-
-    
-
+  
+    const history = useHistory();
     function handleSubmit(e) {
         e.preventDefault();
         
         let positions = pos.sort().join('')
 
-        setQuizAnswers((quizAnswers) => ({
-            ...quizAnswers,
-            "pos" : positions
-        }))
-        console.log(quizAnswers)
+        // setQuizAnswers((quizAnswers) => ({
+        //     ...quizAnswers,
+        //     "pos": positions
+        // }))
+        getData(quizAnswers, positions)
+
+        history.push('/results')
+
     }
 
     return (
@@ -289,7 +273,7 @@ function QuizForm() {
                 </section>}
 
                 {step > 0 &&  <button type="button" onClick={ prevStep }>Previous</button>}
-                {step < 5 ? <button type="button" onClick={nextStep}>Next</button> :
+                {step < 6 ? <button type="button" onClick={nextStep}>Next</button> :
                     <button>Submit Form</button>
                 }
 
