@@ -22,12 +22,6 @@ function App() {
 
   const getData = (answers, positions) => {
     let { lighting, watering, has_kids, has_pets, does_flower } = answers;
-    
-    // //format answers 
-    // has_kids = has_kids === "1" ? true : false;
-    // has_pets = has_pets === "1" ? true : false;
-    // does_flower = does_flower === "1" ? true : false;
-    // lighting = +lighting;
 
     setData(() => ({
       ...data,
