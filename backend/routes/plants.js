@@ -1,6 +1,7 @@
 const express = require('express');
 const router = new express.Router();
-const {BadRequestError} = require("../ExpressError");
+const { BadRequestError } = require("../ExpressError");
+// const filterPlants = require('../helpers/filterPlants')
 
 //require plant model
 const Plant = require("../models/plants");
@@ -14,6 +15,20 @@ router.get('/', async function (req, res, next) {
         return res.json(plants)
     } catch (e) {
         next(e)
+    }
+});
+
+/* GET details about plants from quiz results
+*/
+router.post('/results', async function (req, res, next) {
+    try {
+        console.log('results route', req.body);
+        
+        let plants = await Plant.filterPlants(req.body);
+        console.log('plants', plants)
+        return res.json(plants)
+    } catch (e) {
+        next(e);
     }
 });
 

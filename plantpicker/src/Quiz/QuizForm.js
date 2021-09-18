@@ -60,13 +60,14 @@ function QuizForm({getData}) {
     function handleSubmit(e) {
         e.preventDefault();
         
-        let positions = pos.sort().join('')
+        // let positions = pos.sort().join('')
 
         // setQuizAnswers((quizAnswers) => ({
         //     ...quizAnswers,
         //     "pos": positions
         // }))
-        getData(quizAnswers, positions)
+        // getData(quizAnswers, positions)
+        getData(quizAnswers, pos)
 
         history.push('/results')
 
@@ -134,24 +135,6 @@ function QuizForm({getData}) {
                         
                         <label for="lighting">Bright</label>
                     </div>
-
-                    {/* Checkbox method for lighting selections */}
-                    {/* <div>
-                        <input type="checkbox" id="low" name="low"></input>
-                        <label for="low">low/dim</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="medium" name="medium"></input>
-                        <label for="medium">Lighting but not blinding</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="bright" name="high"></input>
-                        <label for="high">Bright and gets pretty warm</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="bright" name="unsure"></input>
-                        <label for="unsure">Not sure</label>
-                    </div> */}
 
                 </section>}
 

@@ -101,6 +101,7 @@ class Plants {
      * Additional Implementations***
     */
     static async getAllPlants() {
+        
         const res = await db.query(
             `SELECT
             id,
@@ -177,7 +178,100 @@ class Plants {
        
     }
 
+    // Filtering plants from quiz results
+    
+    static async filterPlants(searchFilters = {}) {
+
+        let { pos, lighting, has_kids, has_pets, does_flower, watering } = searchFilters;
+        
+        // pos = pos.sort().join('')
+        //format answers 
+        has_kids = has_kids === "1" ? true : false;
+        has_pets = has_pets === "1" ? true : false;
+        does_flower = does_flower === "1" ? true : false;
+        lighting = parseInt(lighting);
+        console.log('res', pos, lighting, has_kids, has_pets, does_flower, watering)
+
+        let whereExpressions = [];
+        let queryValues = [];
+
+        let query =
+            `SELECT
+            id,
+            plant_name,
+            details,
+            lighting,
+            kid_friendly,
+            pet_friendly,
+            max_height,
+            flowering
+            min_temp,
+            max_temp,
+            environment,
+            placements,
+            drought_tolerant,
+            img,
+            air_purifying
+            FROM plants`
+
+        /** For each parameter in searchFilter:
+         * Adds the value into queryValue array 
+         * Adds the current queryValues.length which will be used as the position for sql injection
+         * */
+
+        if (lighting !== undefined) {
+            queryValues.push(lighting)
+            whereExpressions.push(`lighting=$${queryValues.length}`)
+        }
+        if (watering !== undefined) {
+            queryValues.push(watering)
+            whereExpressions.push(`drought_tolerant=$${queryValues.length}`)
+        }
+        //write query and add value for keys with bool values
+        if (has_kids !== undefined) {
+            //pushes the value into queryValues
+            queryValues.push(has_kids); 
+            //pushes into where expression with sql injection
+            whereExpressions.push(`kid_friendly=$${queryValues.length}`);
+        }
+        if (has_pets !== undefined) {
+            //pushes the value into queryValues
+            queryValues.push(has_pets);
+            //pushes into where expression with sql injection
+            whereExpressions.push(`pet_friendly=$${queryValues.length}`);
+        }
+        if (does_flower !== undefined) {
+            //pushes the value into queryValues
+            queryValues.push(does_flower);
+            //pushes into where expression with sql injection
+            whereExpressions.push(`flowering=$${queryValues.length}`);
+        }
+        if (pos !== undefined) {
+            pos = pos.sort().join('');
+            queryValues.push(pos)
+            whereExpressions.push(`placements LIKE $${queryValues.length}`)
+        }
+
+        //if there are expression, add WHERE syntax and join the values with 'AND'
+        if (whereExpressions.length > 0) {
+        query += " WHERE " + whereExpressions.join(" AND ");
+        }
+
+        console.log('queryValues', queryValues)
+
+        let res = await db.query(query, queryValues);
+        // let filteredPlants = res.rows.map(p => p.id)
+        let filteredPlants = res.rows
+
+        console.log('filteredPlants',filteredPlants)
+        return filteredPlants;
+
+    }
+
 }
 
 
-module.exports =  Plants;
+module.exports = Plants;
+
+
+// SELECT id FROM plants WHERE lighting=5 AND drought_tolerant='high' AND kid_friendly=true AND pet_friendly=$4 AND flowering=$5 AND placements LIKE $6

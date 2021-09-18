@@ -22,8 +22,7 @@ router.post('/create', async function (req, res, next) {
 /**GET all plant lists */
 router.get("/", async function (req, res, next) {
     try {
-        console.log('plant-list route HIT');
-        let plantList = await PlantList.getPlantList();
+        let plantList = await PlantList.getPlantList(data = {});
         return res.json(plantList);
     } catch (e) {
         next(e);

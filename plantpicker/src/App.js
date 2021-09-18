@@ -21,18 +21,25 @@ function App() {
   const [data, setData] = useState({})
 
   const getData = (answers, positions) => {
-    const {lighting, watering, has_kids, has_pets, does_flower} = answers;
+    let { lighting, watering, has_kids, has_pets, does_flower } = answers;
+    
+    // //format answers 
+    // has_kids = has_kids === "1" ? true : false;
+    // has_pets = has_pets === "1" ? true : false;
+    // does_flower = does_flower === "1" ? true : false;
+    // lighting = +lighting;
+
     setData(() => ({
       ...data,
-      lighting,
-      watering,
+      does_flower,
       has_kids,
       has_pets,
-      does_flower,
-      "pos": positions
+      lighting: +lighting,
+      "pos": positions,
+      watering      
+
     }))
 
-    //write helper to format the object correctly
   }
 
   return (
