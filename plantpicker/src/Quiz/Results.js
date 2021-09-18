@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import "./Results.css";
 
 import PlantsApi from "../api";
 
@@ -13,8 +15,7 @@ function Results({data}) {
     useEffect(() => {
         async function allPlants() {
             const res = await PlantsApi.quizResults(data);
-            console.log('results', res)
-            // setAllPlants(res);
+            setAllPlants(res);
         }
 
         allPlants() 
@@ -22,9 +23,33 @@ function Results({data}) {
     
 
     return (
-        <h1>Results page</h1>
+
+<div className="quizResults">
+            <h1> Category of Plants</h1>
+            <div className="quizResults-List">
+                
+                {allPlants && allPlants.map(p =>
+                    <div className="card" key={p.id}>
+                        <Link to={`/plants/${p.id}` }>
+                        <div class="container">
+                            <img src={ p.img } alt={p.plant_name} class="image"></img>
+                                <div class="overlay">
+                                     <h3 className="card-title">{ p.plant_name}</h3>
+                                </div>
+                        </div>
+
+                        </Link>
+
+                        
+
+                    </div>                    
+                )
+                    
+                }
 
 
+            </div>
+        </div>
     )
 }
 

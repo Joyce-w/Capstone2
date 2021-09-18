@@ -129,9 +129,8 @@ class PlantsApi {
   // fulter plants from quiz results
   static async quizResults(data) {
     console.log('api data',data)
-    let res = await this.request(`plants/results`, { data }, "post")
-    console.log('api res', res)
-    // return res;
+    let res = await this.request(`plants/results`, data , "post")
+    return res;
   }
 }
 

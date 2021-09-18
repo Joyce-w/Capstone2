@@ -91,18 +91,5 @@ router.delete("/:list_id/:plant_id", async function (req, res, next) {
 
 
 
-//test route for filterPlants
-router.get('/filter/filter', async function (req, res, next) {
-    try {
-        let results = await filterPlants(req.body);
-        console.log(results)
-        return res.json(results);
-
-  } catch (e) {
-    next(e)
-  }
-});
-
-
 
 module.exports = router;
