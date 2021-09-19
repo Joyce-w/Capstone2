@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = require("../config");
 
 /**Authenticate user 
- * If a token is provided, verifyt and store the payload into res.locals which is only the username.
+ * If a token is provided, verify and store the payload into res.locals which is only the username.
  * If there is no token, it is not valid authenitcation.
  */
 

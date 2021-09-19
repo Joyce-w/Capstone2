@@ -24,6 +24,10 @@ router.post('/login', async function (req, res, next) {
   try {
       if (await Users.login(req.body)) {
     //create a token with user info
+        
+        //return  user.login()
+        //pass user.login into createToken()
+
         const token = createToken(req.body);
           
       return res.status(201).json({token});  
