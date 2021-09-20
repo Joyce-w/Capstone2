@@ -3,14 +3,13 @@ import './Login.css';
 import { useHistory } from "react-router-dom"
 import PlantsApi from "../api";
 
-function Login() {
+function Login({loginUser}) {
 
   const inital_state = {
 	"username" :"",
 	"password":""
 }
 
-  const history = useHistory();
   const [formData, setFormData] = useState(inital_state);
   
   const handleChange = (e) => {
@@ -21,15 +20,24 @@ function Login() {
     }))
   }
 
+
+  //get token from login 
+  const getToken = async (formData) => {
+    let res = await PlantsApi.loginUser(formData)
+    return res
+  }
+
+  const history = useHistory();
+  
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // const { username, email, pw } = formData;
-    let res = await PlantsApi.loginUser(formData)
-    if (res) {
-      setFormData(inital_state)
-      history.push('/');     
-    };
-  }
+
+    await getToken(formData);
+    loginUser();
+    setFormData(inital_state)
+    history.push('/');     
+  };
+
 
   return (
     <div className="Login">

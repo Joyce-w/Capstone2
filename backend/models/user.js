@@ -31,9 +31,9 @@ class User {
     }
 
     // /**Logs a user in given username and password */
-    static async login(credentials) {
+    static async login(username, password) {
 
-        const { username, password } = credentials;
+        // const { username, password } = credentials;
         if (!username || !password) throw new ExpressError("Username and password required.", 404)
 
         let res = await db.query(`
@@ -45,10 +45,13 @@ class User {
 
         let user = res.rows[0];
         if (user) {
-            if (await bcrypt.compare(password, user.pw)) {
+            const isValid = await bcrypt.compare(password, user.pw);
+            if (isValid === true) {
+                delete user.password;
                 return user;
             }
         }
+        
         throw new ExpressError("Invalid username/password!", 400);
 
 

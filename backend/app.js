@@ -3,6 +3,7 @@ const cors = require("cors");
 const { NotFoundError } = require("./ExpressError")
 
 //Import routes file that you will be using
+const { authenticateJWT } = require("./middleware/middleware") 
 const plantRoutes = require("./routes/plants")
 const userRoutes = require("./routes/users")
 const plantListRoutes = require("./routes/plantList")
@@ -17,6 +18,7 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan("tiny"));
 app.use(express.urlencoded({ extended: false }));
+app.use(authenticateJWT)
 
 app.use("/plants", plantRoutes);
 app.use("/users", userRoutes);

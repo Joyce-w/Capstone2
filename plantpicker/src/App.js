@@ -18,6 +18,25 @@ import Results from "./Quiz/Results"
 
 function App() {
 
+
+  //check if a user has previously logged in
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem('token');
+    if (loggedInUser) {
+      setIsLoggedIn(true)
+    }
+  }, [])
+
+
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  //updates whether user is loggedin or not
+  const loginUser = () => {
+    setIsLoggedIn(!isLoggedIn)
+  }
+
+  
   const [data, setData] = useState({})
 
   const getData = (answers, positions) => {
@@ -38,10 +57,10 @@ function App() {
 
   return (
     <div className="App">
-      {/* <UserContext.Provider value={ user }> */}
+      <UserContext.Provider value={ {isLoggedIn} }>
         <BrowserRouter>
           
-        <NavBar />
+          <NavBar isLoggedIn={isLoggedIn} loginUser={ loginUser }/>
         <Route exact path="/">
           <Home/>
         </Route>
@@ -51,7 +70,7 @@ function App() {
           <Register/>
         </Route>
         <Route exact path="/login">
-          <Login/>
+          <Login loginUser={loginUser}/>
         </Route>
 
         {/* Plant Components */}
@@ -69,7 +88,7 @@ function App() {
         </Route>
 
         <Route exact path="/user-lists/:list_id">
-          <List />
+          <List/>
         </Route>
 
         
@@ -83,7 +102,8 @@ function App() {
           
         
       </BrowserRouter>
-
+      </UserContext.Provider>
+      
     </div>
   );
 }

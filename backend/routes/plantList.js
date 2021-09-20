@@ -1,15 +1,16 @@
 
 const express = require('express');
-const router = new express.Router();
+
 const {BadRequestError} = require("../ExpressError");
 
 //require plant model
 const PlantList = require("../models/plantList");
 const filterPlants = require('../helpers/filterPlants');
+const { ensureLoggedIn } = require("../middleware/middleware")
 
-
+const router = new express.Router();
 /** Creates a new list that stores plants for a user */
-router.post('/create', async function (req, res, next) {
+router.post('/create', ensureLoggedIn, async function (req, res, next) {
     try {
         const {  list_name, user_id } = req.body;
         let plants = await PlantList.create(list_name, user_id);
