@@ -1,4 +1,6 @@
 .quizResults-List {
+    display: flex;
+    justify-content: center;
     column-count: 4;
     column-gap: 1em;
     margin: auto 10%;

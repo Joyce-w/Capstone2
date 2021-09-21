@@ -28,9 +28,9 @@ function Plant() {
         if (plant.drought_tolerant === "low") {
             setWater("Soil should be constantly wet but not soaking")
         } else if (plant.drought_tolerant === "medium") {
-            setWater("Can go a few days without watering.")
+            setWater("can go a few days without watering.")
         } else {
-            setWater("Can go a week without watering!")
+            setWater("can go a week without watering!")
         }
     }, [plant_name])
     
@@ -43,6 +43,7 @@ function Plant() {
     //get plant list based off username
     const [usersPlantList, setUsersPlantList] = useState(null)
     
+    const history = useHistory();
     useEffect(() => {
         async function getUser(currUser) {
             // const res = await PlantsApi.getUser(currUser);
@@ -50,7 +51,13 @@ function Plant() {
             console.log(plantList)
             setUsersPlantList(plantList.length === 0 ? null : plantList);
         }
-        getUser(userToken.username)
+
+        if (!userToken) {
+            getUser(null)
+        } else {
+            getUser( )
+        }
+
 
     }, [])
 
@@ -61,16 +68,20 @@ function Plant() {
 
     //handle any change on select dropdown options
     const handleChange = (list_id) => {
-        console.log(list_id)
         setList(list_id)
     }
 
     //handle form submit when a list is selected
-    const history = useHistory();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await PlantsApi.addPlantToList(list, plant_name)
+        console.log('hello')
+        let res = await PlantsApi.addPlantToList(list, plant_name);
+
+        if (!res) {
+            
+        }
+        console.log(await PlantsApi.addPlantToList(list, plant_name))
         history.push(`/user-lists/${list}`)
     }
 
@@ -96,25 +107,27 @@ function Plant() {
                     <p className="pet-friendly"><PawPrint size={20} />{ plant.pet_friendly ? "Pet friendly" : "Can be toxic to pets!"}</p>
                     <p className="kid-friendly"><Baby size={20} />{ plant.kid_friendly ? "Kid friendly" : "Take caution around children"}</p>
                     <p className="air-purify"><Wind size={20} />{ plant.air_purifying ? "Air purifying" : "Not as effective in purifying the air but still nice to have around!"}</p>
-                    <p className="watering"><Drop size={20} /> {water} </p>
+                    <p className="watering"><Drop size={20} /> { plant.plant_name} {water} </p>
                     <br></br>
 
                     {/* Select user list to add plant to*/}
                     
-                    {usersPlantList ?
-                    <form onSubmit={(e) => handleSubmit(e)}>
-                        <label for="plant-list"> Add to a list: </label>
-                        <select value={list} onChange={(e) => handleChange(e.target.value)}>
-                            <option>Select from Dropdown</option>
-                            {usersPlantList.map(list =>
-                                <option value={ list.id}>
-                                    {list.list_name}
-                                </option>)
-                            }
-                        </select>
-                        <button > <PlusCircle size={30} /></button>
-                    </form>       
-                    : <h4><Link to="/user-lists">Create a plant list</Link> to add this to your collection!</h4>}
+                    {usersPlantList &&
+                        <form onSubmit={(e) => handleSubmit(e)}>
+                            <label for="plant-list"> Add to a list: </label>
+                            <select value={list} onChange={(e) => handleChange(e.target.value)}>
+                                <option>Select from Dropdown</option>
+                                {usersPlantList.map(list =>
+                                    <option value={list.id}>
+                                        {list.list_name}
+                                    </option>)
+                                }
+                            </select>
+                            <button > <PlusCircle size={30} /></button>
+                        </form>
+                    }
+                    
+                    {usersPlantList && <h4><Link to="/user-lists">Create a plant list</Link> to add this to your collection!</h4>}
 
                 </div>
                 

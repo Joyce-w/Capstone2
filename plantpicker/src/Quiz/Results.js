@@ -28,7 +28,7 @@ function Results({data}) {
     return (
 
 <div className="quizResults">
-            <h1> Category of Plants</h1>
+            <h1> Quiz Results </h1>
             <div className="quizResults-List">
                     {allPlants.length === 0 ? <span><h3>There doesn't seem to be a match Try again? </h3></span> :
                     allPlants.map(p =>
