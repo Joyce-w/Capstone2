@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import { PawPrint, Baby, Wind, Drop, PlusCircle } from "phosphor-react";
 import "./Plant.css";
 import PlantsApi from "../api";
@@ -13,7 +13,8 @@ function Plant() {
     
     //create state to store plant data
     const [plant, setPlant] = useState({});
-    //Get all plants data
+
+    //Get plant data
     useEffect(() => {
         async function getPlant(name) {
             
@@ -34,33 +35,39 @@ function Plant() {
     }, [plant_name])
     
     // Get user plant list
-    const [user, setUser] = useState([])
+
   
-    //retrieve token from local storage and decode
+    //get token from local storage to display current [plant lists]
     let userToken = decodeToken(localStorage.getItem('token')) || null;
+
+    //get plant list based off username
+    const [user, setUser] = useState(null)
     
     useEffect(() => {
         async function getUser(currUser) {
-            const res = await PlantsApi.getUser(currUser);
-            setUser(res.plant_lists)
+            // const res = await PlantsApi.getUser(currUser);
+            const plantList = await PlantsApi.getUserLists(currUser);
+            setUser(plantList.length === 0 ? null : plantList);
+            console.log('userlist', user)
         }
         getUser(userToken.username)
 
     }, [])
 
+    // Displays select dropdown if the user has lists
 
     //create state to store list option
     const [list, setList] = useState(0);
 
     //handle any change on select dropdown options
     const handleChange = (list_id) => {
-        setList(list_id)
         console.log(list_id)
+        setList(list_id)
     }
 
+    //handle form submit when a list is selected
     const history = useHistory();
 
-    //handle form submit when a list is selected
     const handleSubmit = async (e) => {
         e.preventDefault();
         await PlantsApi.addPlantToList(list, plant_name)
@@ -92,20 +99,22 @@ function Plant() {
                     <p className="watering"><Drop size={20} /> {water} </p>
                     <br></br>
 
-                    {/* Select user list to add */}
+                    {/* Select user list to add plant to*/}
                     
+                    {user ?
                     <form onSubmit={(e) => handleSubmit(e)}>
                         <label for="plant-list"> Add to a list: </label>
                         <select value={list} onChange={(e) => handleChange(e.target.value)}>
-
-                            {/* <option> Add to List</option> */}
+                            <option>Select from Dropdown</option>
                             {user.map(list =>
-                                <option value={ list.list_id }>
+                                <option value={ list.id}>
                                     {list.list_name}
-                                </option>)}
+                                </option>)
+                            }
                         </select>
                         <button > <PlusCircle size={30} /></button>
-                    </form>
+                    </form>       
+                    : <h4><Link to="/user-lists">Create a plant list</Link> to add this to your collection!</h4>}
 
                 </div>
                 

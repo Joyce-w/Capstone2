@@ -8,16 +8,16 @@ import { Note } from "phosphor-react";
 import List from "./"
 import "./UserLists.css"
 
-function UserLists() {
-  const [user, setUser] = useState([])
+function UserLists({ isLoggedIn }) {
+    const [user, setUser] = useState({})
   
     //retrieve token from local storage and decode
     let userToken = decodeToken(localStorage.getItem('token')) || null;
-    console.log(userToken)
     
     useEffect(() => {
         async function getUser(currUser) {
             const res = await PlantsApi.getUser(currUser);
+            console.log('res', res)
             setUser({
                 "user_id": res.user.id,
                 "username": res.user.username,
@@ -74,11 +74,13 @@ function UserLists() {
                     
 
             <div className="userLists">
+
+                
                 {user && user.plant_list ?
                     user.plant_list.map(list => 
-                    <li>
+                        <div key={ list.list_id}>
                         <Link to={`/user-lists/${list.list_id}` }>{ list.list_name}</Link>
-                    </li>) :
+                    </div>) :
                     <p>No list yet!</p>
                 }                
             </div>

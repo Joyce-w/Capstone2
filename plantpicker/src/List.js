@@ -41,7 +41,7 @@ function List(listData) {
         await PlantsApi.deleteList(list_id)
 
         //redirect back to user list
-        history.push(`/user-list/`)
+        history.push(`/user-lists/`)
     })
 
     const handleTrashClick = async (plant) => {
@@ -49,7 +49,7 @@ function List(listData) {
         console.log('params',list_id, plant)
         let res = await PlantsApi.deletePlantFromList(list_id, plant)
         console.log(res)
-        history.push(`/user-list/${list_id}`)
+        history.push(`/user-lists/${list_id}`)
     }
 
 

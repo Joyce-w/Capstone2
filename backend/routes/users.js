@@ -1,4 +1,5 @@
 const express = require('express');
+const User = require('../models/user');
 // const User = require('../models/user');
 const router = new express.Router();
 const Users = require("../models/user")
@@ -41,6 +42,15 @@ router.patch("/:users", async function (req, res, next) {
   }
 })
 
+router.get("/:users/plant-list", async function (req, res, next) {
+  try {
+    console.log('username', req.params)
+    const lists = await User.getUsersPlantList(req.params.users);
+    return res.json(lists)
+  } catch(e){
+      next(e);
+  }
+})
 
 
 

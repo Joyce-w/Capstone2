@@ -73,19 +73,27 @@ class User {
         const user = userQuery.rows[0];
         if (!user) throw new NotFoundError(`Username '${username}' not found`)
 
-        const listQuery = await db.query(`
-        SELECT ul.id, ul.list_name
-        FROM user_lists ul
-        FULL JOIN  users u ON u.id = ul.user_id
-        WHERE u.username = $1;
-        `,[username])
+        let userQuery_id = userQuery.rows[0].id;
 
-        const list = listQuery.rows.map(l => {
-            return {
-                "list_id": l.id,
-                "list_name": l.list_name
-            }
-        })
+        const listQuery = await db.query(`
+        SELECT id, list_name
+        FROM user_lists
+        WHERE user_id=$1
+        `,[userQuery_id])
+
+
+        let list = []
+
+        if (listQuery.rows.length !== 0) {
+            let plant_lists = listQuery.rows.map(l => {
+                return {
+                    "list_id": l.id,
+                    "list_name": l.list_name
+                }
+            })
+            
+            list = plant_lists;
+        }
 
         return {
             user,
@@ -95,20 +103,26 @@ class User {
 
 
     /**Gets all users from db with their plant lists
-     * [{"username": "test1", "email": "t1@gmail.com","list_name": "first_list"},
-        ...]
+     * [{"username": "test1", "email": "t1@gmail.com", ...]
     */
     static async getAllUsers() {
 
+        // const res = await db.query(`
+        //     SELECT
+        //     users.username,
+        //     users.email,
+        //     user_lists.list_name
+        //     FROM user_lists
+        //     FULL JOIN users ON user_lists.user_id = users.id
+        //     FULL JOIN plant_list ON plant_list.user_list_id = user_lists.id
+        //     GROUP BY user_lists.list_name, users.username, users.email;
+        // `)
         const res = await db.query(`
             SELECT
-            users.username,
-            users.email,
-            user_lists.list_name
-            FROM user_lists
-            FULL JOIN users ON user_lists.user_id = users.id
-            FULL JOIN plant_list ON plant_list.user_list_id = user_lists.id
-            GROUP BY user_lists.list_name, users.username, users.email;
+            id,
+            username,
+            email
+            FROM users;
         `)
 
         return res.rows;
@@ -164,7 +178,18 @@ class User {
         }
     }
     
+    static async getUsersPlantList(username) {
+        let res = await db.query(`
+            SELECT ul.id, ul.list_name, ul.user_id, u.username
+            FROM user_lists ul
+            LEFT JOIN users u ON u.id = ul.user_id
+            WHERE username =$1
+            `, [username]
+        );
+        return res.rows;
+    }
 }
 
 module.exports = User;
+
 

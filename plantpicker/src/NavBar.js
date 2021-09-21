@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react"
 import { Link } from "react-router-dom";
 import "./NavBar.css"
-import UserContext from "./UserContext";
 
 
 const NavBar = ({isLoggedIn, loginUser} ) => {
@@ -11,7 +9,6 @@ const NavBar = ({isLoggedIn, loginUser} ) => {
         loginUser();
     }
 
-
     return (
     <div className="NavBar">
         <div className="logo"><Link to="/">Plant + Pot </Link></div>
@@ -19,12 +16,11 @@ const NavBar = ({isLoggedIn, loginUser} ) => {
         <ul>
             <li><Link to="/plants">Browse Plants</Link></li>
                 {isLoggedIn && <li><Link to="/user-lists">My Plant List</Link></li>}
-                {/* <li><Link to="/user-lists">My Plant List</Link></li> */}
-                    {isLoggedIn ? <li onClick={ logoutUser }><Link to="/">Logout</Link></li>: <li><Link to ="/login">Login</Link></li>
-                
-                }
+                    {isLoggedIn ?
+                        <li onClick={logoutUser}><Link to="/">Logout</Link></li> :
+                        <li><Link to="/login">Login</Link></li>
+                    }
             
-            {/* <li><Link to ="/login">Login</Link></li> */}
         </ul>
         </nav>  
     </div>

@@ -18,12 +18,14 @@ import Results from "./Quiz/Results"
 
 function App() {
 
+  const [currUser, setCurrUser] = useState(null)
 
   //check if a user has previously logged in
   useEffect(() => {
     const loggedInUser = localStorage.getItem('token');
     if (loggedInUser) {
       setIsLoggedIn(true)
+      setCurrUser(decodeToken(localStorage.getItem('token')).username);
     }
   }, [])
 
@@ -84,7 +86,7 @@ function App() {
 
         {/* User Components */}
         <Route exact path="/user-lists">
-          <UserList/>
+            <UserList isLoggedIn={ isLoggedIn}/>
         </Route>
 
         <Route exact path="/user-lists/:list_id">

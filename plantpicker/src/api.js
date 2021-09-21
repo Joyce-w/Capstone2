@@ -8,6 +8,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
  */
 
 class PlantsApi {
+  static token = localStorage.getItem('token') || null;
 
     static async request(endpoint, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
@@ -15,13 +16,13 @@ class PlantsApi {
     //there are multiple ways to pass an authorization token, this is how you pass it in the header.
     //this has been provided to show you another way to pass the token. you are only expected to read this code for this project.
     const url = `${BASE_URL}/${endpoint}`;
-    // const headers = { Authorization: `Bearer ${PlantsApi.token}` };
+    const headers = { Authorization: `Bearer ${PlantsApi.token}` };
     const params = (method === "get")
         ? data
         : {};
 
     try {
-      return (await axios({ url, method, data, params })).data;
+      return (await axios({ url, method, data, params, headers })).data;
     } catch (err) {
       console.error("API Error:", err.response);
       let message = err.response.data.error.message;
@@ -39,9 +40,7 @@ class PlantsApi {
 
   /**Get a single plant based off id */
   static async getPlant(plant_id) {
-    console.log('plant id ', plant_id)
     let res = await this.request(`plants/${plant_id}`);
-    console.log(res)
     return res;
   }
 
@@ -57,6 +56,7 @@ class PlantsApi {
     //if there is a res set the token to localStorage
     if (res) {
       localStorage.setItem('token', res.token);
+      PlantsApi.token = res.token;
     }
     return res;
   }
@@ -69,6 +69,7 @@ class PlantsApi {
     //if there is a res set the token to localStorage
     if (res) {
       localStorage.setItem('token', res.token);
+      PlantsApi.token = res.token;
     }
     return res;
   }
@@ -82,8 +83,14 @@ class PlantsApi {
 
 
   /********************** Plant List Routes *********************/
+  static async getUserLists(username) {
 
+    let res = await this.request(`users/${username}/plant-list`);
+    return res;
+  }
+  
   static async createList(title, user) {
+    console.log('API DATA', title, user)
     let data = {
       list_name: title,
       user_id: user
