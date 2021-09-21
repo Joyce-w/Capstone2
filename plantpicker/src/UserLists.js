@@ -17,7 +17,6 @@ function UserLists({ isLoggedIn }) {
     useEffect(() => {
         async function getUser(currUser) {
             const res = await PlantsApi.getUser(currUser);
-            console.log('res', res)
             setUser({
                 "user_id": res.user.id,
                 "username": res.user.username,
@@ -45,6 +44,7 @@ function UserLists({ isLoggedIn }) {
     const handleChange = (e) => {
         setListName(e.target.value)
     }
+    
     const handleNewList = async (e) => {
         await PlantsApi.createList(listName, user.user_id);
     }

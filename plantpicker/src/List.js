@@ -10,6 +10,7 @@ function List(listData) {
     const { list_id } = useParams();
 
     const [plantInfo, setPlantInfo] = useState([]);
+    const [listInfo, setListInfo] = useState([]);
 
     const history = useHistory();
 
@@ -18,6 +19,8 @@ function List(listData) {
         async function getList(id) {
             //get list of plants pertaining to the list_id 
             const res = await PlantsApi.getList(id);
+            // save list data
+            setListInfo(res);
             //gets plant data from res
             getData(res.plants_list)
         }
@@ -79,8 +82,8 @@ function List(listData) {
     
     return (
         <div className="List">
-            <h1>Plant List</h1>
-            <p>User information here</p>
+            <h1>{ listInfo.list_name}</h1>
+            <p>Created by { listInfo.username}</p>
                 <button onClick={()=> deleteList()}><Trash size={20}/> Delete Entire List</button>
                
                 <button onClick={(e) => handleNewForm(e)} className="collapsible"><PencilLine size={20} /> Edit Name</button>
