@@ -55,7 +55,7 @@ function Plant() {
         if (!userToken) {
             getUser(null)
         } else {
-            getUser( )
+            getUser(userToken.username)
         }
 
 
@@ -84,7 +84,6 @@ function Plant() {
         console.log(await PlantsApi.addPlantToList(list, plant_name))
         history.push(`/user-lists/${list}`)
     }
-
 
 
     return (
@@ -117,6 +116,7 @@ function Plant() {
                             <label for="plant-list"> Add to a list: </label>
                             <select value={list} onChange={(e) => handleChange(e.target.value)}>
                                 <option>Select from Dropdown</option>
+
                                 {usersPlantList.map(list =>
                                     <option value={list.id}>
                                         {list.list_name}
@@ -126,8 +126,8 @@ function Plant() {
                             <button > <PlusCircle size={30} /></button>
                         </form>
                     }
+
                     
-                    {usersPlantList && <h4><Link to="/user-lists">Create a plant list</Link> to add this to your collection!</h4>}
 
                 </div>
                 
