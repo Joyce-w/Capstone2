@@ -49,7 +49,6 @@ function List(listData) {
 
     const handleTrashClick = async (plant) => {
         //delete from api
-        console.log('params',list_id, plant)
         let res = await PlantsApi.deletePlantFromList(list_id, plant)
         console.log(res)
         history.push(`/user-lists/${list_id}`)

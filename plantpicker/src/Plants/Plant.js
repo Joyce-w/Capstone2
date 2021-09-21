@@ -41,14 +41,14 @@ function Plant() {
     let userToken = decodeToken(localStorage.getItem('token')) || null;
 
     //get plant list based off username
-    const [user, setUser] = useState(null)
+    const [usersPlantList, setUsersPlantList] = useState(null)
     
     useEffect(() => {
         async function getUser(currUser) {
             // const res = await PlantsApi.getUser(currUser);
             const plantList = await PlantsApi.getUserLists(currUser);
-            setUser(plantList.length === 0 ? null : plantList);
-            console.log('userlist', user)
+            console.log(plantList)
+            setUsersPlantList(plantList.length === 0 ? null : plantList);
         }
         getUser(userToken.username)
 
@@ -101,12 +101,12 @@ function Plant() {
 
                     {/* Select user list to add plant to*/}
                     
-                    {user ?
+                    {usersPlantList ?
                     <form onSubmit={(e) => handleSubmit(e)}>
                         <label for="plant-list"> Add to a list: </label>
                         <select value={list} onChange={(e) => handleChange(e.target.value)}>
                             <option>Select from Dropdown</option>
-                            {user.map(list =>
+                            {usersPlantList.map(list =>
                                 <option value={ list.id}>
                                     {list.list_name}
                                 </option>)

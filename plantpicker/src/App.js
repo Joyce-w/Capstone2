@@ -39,7 +39,7 @@ function App() {
   }
 
   
-  const [data, setData] = useState({})
+  const [data, setData] = useState(null)
 
   const getData = (answers, positions) => {
     let { lighting, watering, has_kids, has_pets, does_flower } = answers;
