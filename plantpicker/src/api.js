@@ -50,7 +50,6 @@ class PlantsApi {
   /**Login users */
   static async registerUser(formData) {
 
-    console.log(formData)
     let res = await this.request(`auth/register`, formData, "post")
 
     //if there is a res set the token to localStorage
@@ -86,19 +85,17 @@ class PlantsApi {
   static async getUserLists(username) {
 
     let res = await this.request(`users/${username}/plant-list`);
-    console.log('res', res)
+
     return res;
   }
   
   static async createList(title, user) {
-    console.log('API DATA', title, user)
     let data = {
       list_name: title,
       user_id: user
     }
 
     let res = await this.request(`lists/create`, data, "post");
-    console.log(res)
   }
 
   static async editListTitle(list_id, new_title) {
@@ -107,7 +104,6 @@ class PlantsApi {
       list_name: new_title
     }
     let res = await this.request(`lists/${list_id}`, data, "patch")
-    console.log(res)
   }
 
   static async getList(list_id) {
@@ -116,27 +112,24 @@ class PlantsApi {
   }
 
   static async deletePlantFromList(list, plant) {
-    console.log('api', list, plant)
     let res = await this.request(`lists/${list}/${plant}`, {}, "delete")
     return res;
     
   }
 
   static async deleteList(list_id) {
-    console.log('api', list_id)
     let res = await this.request(`lists/${list_id}`, {}, "delete")
     return res;
   }
 
   static async addPlantToList(list_id, plant_id) {
-    console.log(list_id, plant_id);
-    let res = await this.request(`lists/${list_id}`, { plant_id: plant_id }, "post")
-    console.log(res)
+
+  await this.request(`lists/${list_id}`, { plant_id: plant_id }, "post")
+
   }
 
   // fulter plants from quiz results
   static async quizResults(data) {
-    console.log('api data',data)
     let res = await this.request(`plants/results`, data , "post")
     return res;
   }

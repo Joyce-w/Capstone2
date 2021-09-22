@@ -122,7 +122,7 @@ function Plant() {
                     }
                     {!usersPlantList && userToken && <h4><Link to="/user-lists">Create a plant list</Link> to add this to your collection!</h4> }
 
-                    {!userToken && <h4>Create an account to this plant to your collection</h4>}
+                    {!userToken && <h4>Create an account to add this plant to your collection</h4>}
                     
 
                 </div>

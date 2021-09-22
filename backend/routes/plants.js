@@ -25,7 +25,6 @@ router.post('/results', async function (req, res, next) {
         console.log('results route', req.body);
         
         let plants = await Plant.filterPlants(req.body);
-        console.log('plants', plants)
         return res.json(plants)
     } catch (e) {
         next(e);

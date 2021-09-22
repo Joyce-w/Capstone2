@@ -6,11 +6,11 @@ function QuizForm({getData}) {
     const [step, setStep] = useState(0)
 
     const initalAnswers = {
-        lighting: '',
-        watering: '',
-        has_kids: '',
-        has_pets: '',
-        does_flower: ''
+        lighting: '6',
+        watering: undefined,
+        has_kids: undefined,
+        has_pets: undefined,
+        does_flower: undefined
     }
 
     const [quizAnswers, setQuizAnswers] = useState(initalAnswers);
@@ -38,7 +38,7 @@ function QuizForm({getData}) {
         }))
     }
 
-    const [pos, setPos] = useState([]);
+    const [pos, setPos] = useState(undefined);
     //check which boxes were checked from question 1 and saved the answers   
     function checked(e) {
         const { value } = e.target;
@@ -125,6 +125,7 @@ function QuizForm({getData}) {
                         <label for="lighting">Dim</label>
 
                         <input onChange={(e) => handleChange(e)}
+                            defaultValue="6"
                             type="range"
                             id="lighting"
                             name="lighting"
