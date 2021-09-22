@@ -86,6 +86,7 @@ class PlantsApi {
   static async getUserLists(username) {
 
     let res = await this.request(`users/${username}/plant-list`);
+    console.log('res', res)
     return res;
   }
   

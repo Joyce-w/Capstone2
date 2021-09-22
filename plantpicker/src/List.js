@@ -1,12 +1,11 @@
 // import "./UserLists.css";
 import { useEffect, useState, useContext } from 'react';
-import { useHistory, useParams, Link } from 'react-router-dom';
+import { useHistory, useParams, Link, Redirect } from 'react-router-dom';
 import { Trash, PencilLine } from "phosphor-react";
 import PlantsApi from "./api";
 import "./List.css"
 
-function List(listData) {
-    console.log(listData)
+function List() {
     const { list_id } = useParams();
 
     const [plantInfo, setPlantInfo] = useState([]);
@@ -40,21 +39,17 @@ function List(listData) {
 
     //Delete entire list
     const deleteList = (async () => {
-        console.log(list_id)
         await PlantsApi.deleteList(list_id)
-
         //redirect back to user list
         history.push(`/user-lists/`)
     })
 
-    const handleTrashClick = async (plant) => {
+    //delete plant from current list
+    const handleTrashClick = (async (e, plant) => {
         //delete from api
-        let res = await PlantsApi.deletePlantFromList(list_id, plant)
-        console.log(res)
-        history.push(`/user-lists/${list_id}`)
-    }
-
-
+        await PlantsApi.deletePlantFromList(list_id, plant)
+        window.location.reload();
+    })
 
     //Edit title
     const [listName, setListName] = useState("");
@@ -115,7 +110,7 @@ function List(listData) {
                                     <h4>{p.plant_name}</h4>
                             </div>
                             </Link>
-                            <button onClick={(e)=> handleTrashClick(p.id) }><Trash size={20}/></button>
+                            <button onClick={(e)=> handleTrashClick(e, p.id) }><Trash size={20}/></button>
                          
                         </div>
                     )

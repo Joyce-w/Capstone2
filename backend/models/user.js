@@ -186,6 +186,10 @@ class User {
             WHERE username =$1
             `, [username]
         );
+
+        if (res.rows.length === 0) {
+            return null;
+        }
         return res.rows;
     }
 }

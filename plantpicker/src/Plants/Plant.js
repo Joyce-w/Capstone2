@@ -14,7 +14,7 @@ function Plant() {
     //create state to store plant data
     const [plant, setPlant] = useState({});
 
-    //Get plant data
+    //Get plant data from API
     useEffect(() => {
         async function getPlant(name) {
             
@@ -37,23 +37,24 @@ function Plant() {
     // Get user plant list
 
   
-    //get token from local storage to display current [plant lists]
-    let userToken = decodeToken(localStorage.getItem('token')) || null;
-
+    //get username from token from local storage to display current [plant lists]
+    let userToken = decodeToken(localStorage.getItem('token'));
+    console.log('userTOken', userToken)
+    
     //get plant list based off username
     const [usersPlantList, setUsersPlantList] = useState(null)
     
     const history = useHistory();
     useEffect(() => {
         async function getUser(currUser) {
-            // const res = await PlantsApi.getUser(currUser);
-            const plantList = await PlantsApi.getUserLists(currUser);
-            console.log(plantList)
-            setUsersPlantList(plantList.length === 0 ? null : plantList);
+            const res = await PlantsApi.getUser(currUser);
+   
+            const plantList = await PlantsApi.getUserLists(currUser || null);
+            !plantList ? setUsersPlantList(null) : setUsersPlantList(plantList);
         }
 
         if (!userToken) {
-            getUser(null)
+            setUsersPlantList(null)
         } else {
             getUser(userToken.username)
         }
@@ -75,16 +76,9 @@ function Plant() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('hello')
-        let res = await PlantsApi.addPlantToList(list, plant_name);
-
-        if (!res) {
-            
-        }
-        console.log(await PlantsApi.addPlantToList(list, plant_name))
+         await PlantsApi.addPlantToList(list, plant_name);
         history.push(`/user-lists/${list}`)
     }
-
 
     return (
         <>
@@ -111,7 +105,7 @@ function Plant() {
 
                     {/* Select user list to add plant to*/}
                     
-                    {usersPlantList &&
+                    {usersPlantList && 
                         <form onSubmit={(e) => handleSubmit(e)}>
                             <label for="plant-list"> Add to a list: </label>
                             <select value={list} onChange={(e) => handleChange(e.target.value)}>
@@ -124,9 +118,11 @@ function Plant() {
                                 }
                             </select>
                             <button > <PlusCircle size={30} /></button>
-                        </form>
+                        </form> 
                     }
+                    {!usersPlantList && userToken && <h4><Link to="/user-lists">Create a plant list</Link> to add this to your collection!</h4> }
 
+                    {!userToken && <h4>Create an account to this plant to your collection</h4>}
                     
 
                 </div>
