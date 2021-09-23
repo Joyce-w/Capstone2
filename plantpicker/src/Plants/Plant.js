@@ -34,8 +34,6 @@ function Plant() {
         }
     }, [plant_name])
     
-    // Get user plant list
-
   
     //get username from token from local storage to display current [plant lists]
     let userToken = decodeToken(localStorage.getItem('token'));
@@ -72,13 +70,25 @@ function Plant() {
         setList(list_id)
     }
 
+
+    // Set state to load user errors
+    const [error, setError] = useState(null);
+    
     //handle form submit when a list is selected
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-         await PlantsApi.addPlantToList(list, plant_name);
-        history.push(`/user-lists/${list}`)
+
+        try {
+            await PlantsApi.addPlantToList(list, plant_name);
+            history.push(`/user-lists/${list}`)
+        } catch (error) {
+            setError(error)
+        }
+
     }
+
+
 
     return (
         <>
@@ -107,6 +117,7 @@ function Plant() {
                     
                     {usersPlantList && 
                         <form onSubmit={(e) => handleSubmit(e)}>
+                        {error && <p>{ error } Please pick another!</p>}
                             <label for="plant-list"> Add to a list: </label>
                             <select value={list} onChange={(e) => handleChange(e.target.value)}>
                                 <option>Select from Dropdown</option>

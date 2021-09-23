@@ -74,6 +74,10 @@ router.post("/:list_id", async function (req, res, next) {
         let plant = await PlantList.addPlant(req.params.list_id, plant_id);
         return res.json({new: plant});
     } catch (e) {
+        // if (e) {
+        //     console.log('error response data', e.message)
+        //     setError(error)
+        // }
         next(e);
     }
 });

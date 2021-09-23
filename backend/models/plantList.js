@@ -135,7 +135,7 @@ class PlantList {
         `, [plant, list_id])
 
         //check if plant exists
-        console.log(checkDupe.rows)
+
         if (checkDupe.rows.length > 0) throw new BadRequestError('Duplicate plant in list.');
 
         let newPlant = await db.query(`
