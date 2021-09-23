@@ -183,12 +183,6 @@ class Plants {
     static async filterPlants(searchFilters = {}) {
 
         let { pos, lighting, has_kids, has_pets, does_flower, watering } = searchFilters;
-        
-        // pos = pos.sort().join('')
-        //format answers 
-        // has_kids = has_kids === "1" ? true : false;
-        // has_pets = has_pets === "1" ? true : false;
-        // does_flower = does_flower === "1" ? true : false;
 
         const formatVal = (key_name) => {
             if (key_name === "1") {
