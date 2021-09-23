@@ -128,13 +128,13 @@ function Plant() {
                     
                     {usersPlantList && 
                         <form onSubmit={(e) => handleSubmit(e)}>
-                        {error && <p>{ error } Please pick another!</p>}
-                            <label for="plant-list"> Add to a list: </label>
+                        {error && <p>{ error } </p>}
+                            <label htmlFor="plant-list"> Add to a list: </label>
                             <select value={list} onChange={(e) => handleChange(e.target.value)}>
                                 <option>Select from Dropdown</option>
 
                                 {usersPlantList.map(list =>
-                                    <option value={list.id}>
+                                    <option key={ list.id } value={list.id}>
                                         {list.list_name}
                                     </option>)
                                 }

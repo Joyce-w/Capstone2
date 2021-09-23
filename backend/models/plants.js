@@ -186,10 +186,31 @@ class Plants {
         
         // pos = pos.sort().join('')
         //format answers 
-        has_kids = has_kids === "1" ? true : false;
-        has_pets = has_pets === "1" ? true : false;
-        does_flower = does_flower === "1" ? true : false;
+        // has_kids = has_kids === "1" ? true : false;
+        // has_pets = has_pets === "1" ? true : false;
+        // does_flower = does_flower === "1" ? true : false;
+
+        const formatVal = (key_name) => {
+            if (key_name === "1") {
+                key_name = true;
+                return key_name;
+            } else if (key_name === "0") {
+                key_name = false;
+                return key_name;
+            } else {
+                key_name = undefined;
+                return key_name;
+            }
+        }
+
+        has_kids = formatVal(has_kids);
+        has_pets = formatVal(has_pets);
+        does_flower = formatVal(does_flower);
+        pos = pos === '' ? undefined : pos;
+
+
         lighting = parseInt(lighting);
+        if (pos === '') pos = undefined;
         console.log('res', pos, lighting, has_kids, has_pets, does_flower, watering)
 
         let whereExpressions = [];
@@ -223,7 +244,7 @@ class Plants {
             queryValues.push(lighting)
             whereExpressions.push(`lighting=$${queryValues.length}`)
         }
-        if (watering !== undefined) {
+        if (watering !== 'unsure') {
             queryValues.push(watering)
             whereExpressions.push(`drought_tolerant=$${queryValues.length}`)
         }
@@ -247,7 +268,7 @@ class Plants {
             whereExpressions.push(`flowering=$${queryValues.length}`);
         }
         if (pos !== undefined) {
-            pos = pos.sort().join('');
+            pos = pos.sort().join('%');
             queryValues.push(pos)
             whereExpressions.push(`placements LIKE $${queryValues.length}`)
         }
@@ -258,6 +279,7 @@ class Plants {
         }
 
         console.log('queryValues', queryValues)
+        console.log('query', query)
 
         let res = await db.query(query, queryValues);
         // let filteredPlants = res.rows.map(p => p.id)

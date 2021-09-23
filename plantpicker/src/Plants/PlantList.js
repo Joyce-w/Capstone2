@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import "./PlantList.css";
-import { PlusCircle } from "phosphor-react";
 import PlantsApi from "../api";
 
 
@@ -34,7 +33,6 @@ function PlantList() {
                             <img src={ p.img } alt={p.plant_name} class="image"></img>
                                 <div class="overlay">
                                      <h3 className="card-title">{ p.plant_name}</h3>
-                                    <PlusCircle size={35} className="plusCircle"/>
                                 </div>
                         </div>
 

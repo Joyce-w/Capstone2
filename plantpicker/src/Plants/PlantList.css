@@ -6,19 +6,6 @@
     margin: auto 10%;
 }
 
-.plusCircle{
-    position: absolute;
-    color: #74B49B;
-    right: 1%;
-    top: 1%;
-    transition: transform 1s 0s ease-in ;
-}
-
-.plusCircle:hover{
-    transform: rotate(360deg);
-
-}
-
 /* Overlay div */
  .container {
     position: relative;

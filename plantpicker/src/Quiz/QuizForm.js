@@ -38,12 +38,13 @@ function QuizForm({getData}) {
         }))
     }
 
-    const [pos, setPos] = useState(undefined);
+    const [pos, setPos] = useState('');
     //check which boxes were checked from question 1 and saved the answers   
     function checked(e) {
         const { value } = e.target;
 
         if (e.target.checked) {
+
             if (!pos.includes(e.target.value)) {
                 setPos((pos) => ([...pos, value]))
                 console.log(pos)
@@ -85,7 +86,7 @@ function QuizForm({getData}) {
                             value="F"
                             onChange={(e) => checked(e) } 
                         ></input>
-                        <label  for="F">Floor</label>
+                        <label  htmlFor="F">Floor</label>
                     </div>
                     <div>
                         <input
@@ -94,7 +95,7 @@ function QuizForm({getData}) {
                             value="H"
                             onChange={(e) => checked(e) } 
                         ></input>
-                        <label for="H">Hanging plant!</label>
+                        <label htmlFor="H">Hanging plant!</label>
                     </div>
                     <div>
                         <input
@@ -103,7 +104,7 @@ function QuizForm({getData}) {
                             value="T"
                             onChange={(e) => checked(e) } 
                         ></input>
-                        <label for="T">Table or a desk</label>
+                        <label htmlFor="T">Table or a desk</label>
                     </div>
                     <div>
                         <input
@@ -112,7 +113,7 @@ function QuizForm({getData}) {
                             value="W"
                             onChange={(e) => checked(e) } 
                         ></input>
-                        <label for="W">Window</label>
+                        <label htmlFor="W">Window</label>
                     </div>
                 </section>}
 
@@ -122,7 +123,7 @@ function QuizForm({getData}) {
 
 
                     <div>
-                        <label for="lighting">Dim</label>
+                        <label htmlFor="lighting">Dim</label>
 
                         <input onChange={(e) => handleChange(e)}
                             defaultValue="6"
@@ -134,7 +135,7 @@ function QuizForm({getData}) {
                             list="lighting">
                         </input>
                         
-                        <label for="lighting">Bright</label>
+                        <label htmlFor="lighting">Bright</label>
                     </div>
 
                 </section>}
@@ -149,7 +150,7 @@ function QuizForm({getData}) {
                             onClick={(e) => handleChange(e)}>
                             
                             </input>
-                            <label for="kids">Yes!</label>
+                            <label htmlFor="kids">Yes!</label>
                         </div>
                         <div>
                         <input type="radio"
@@ -158,8 +159,17 @@ function QuizForm({getData}) {
                             name="has_kids"
                             onClick={(e) => handleChange(e)}>
                             </input>
-                            <label for="kids">Nope</label>
-                    </div>
+                            <label htmlFor="kids">Nope</label>
+                        </div>
+                        <div>
+                        <input type="radio"
+                            id="kids"
+                            value="unsure"
+                            name="has_kids"
+                            onClick={(e) => handleChange(e)}>
+                            </input>
+                            <label htmlFor="kids">Not sure</label>
+                        </div>
                 </section>}
 
                 {step === 3 && <section>
@@ -171,7 +181,7 @@ function QuizForm({getData}) {
                             name="has_pets"
                             onClick={(e) => handleChange(e)}>
                             </input>
-                            <label for="pets">Yes!</label>
+                            <label htmlFor="pets">Yes!</label>
                         </div>
                         <div>
                         <input type="radio"
@@ -180,7 +190,16 @@ function QuizForm({getData}) {
                             name="has_pets"
                             onClick={(e) => handleChange(e)}>
                             </input>
-                            <label for="pets">Nope</label>
+                            <label htmlFor="pets">Nope</label>
+                        </div>
+                        <div>
+                        <input type="radio"
+                            id="pets"
+                            value="unsure"
+                            name="has_pets"
+                            onClick={(e) => handleChange(e)}>
+                            </input>
+                            <label htmlFor="pets">Not sure</label>
                         </div>
                 </section>}
  
@@ -193,7 +212,7 @@ function QuizForm({getData}) {
                             name="does_flower"
                             onClick={(e) => handleChange(e)}>
                             </input>
-                            <label for="flowering">Yes!</label>
+                            <label htmlFor="flowering">Yes!</label>
                         </div>
                         <div>
                         <input type="radio"
@@ -202,16 +221,16 @@ function QuizForm({getData}) {
                             name="does_flower"
                             onClick={(e) => handleChange(e)}>
                             </input>
-                            <label for="flowering">Noo</label>
+                            <label htmlFor="flowering">Noo</label>
                         </div>
                         <div>
                             <input type="radio"
                                 id="flowering"
-                                value=""
+                                value="unsure"
                                 name="does_flower"
                                 onClick={(e) => handleChange(e)}>
                             </input>
-                            <label for="flowering">Doesn't matter</label>
+                            <label htmlFor="flowering">Doesn't matter</label>
                         </div>
                 </section>}
 
@@ -221,11 +240,11 @@ function QuizForm({getData}) {
                         <div>
                             <input type="radio"
                                 id="watering"
-                                value=""
+                                value='unsure'
                                 name="watering"
                                 onClick={(e) => handleChange(e)}>
                             </input>
-                            <label for="watering">Not sure, I'm a beginner</label>
+                            <label htmlFor="watering">Not sure</label>
                         </div>
                         <div>
                             <input type="radio"
@@ -234,7 +253,7 @@ function QuizForm({getData}) {
                                 name="watering"
                                 onClick={(e) => handleChange(e)}>
                             </input>
-                            <label for="watering">I'm dedicated to keeping them alive!</label>
+                            <label htmlFor="watering">I'm dedicated to keeping them alive!</label>
                         </div>
                         <div>
                             <input type="radio"
@@ -243,7 +262,7 @@ function QuizForm({getData}) {
                                 name="watering"
                                 onClick={(e) => handleChange(e)}>
                             </input>
-                            <label for="watering">I forget now and then</label>
+                            <label htmlFor="watering">I forget now and then</label>
                         </div>
                         <div>
                             <input type="radio"
@@ -252,7 +271,7 @@ function QuizForm({getData}) {
                                 name="watering"
                                 onClick={(e) => handleChange(e)}>
                             </input>
-                            <label for="watering">I am pretty forgetful</label>
+                            <label htmlFor="watering">I am pretty forgetful</label>
                         </div>                
                 </section>}
 

@@ -103,7 +103,7 @@ function List() {
                 {plantInfo ?
                     
                     plantInfo.map(p =>
-                        <div class="Plant-card">
+                        <div key={ p.id } className="Plant-card">
                             <Link to={`/plants/${p.id}` }>
                             <img src={p.img}className="Plant-card-img" alt={p.plant_name}></img>
                             <div className="Plant-card-body">
