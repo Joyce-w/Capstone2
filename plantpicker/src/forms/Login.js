@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import './Login.css';
 import { useHistory } from "react-router-dom"
 import PlantsApi from "../api";
+import useErrorHandling from "../hooks/useErrorHandling";
 
 function Login({loginUser}) {
 
@@ -27,15 +28,24 @@ function Login({loginUser}) {
     return res
   }
 
-  const history = useHistory();
+
+
+  // useErrorHandling hook to display necessary error messages
+  const [error, setErrorMsg] = useErrorHandling(null);
+    
+  // const history = useHistory();
   
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    await getToken(formData);
-    loginUser();
+    setErrorMsg(getToken(formData), `/`, loginUser)
     setFormData(inital_state)
-    history.push('/');     
+
+    // await getToken(formData);
+    // loginUser();
+    // setFormData(inital_state)
+    // history.push('/');     
   };
 
 
@@ -44,6 +54,7 @@ function Login({loginUser}) {
         
            <form className="Login-form" onSubmit={ handleSubmit }>
               <h1> Login </h1>
+        {error && <p>{ error }</p>}
               <label htmlFor="username">Username</label>
                 <input
                   type="text"

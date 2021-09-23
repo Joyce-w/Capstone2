@@ -5,6 +5,8 @@ import "./Plant.css";
 import PlantsApi from "../api";
 import { decodeToken } from "react-jwt";
 
+import useErrorHandling from "../hooks/useErrorHandling";
+
 
 function Plant() {
 
@@ -71,23 +73,32 @@ function Plant() {
     }
 
 
-    // Set state to load user errors
-    const [error, setError] = useState(null);
+    // useErrorHandling hook to display necessary error messages
+    const [error, setErrorMsg] = useErrorHandling(null)
     
     //handle form submit when a list is selected
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        try {
-            await PlantsApi.addPlantToList(list, plant_name);
-            history.push(`/user-lists/${list}`)
-        } catch (error) {
-            setError(error)
-        }
-
+        setErrorMsg(PlantsApi.addPlantToList(list, plant_name), `/user-lists/${list}`, null)
     }
 
+    /**Try and catch to display error message if an api returns an error
+     * the above handleSubmit incorporates a universal hook 
+     * DELETE if hook is successfully incorporated in other area! 
+     */
+
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+
+    //     try {
+    //         await PlantsApi.addPlantToList(list, plant_name);
+    //         history.push(`/user-lists/${list}`)
+    //     } catch (error) {
+    //         setError(error)
+    //     }
+
+    // }
 
 
     return (
