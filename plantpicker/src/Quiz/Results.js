@@ -30,7 +30,7 @@ function Results({data}) {
 <div className="quizResults">
             <h1> Quiz Results </h1>
             <div className="quizResults-List">
-                    {allPlants.length === 0 ? <span><h3>There doesn't seem to be a match. <Link to="/quiz">Try again? </Link> </h3></span> :
+                    {allPlants.length === 0 ? <span><h3>There doesn't seem to be a match. <Link to="/quiz"><p>Try again? </p></Link> </h3></span> :
                     allPlants.map(p =>
                         <div className="card" key={p.id}>
                             <Link to={`/plants/${p.id}` }>

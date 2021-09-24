@@ -288,6 +288,3 @@ class Plants {
 
 
 module.exports = Plants;
-
-
-// SELECT id FROM plants WHERE lighting=5 AND drought_tolerant='high' AND kid_friendly=true AND pet_friendly=$4 AND flowering=$5 AND placements LIKE $6
