@@ -47,9 +47,6 @@ async function commonBeforeAll() {
     
 }
 
-
-
-
 async function commonBeforeEach() {
   await db.query("BEGIN");
 }
@@ -68,5 +65,4 @@ module.exports = {
   commonBeforeEach,
   commonAfterEach,
   commonAfterAll,
-  testJobIds,
 };

@@ -1,9 +1,14 @@
 "use strict";
+process.env.NODE_ENV === "test"
 
-const request = require("supertest");
+const db = require("../db.js");
+const {ExpressError,
+  NotFoundError,
+  UnauthorizedError,
+  BadRequestError,
+  ForbiddenError} = require("../ExpressError")
 
-const app = require("../app");
-
+const PlantList = require("../models/plantList");
 const {
   commonBeforeAll,
   commonBeforeEach,
@@ -16,27 +21,14 @@ beforeEach(commonBeforeEach);
 afterEach(commonAfterEach);
 afterAll(commonAfterAll);
 
-/************************************** POST /auth/token */
+describe("create", function () {
+  const newList = {
+    title: "New Title",
+    user: 1
+  }
 
-describe("POST /auth/token", function () {
   test("works", async function () {
-    const resp = await request(app)
-        .post("/auth/token")
-        .send({
-          username: "u1",
-          password: "password1",
-        });
-    expect(resp.body).toEqual({
-      "token": expect.any(String),
-    });
-  });
-
-  test("unauth with non-existent user", async function () {
-    const resp = await request(app)
-        .post("/auth/token")
-        .send({
-          username: "no-such-user",
-          password: "password1",
-        });
-    expect(resp.statusCode).toEqual(401);
-  });
+    let list = await PlantList.create(newList);
+    expect(list).toEqual(newList)
+  })
+})

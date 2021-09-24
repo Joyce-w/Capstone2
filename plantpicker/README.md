@@ -1,83 +1,43 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Plant + Pot
+This capstone was inspired by the new plant parents that emerged during the pandemic. Some may already have a green thumb while others are just starting. Plant + Pot visitors can take a quiz to determine what kind of plants are suited for their environment. Visitors can also create an account and create a list to save plants for certain rooms/people.
 
-## Available Scripts
+<!-- ### Plant + Pot Preview
 
-In the project directory, you can run:
+![Big Two Preview](BigTwoPreview.gif) -->
 
-### `npm start`
+### Installation and Setup Instructions
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+You will need `node` and `npm` installed globally on your machine.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Installation:
+`npm install`
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
- 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Setting up database. Setup the sql database in the following order:
+1. plantPickerSchema.sql
+2. plants.sql
+3. seed.sql
 
 
-Explain lighting numbering on backend
+Start Server:
+`npm start`
 
-Time:
-Week1: 26.5 hrs
-Week2: 26.5 hrs 
+View App:
+Open [http://localhost:3000/](http://localhost:3000/)
+
+### Reflection
+Plant + Pot uses Express and React. This project took ~60 hours to create a running app. This does not include any stylistic changes. 
+
+Some problems that I encountered while completing this project:
+
+- In the quiz portion of the app. The values to some questions such as "Do you have pets around" is denoted with "1" ,"0", and "unsure" to represent true,false, and undefined respectively when the user's answers are sent to the backend. I was unable to set "undefined" or "null" on the form as it is converted to a string once the form is sent to Express for further handling. I got around this dillema by creating further functions to convert the string values to the desired format in Express before runing a query search. 
+
+- Had a small struggle connecting Express routes to React since it was one of my first attempts.
+- Formatting the quiz correctly to yield desired data.
+- Displaying error messages from the api end whenever applicable. 
 
 
-Seeding: 
-1. plantPickerSchema
-2. plants
-3. seed
+### This project was made solo by Joyce Wong! 
+- [Linkedin](https://www.linkedin.com/in/hello-joycewong/)
+- [GitHub](https://github.com/Joyce-w)
+
