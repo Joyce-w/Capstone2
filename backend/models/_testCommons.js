@@ -8,8 +8,8 @@ const testJobIds = [];
 async function commonBeforeAll() {
   await db.query("DELETE FROM users");
   await db.query("DELETE FROM plants");
-  await db.query("DELETE FROM user_lists");
-  await db.query("DELETE FROM plant_list");
+  // await db.query("DELETE FROM user_lists");
+  // await db.query("DELETE FROM plant_list");
 
   await db.query(`
     INSERT INTO plants
@@ -31,19 +31,19 @@ async function commonBeforeAll() {
     ('test1','t1@gmail.com','123'),
     ('test2', 't2@gmail.com', '123');`);
 
-  await db.query(`
-    INSERT INTO user_lists (list_name, user_id)
-    VALUES ('first_list', 1),
-    ('second_list',
-    2);` );
+  // await db.query(`
+  //   INSERT INTO user_lists (list_name, user_id)
+  //   VALUES ('first_list', 1),
+  //   ('second_list',
+  //   2);` );
 
-  await db.query(`
-    INSERT INTO plant_list (user_list_id, plant_id)
-        VALUES
-        (1, 'peperomia'), 
-        (2, 'hibiscus'), 
-        (2, 'anthurium'), 
-        (1, 'philodendron');` );
+  // await db.query(`
+  //   INSERT INTO plant_list (user_list_id, plant_id)
+  //       VALUES
+  //       (1, 'philodendron'), 
+  //       (2, 'chinese_evergreen'), 
+  //       (2, 'dieffenbachia'), 
+  //       (1, 'philodendron');` );
     
 }
 

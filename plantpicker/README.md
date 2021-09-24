@@ -37,7 +37,7 @@ Some problems that I encountered while completing this project:
 - Displaying error messages from the api end whenever applicable. 
 
 
-### This project was made solo by Joyce Wong! 
+Connect with me!
 - [Linkedin](https://www.linkedin.com/in/hello-joycewong/)
 - [GitHub](https://github.com/Joyce-w)
 
