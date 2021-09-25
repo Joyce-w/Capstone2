@@ -21,7 +21,7 @@ beforeEach(commonBeforeEach);
 afterEach(commonAfterEach);
 afterAll(commonAfterAll);
 
-describe("create user", function () {
+describe("create plant", function () {
     const newPlant = {
         id: "test_plant",
         plant_name: "test_plant",
@@ -48,5 +48,64 @@ describe("create user", function () {
         }
     });
 
-
 })
+
+describe("Get single plant", async function () {
+
+
+    test("check single plant", async function () {
+        let plant = await Plant.getPlant('chinese_evergreen');
+        expect(plant.plant_name).toEqual('Chinese Evergreen');
+        expect(plant.max_height).toEqual(36);
+    });
+
+    test("check fake plant", async function () {
+        try {
+            await db.query(`SELECT * from plants WHERE id='Not_A_Plant'`);
+        } catch (err) {
+            expect(err instanceof NotFoundError).toBeTruthy();
+        }
+    });
+});
+
+describe("Get all plants", async function () {
+
+    test("Check all plants", async function () {
+        let plants = await Plant.getAllPlants();
+        expect(plants.length).toEqual(7);
+        expect(plants[6].id).toEqual('philodendron');
+    });
+
+});
+
+describe("Show results for filtered plants", async function () {
+
+    test("Check filtered plant", async function () {
+        const searchResult = {
+            pos: ["F","T","W"],
+            lighting: 5,
+            has_kids: "1",
+            has_pets: "1",
+            does_flower:"0",
+            watering:"high"
+        }
+
+        let plants = await Plant.filterPlants(searchResult);
+        expect(plants[0].id).toEqual('norfolk_island_pine');
+    });
+
+    test("Non-matching plant", async function () {
+        const searchResult = {
+            pos: ["H"],
+            lighting: 0,
+            has_kids: "1",
+            has_pets: "1",
+            does_flower:"0",
+            watering:"high"
+        }
+
+        let plants = await Plant.filterPlants(searchResult);
+        expect(plants.length).toEqual(0);
+    });
+
+});

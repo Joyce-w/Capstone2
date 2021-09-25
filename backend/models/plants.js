@@ -185,7 +185,6 @@ class Plants {
     static async filterPlants(searchFilters = {}) {
 
         let { pos, lighting, has_kids, has_pets, does_flower, watering } = searchFilters;
-
         const formatVal = (key_name) => {
             if (key_name === "1") {
                 key_name = true;
@@ -207,7 +206,6 @@ class Plants {
 
         lighting = parseInt(lighting);
         if (pos === '') pos = undefined;
-        console.log('res', pos, lighting, has_kids, has_pets, does_flower, watering)
 
         let whereExpressions = [];
         let queryValues = [];
