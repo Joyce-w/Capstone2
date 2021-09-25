@@ -85,7 +85,6 @@ describe("login user", function () {
     test("check if login works", async function () {
         await User.register(newUser);
         let loginUser = await User.login("testing1", "testing1");
-        console.log('passwords', loginUser)
         expect(loginUser.username).toEqual("testing1")
     });
     test("check if login works", async function () {
@@ -124,3 +123,18 @@ describe("login user", function () {
         }
     });
 });
+
+
+describe("get single user", function () {
+    test("if user is in db", async function () {
+        let user = await db.query(`SELECT * FROM users WHERE username = 'test1';`)
+        expect(user.rows[0].email).toEqual('t1@gmail.com');
+    });
+    test("Non-existing user", async function () {
+        try {
+            await db.query(`SELECT * FROM users WHERE username = 'FakeUsername'`)
+        } catch (err) {
+            expect(err instanceof NotFoundError).toBeTruthy();             
+        }
+    });
+})

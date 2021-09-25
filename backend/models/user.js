@@ -107,16 +107,6 @@ class User {
     */
     static async getAllUsers() {
 
-        // const res = await db.query(`
-        //     SELECT
-        //     users.username,
-        //     users.email,
-        //     user_lists.list_name
-        //     FROM user_lists
-        //     FULL JOIN users ON user_lists.user_id = users.id
-        //     FULL JOIN plant_list ON plant_list.user_list_id = user_lists.id
-        //     GROUP BY user_lists.list_name, users.username, users.email;
-        // `)
         const res = await db.query(`
             SELECT
             id,
