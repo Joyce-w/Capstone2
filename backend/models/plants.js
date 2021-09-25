@@ -24,7 +24,9 @@ class Plants {
         if (dupeCheck.rows[0]) {
            throw new BadRequestError(`${id} already exists`) 
         } 
-        
+        // check if required data is passed in
+        if (!id || !plant_name || !details) throw new ExpressError("Must have minimum required fields: id, plant_name, and details")
+
         /**Insert data into plant table in db */
         const res = await db.query(
             `INSERT INTO plants

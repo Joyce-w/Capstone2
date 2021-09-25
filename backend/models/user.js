@@ -7,10 +7,16 @@ const { BCRYPT_WORK_FACTOR } = require("../config");
 
 class User {
 
-    // ///////*put register/authorize() in auth route eventually//// */
     /**Registers user with username, email, password */
     static async register(req_body) {
         const { username, email, password } = req_body;
+
+        // Check for duplicate username
+        let isDupe = await db.query(`
+            SELECT username FROM users WHERE username=$1
+        `, [username]);
+        if(isDupe.rows.length > 0) throw new BadRequestError(`The username ${username} is already taken.`)
+
         //check if all the fields are filled
         if (!username || !email || !password) {
             throw new ExpressError("Username, email, and password fields must be filled.", 400)
@@ -26,14 +32,12 @@ class User {
         RETURNING username, email;`,
             [username, email, hashedPassword])
         
-        console.log('register model',newUser.rows[0])
         return newUser.rows[0];
     }
 
     // /**Logs a user in given username and password */
     static async login(username, password) {
 
-        // const { username, password } = credentials;
         if (!username || !password) throw new ExpressError("Username and password required.", 404)
 
         let res = await db.query(`
@@ -50,14 +54,13 @@ class User {
                 delete user.password;
                 return user;
             }
+            throw new ExpressError("Invalid username/password!", 400);            
         }
         
-        throw new ExpressError("Invalid username/password!", 400);
+
 
 
     }
-    // ///////////////////////////////////
-
 
 
     /**Gets user based on  username
@@ -145,7 +148,7 @@ class User {
         const { setCols, values } = sqlForPartialUpdate(data, {});
         //sets the plant id to be 1 + the values length;
         const idVarIdx = "$" + (values.length + 1);
-        console.log(idVarIdx)
+        
         const userQuery = (`
             UPDATE users
             SET ${setCols}
@@ -164,7 +167,7 @@ class User {
     /**Remove users */
     static async remove(username) {
         //Check if password is correct
-        console.log('username', username)
+
         //if correct delete from db
         let res = await db.query(`
         DELETE FROM users
