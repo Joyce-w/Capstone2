@@ -57,9 +57,6 @@ class User {
             throw new ExpressError("Invalid username/password!", 400);            
         }
         
-
-
-
     }
 
 

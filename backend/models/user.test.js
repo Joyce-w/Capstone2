@@ -84,15 +84,43 @@ describe("login user", function () {
     
     test("check if login works", async function () {
         await User.register(newUser);
+        let loginUser = await User.login("testing1", "testing1");
+        console.log('passwords', loginUser)
+        expect(loginUser.username).toEqual("testing1")
+    });
+    test("check if login works", async function () {
+        await User.register(newUser);
 
-        let user = await db.query(`
+        await db.query(`
             SELECT username, pw
             FROM users
             WHERE username = $1;
         `, ['testing1']);
 
         let loginUser = await User.login("testing1", "testing1");
-        console.log('passwords', loginUser)
         expect(loginUser.username).toEqual("testing1")
+    });
+    test("check if login works", async function () {
+        await User.register(newUser);
+
+        await db.query(`
+            SELECT username, pw
+            FROM users
+            WHERE username = $1;
+        `, ['testing1']);
+
+        try {
+            await User.login("noValidUser", "testing1");
+        } catch {
+            expect(err instanceof ExpressError).toBeTruthy();            
+        }
+    });
+    test("incorrect login credential", async function () {
+
+        try {
+            await User.login("noValidUser", "noPassword");
+        } catch {
+            expect(err instanceof ExpressError).toBeTruthy();            
+        }
     });
 });
