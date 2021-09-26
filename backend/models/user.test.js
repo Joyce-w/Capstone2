@@ -22,7 +22,7 @@ afterEach(commonAfterEach);
 afterAll(commonAfterAll);
 
 describe("create user", function () {
-  const newUser = {
+    const newUser = {
       username: "testing1",
       email: "testing1@gmail.com",
       password: "testing1"

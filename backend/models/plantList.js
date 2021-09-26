@@ -54,8 +54,6 @@ class PlantList {
             GROUP BY  ul.id, ul.list_name,u.username;
         `, [list_id])
 
-        console.log(listRes.rows[0])
-
         //check to see if list exists
         if (listRes.rows.length === 0) {
             throw new ExpressError("List cannot be found", 404);
@@ -98,7 +96,6 @@ class PlantList {
             RETURNING  id, list_name, user_id;
         `,[listName,list_id])
 
-        console.log(res.rows[0])
         return res.rows[0];
     }
 
