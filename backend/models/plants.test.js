@@ -52,7 +52,6 @@ describe("create plant", function () {
 
 describe("Get single plant", async function () {
 
-
     test("check single plant", async function () {
         let plant = await Plant.getPlant('chinese_evergreen');
         expect(plant.plant_name).toEqual('Chinese Evergreen');
