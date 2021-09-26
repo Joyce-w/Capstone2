@@ -9,6 +9,7 @@ const filterPlants = require('../helpers/filterPlants');
 const { ensureLoggedIn } = require("../middleware/middleware")
 
 const router = new express.Router();
+
 /** Creates a new list that stores plants for a user */
 router.post('/create', ensureLoggedIn, async function (req, res, next) {
     try {
@@ -33,7 +34,6 @@ router.get("/", async function (req, res, next) {
 /**GET a single plant list based on list_id */
 router.get("/:list_id", async function (req, res, next) {
     try {
-        console.log(req.params.list_id);
         let plantList = await PlantList.getList(req.params.list_id);
         return res.json(plantList);
     } catch (e) {
@@ -74,10 +74,6 @@ router.post("/:list_id", async function (req, res, next) {
         let plant = await PlantList.addPlant(req.params.list_id, plant_id);
         return res.json({new: plant});
     } catch (e) {
-        // if (e) {
-        //     console.log('error response data', e.message)
-        //     setError(error)
-        // }
         next(e);
     }
 });
@@ -93,6 +89,11 @@ router.delete("/:list_id/:plant_id", async function (req, res, next) {
         next(e);
     }
 });
+
+
+/**
+ * The folowing routes were created but have not been used yet in the application 
+ * */
 
 
 

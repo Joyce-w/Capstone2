@@ -53,6 +53,7 @@ router.post('/results', async function (req, res, next) {
  * The folowing routes were created but have not been used yet in the application 
  * */
 
+
 /* Add new plant data into db
 * requires: {id,plant_name,details,lighting,kid_friendly,pet_friendly,max_height,flowering,min_temp, max_temp,environment} => id, plant_name
 */

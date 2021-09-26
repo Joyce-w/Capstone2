@@ -1,8 +1,8 @@
-const bcrypt = require("bcrypt");
-
+const request = require("supertest");
+const app = require("../app");
 const db = require("../db.js");
 const { BCRYPT_WORK_FACTOR } = require("../config");
-const testJobIds = [];
+const { createToken } = require("../helpers/tokens");
 
 async function commonBeforeAll() {
   await db.query("DELETE FROM users");
@@ -55,9 +55,34 @@ async function commonAfterAll() {
 }
 
 
+//   // set user token
+//   let userToken = userToken = async () => { 
+//     // Register new user
+//     await request(app)
+//     .post("/auth/register")
+//     .send({
+//       username: "testingUser1",
+//       email: "testingUser1@gmail.com",
+//       password: "password"
+//     });
+
+//     // login with new user credentials 
+//     const resp = await request(app)
+//         .post("/auth/login")
+//         .send({
+//         username: "testingUser1",
+//         password: "password"
+//         });
+//     return ('USER TOKEN', resp.body.token)
+    
+// }
+
+const userToken = createToken('test1')
+
 module.exports = {
   commonBeforeAll,
   commonBeforeEach,
   commonAfterEach,
   commonAfterAll,
+  userToken
 };
