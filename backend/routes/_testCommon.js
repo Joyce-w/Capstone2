@@ -2,12 +2,13 @@ const bcrypt = require("bcrypt");
 
 const db = require("../db.js");
 const { BCRYPT_WORK_FACTOR } = require("../config");
+const testJobIds = [];
 
 async function commonBeforeAll() {
   await db.query("DELETE FROM users");
   await db.query("DELETE FROM plants");
   await db.query("DELETE FROM user_lists");
-  await db.query("DELETE FROM plant_list");
+  // await db.query("DELETE FROM plant_list");
 
   await db.query(`
     INSERT INTO plants
@@ -29,24 +30,17 @@ async function commonBeforeAll() {
     ('test1','t1@gmail.com','123'),
     ('test2', 't2@gmail.com', '123');`);
 
+  let newUserID = await db.query(`
+          SELECT id
+          FROM users;
+  `)
+  let userID = newUserID.rows
+
   await db.query(`
     INSERT INTO user_lists (list_name, user_id)
-    VALUES ('first_list', 1),
-    ('second_list',
-    2);` );
-
-  await db.query(`
-    INSERT INTO plant_list (user_list_id, plant_id)
-        VALUES
-        (1, 'peperomia'), 
-        (2, 'hibiscus'), 
-        (2, 'anthurium'), 
-        (1, 'philodendron');` );
+    VALUES ($1, $2)`, ['Test List 1', userID[0].id]);
     
 }
-
-
-
 
 async function commonBeforeEach() {
   await db.query("BEGIN");
@@ -65,5 +59,5 @@ module.exports = {
   commonBeforeAll,
   commonBeforeEach,
   commonAfterEach,
-  commonAfterAll
+  commonAfterAll,
 };

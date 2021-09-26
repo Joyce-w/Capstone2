@@ -3,7 +3,6 @@ process.env.NODE_ENV === "test"
 
 const db = require("../db.js");
 
-const User = require("../models/user");
 const PlantList = require("../models/plantList");
 
 const {ExpressError,
@@ -12,7 +11,6 @@ const {ExpressError,
   BadRequestError,
   ForbiddenError} = require("../ExpressError")
 
-const Plant = require("../models/plants");
 const {
   commonBeforeAll,
   commonBeforeEach,
