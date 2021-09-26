@@ -15,6 +15,7 @@ router.get('/', async function (req, res, next) {
   }
 });
 
+/**GET single user form db */
 router.get("/:user", async function (req, res,next ) {
   try {
     const user = await Users.getUser(req.params.user);
@@ -24,6 +25,7 @@ router.get("/:user", async function (req, res,next ) {
   }
 });
 
+/**DELETE single user from datbase */
 router.delete('/:user', async function (req, res, next) {
   try {
     await Users.remove(req.params.user);
@@ -33,18 +35,10 @@ router.delete('/:user', async function (req, res, next) {
   }
 })
 
-router.patch("/:users", async function (req, res, next) {
-  try {
-    const user = await User.update(req.params.users, req.body);
-    return res.json(user);
-  } catch (e) {
-    next(e);
-  }
-})
-
+/**GET plant-list pertaining to a particular user */
 router.get("/:users/plant-list", async function (req, res, next) {
   try {
-    console.log('username', req.params)
+
     const lists = await User.getUsersPlantList(req.params.users);
     return res.json(lists)
   } catch(e){
@@ -53,6 +47,19 @@ router.get("/:users/plant-list", async function (req, res, next) {
 })
 
 
+/**
+ * The folowing routes were created but have not been used yet in the application 
+ * */
+
+/**PATCH user updating username*/
+router.patch("/:users", async function (req, res, next) {
+  try {
+    const user = await User.update(req.params.users, req.body);
+    return res.json(user);
+  } catch (e) {
+    next(e);
+  }
+})
 
 
 module.exports = router;

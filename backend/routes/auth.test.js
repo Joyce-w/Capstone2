@@ -1,11 +1,7 @@
 process.env.NODE_ENV = "test";
 
-const { ExpectationFailed } = require("http-errors");
 const request = require("supertest");
 const app = require("../app");
-
-
-const db = require("../db.js");
 
 
 const {
@@ -36,7 +32,7 @@ describe("POST /auth/register", function () {
 });
 
 describe("POST /auth/login", function () {
-    test("register user", async function () {
+    test("login with registered user", async function () {
         // Register new user
         await request(app)
         .post("/auth/register")
