@@ -6,8 +6,8 @@ import UserContext from './UserContext';
 import PlantsApi from "./api";
 import NavBar from "./NavBar"
 import Home from "./Home";
-import Register from "./Forms/Signup";
-import Login from "./Forms/Login";
+import Register from "./forms/Signup";
+import Login from "./forms/Login";
 import PlantList from "./Plants/PlantList";
 import Plant from "./Plants/Plant";
 import UserList from "./UserLists";
@@ -62,7 +62,7 @@ function App() {
       <UserContext.Provider value={ {isLoggedIn} }>
         <BrowserRouter>
           
-          <NavBar isLoggedIn={isLoggedIn} loginUser={ loginUser }/>
+        <NavBar isLoggedIn={isLoggedIn} loginUser={ loginUser }/>
         <Route exact path="/">
           <Home/>
         </Route>

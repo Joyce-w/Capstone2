@@ -6,7 +6,7 @@
     height: fit-content;
     top: -170px;
     left: 0;
-    z-index: -1; 
+    z-index: -1;  
     /* Image moves to back to act like bg picture*/
 }
 
@@ -38,7 +38,6 @@
 }
 
 .Home h1{
-    font-family: 'Montserrat', sans-serif;
     font-size: 48px;
     margin-top: 0;
 }
@@ -51,8 +50,6 @@
     background-color: #A7D7C5;
     border: none;
     border-radius: 10px;
-    font-family: 'Montserrat',
-    sans-serif;
     font-size: larger;
     font-weight: bold;
 
