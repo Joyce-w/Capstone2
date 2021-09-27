@@ -1,7 +1,10 @@
-DROP DATABASE plantpicker;
-CREATE DATABASE plantpicker;
+-- \echo 'Delete and recreate plantpicker db?' 
+-- \prompt 'Return for yes or control-C to cancel > ' foo
 
-\c plantpicker;
+-- DROP DATABASE plantpicker;
+-- CREATE DATABASE plantpicker;
+
+-- \connect plantpicker
 
 DROP TABLE users,
            plants,

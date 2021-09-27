@@ -1,4 +1,4 @@
-\c plantpicker;
+-- \c plantpicker;
 
 
 -- Insert user data
