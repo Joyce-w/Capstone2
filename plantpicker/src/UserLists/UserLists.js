@@ -45,7 +45,9 @@ function UserLists({ isLoggedIn }) {
     }
     
     const handleNewList = async (e) => {
+        e.preventDefault();
         await PlantsApi.createList(listName, user.user_id);
+        window.reload();
     }
     
     return (
