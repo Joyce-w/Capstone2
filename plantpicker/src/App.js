@@ -3,15 +3,14 @@ import { useState, useEffect } from 'react';
 import { decodeToken } from "react-jwt";
 import { BrowserRouter, Route, } from "react-router-dom";
 import UserContext from './UserContext';
-import PlantsApi from "./api";
 import NavBar from "./NavBar"
 import Home from "./Home";
 import Register from "./forms/Signup";
 import Login from "./forms/Login";
 import PlantList from "./Plants/PlantList";
 import Plant from "./Plants/Plant";
-import UserList from "./UserLists";
-import List from "./List"
+import UserList from "./UserLists/UserLists";
+import List from "./UserLists/List"
 import QuizForm from './Quiz/QuizForm';
 import Results from "./Quiz/Results"
 

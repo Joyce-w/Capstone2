@@ -1,11 +1,10 @@
 // import "./UserLists.css";
 import { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import PlantsApi from "./api";
-import UserContext from './UserContext';
+import PlantsApi from "../api";
 import { decodeToken } from "react-jwt";
 import { Note } from "phosphor-react";
-import List from "./"
+import List from ".."
 import "./UserLists.css"
 
 function UserLists({ isLoggedIn }) {

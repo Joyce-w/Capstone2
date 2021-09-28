@@ -1,3 +1,4 @@
+/* Bg image */
 .Home img{
     min-height: 120%;
     min-width: min-content;
@@ -7,23 +8,13 @@
     top: -170px;
     left: 0;
     z-index: -1;  
-    /* Image moves to back to act like bg picture*/
 }
-
-/* .Home{
-    width: 100vw;
-    height: 100vh;
-    background: url("https://images.unsplash.com/photo-1572969057162-d3b00f790462?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1955&q=8") no-repeat center center fixed;
-    background-size: cover;
-      height: 100%;
-      overflow: hidden;
-} */
 
 .Home-leftDiv{
     width: 45%;    
     height: 100vh;
     position: absolute;
-    padding: 3.5% 5%
+    padding: 6% 6%
 }
 
 .Home-div{
@@ -32,7 +23,7 @@
     border-radius: 5%;
     padding: 3em 3em;
     width: 70%;
-    height: 70vh;
+    height: 45vh;
     margin: auto;
     overflow: auto;
 }

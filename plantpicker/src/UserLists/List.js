@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useParams, Link } from 'react-router-dom';
 import { Trash, PencilLine } from "phosphor-react";
-import PlantsApi from "./api";
+import PlantsApi from "../api";
 import "./List.css"
 
 function List() {

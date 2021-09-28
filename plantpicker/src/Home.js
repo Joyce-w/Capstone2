@@ -16,6 +16,8 @@ function Home() {
                     <p>Want to gift some greenery but not sure what? </p>
                     <p>Take the quiz to help you get matched with the perfect plant. Create an account to save plants for later or make some lists so you can create that jungle room you always wanted.</p>
 
+                    <br></br>
+                    <br></br>
                 <Link to="/register"><button className="Home-signup-btn">Signup</button></Link>                    
                 <Link to="/quiz"><button className="Home-quiz-btn">Start Quiz</button>  </Link>                  
                 </div>
