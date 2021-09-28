@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import './Login.css';
-import { useHistory } from "react-router-dom"
+import { Link } from 'react-router-dom';
 import PlantsApi from "../api";
 import useErrorHandling from "../hooks/useErrorHandling";
 
@@ -41,11 +41,7 @@ function Login({loginUser}) {
 
     setErrorMsg(getToken(formData), `/`, loginUser)
     setFormData(inital_state)
-
-    // await getToken(formData);
-    // loginUser();
-    // setFormData(inital_state)
-    // history.push('/');     
+  
   };
 
 
@@ -73,7 +69,8 @@ function Login({loginUser}) {
                   onChange={handleChange}
                 />
         
-            <button>Login</button>
+        <button>Login</button>
+        <p className="Login-signupRoute">No account? <em><Link to ="/register">Signup here!</Link></em></p>
         </form>
 
 

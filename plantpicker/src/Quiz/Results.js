@@ -31,12 +31,12 @@ function Results({data}) {
             <h1> Quiz Results </h1>
             <div className="quizResults-List">
                 {allPlants.length === 0 ? <span>
-                    <h3>There doesn't seem to be a match. <Link to="/quiz"><p>Try again? </p></Link> </h3></span> :
+                    <h3 className="quizResults-h3">There doesn't seem to be a match. <Link to="/quiz"><p>Try again? </p></Link> </h3></span> :
                     allPlants.map(p =>
                         <div className="quizResults-card" key={p.id}>
                             <Link to={`/plants/${p.id}` }>
                             <div class="container">
-                                <img src={ p.img } alt={p.plant_name} classNaME="image"></img>
+                                <img src={ p.img } alt={p.plant_name} className="quizResults-image"></img>
                                     <div class="quizResults-overlay">
                                         <h3 className="card-title">{ p.plant_name}</h3>
                                     </div>

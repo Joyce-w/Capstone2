@@ -1,13 +1,15 @@
 .Login-form {
-    margin: auto;
-    margin-top: 5%;
-    border: solid black 1px;
+    margin: 10% auto;
+    margin-top: 7%;
+    border: solid #5c8d8971 1px;
     border-radius: 5%;
     padding: 2em;
     width: 20%;
     display: flex;
     justify-content: center;
     flex-direction: column;
+    overflow: hidden;
+    background-color: #74B49B;
 }
 
 .Login label {
@@ -17,9 +19,47 @@
 .Login input {
     width: 50%;
     margin: 0.5em auto;
+    background-color: #ffffff;
+    border:none;
+    border-radius: 10px;
+    line-height: 2em;
+    padding-left: 2%;
+    transition: 0.5s;
+}
+.Login input:focus{
+    outline: none;
+    line-height: 2.5em;
+    transition: 0.5s;
 }
 
 .Login button {
-    width: 50%;
-    margin: 1em auto;
+    font-size: 1em;
+    margin: 0.5em;
+    padding: 0.2em 0.7em;
+    border-radius: 10px;
+    line-height: 1.4em;
+}
+
+.Login button:hover {
+    font-size: 1.1em;
+    line-height: 1.1em;
+}
+
+.Login-signupRoute{
+    border-top: 1px solid black;
+    padding: 2em 0 0 0;
+}
+
+/**MEDIA QUERIES**/
+@media screen and (max-width: 1024px) {
+    .Login-form {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .Login-form {
+        width: 70%;
+        padding:1em;
+    }
 }

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import './Signup.css';
 import { useHistory } from "react-router-dom"
 import PlantsApi from "../api";
+import { Link } from 'react-router-dom';
 
 function Signup() {
 
@@ -36,7 +37,7 @@ function Signup() {
     <div className="Signup">
         
       <form className="Signup-form" onSubmit={ handleSubmit }>
-              <h1> Signup </h1>
+              <h1> New User Registeration </h1>
               <label htmlFor="username">Username</label>
                 <input
                   type="text"
@@ -64,7 +65,9 @@ function Signup() {
                   value={formData.password}
                   onChange={handleChange}
                 />
-            <button>Signup</button>
+        <button>Signup</button>
+        
+          <p className="Signup-loginRoute">No account? <em><Link to ="/login">Login here!</Link></em></p>
         </form>
 
 

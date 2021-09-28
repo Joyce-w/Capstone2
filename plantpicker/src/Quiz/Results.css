@@ -14,7 +14,7 @@
 
 .quizResults-overlay {
     position: absolute;
-    bottom: 3px;
+    bottom: 0px;
     background: rgb(0, 0, 0);
     background: rgba(0, 0, 0, 0.5);
     /* Black see-through */
