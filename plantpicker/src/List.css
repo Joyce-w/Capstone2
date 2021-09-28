@@ -19,34 +19,47 @@
 }
 
 .List button {
-    background: none;
-    border: none;
+    font-size: 1em;
+    margin: 0.5em;
+    padding: 0.2em 0.7em;
+    border-radius: 10px;
+    line-height: 1.4em;
 }
 
 /* Edit Name button & div  */
 .List-form {
-    border: 1px solid black;
     display: flex;
     flex-direction: column;
     height: 8em;
     margin: 1em;
-    padding: 2em;
+    padding: 1em;
 
-}
-
-.List-form button {
-    background: none;
-    border-radius: 5px;
-    width: 7em;
-    margin: 0.5em auto;
-    border:1px solid rgba(0, 0, 0, 0.534);
 }
 
 .List-form input {
     width: 15em;
     margin: 0.5em auto;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    line-height: 2em;
+    padding-left: 3%;
 }
 
+.List-form input:focus {
+    outline: none;
+}
+
+.List-form button {
+    background: none;
+    border-radius: 5px;
+    margin: 0.5em auto;
+}
+
+.List-form button:hover {
+    font-size: 1.1em;
+    line-height: 1.1em;
+}
 
 
 

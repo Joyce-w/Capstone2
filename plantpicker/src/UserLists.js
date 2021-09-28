@@ -50,10 +50,11 @@ function UserLists({ isLoggedIn }) {
     }
     
     return (
+        
         <div className="UserLists">
             <h1> Here are the list(s) you've made so far! </h1>
 
-            <button onClick={(e) => handleNewForm(e)} className="collapsible"><Note size={25} />New List</button>
+            <span><Note size={25} /></span><button onClick={(e) => handleNewForm(e)} className="collapsible">New List</button>
 
 
             <div className="content">
@@ -77,9 +78,9 @@ function UserLists({ isLoggedIn }) {
 
                 
                 {user && user.plant_list ?
-                    user.plant_list.map(list => 
-                        <div key={ list.list_id}>
-                        <Link to={`/user-lists/${list.list_id}` }>{ list.list_name}</Link>
+                    user.plant_list.map((list, idx) => 
+                        <div className="UserLists-lists"key={ list.list_id}>
+                            <Link to={`/user-lists/${list.list_id}`}> {idx+1}. { list.list_name}</Link>
                     </div>) :
                     <p>No list yet!</p>
                 }                

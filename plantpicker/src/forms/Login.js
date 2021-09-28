@@ -29,13 +29,10 @@ function Login({loginUser}) {
   }
 
 
-
   // useErrorHandling hook to display necessary error messages
   const [error, setErrorMsg] = useErrorHandling(null);
     
-  // const history = useHistory();
-  
-
+  // Handle credentials after pressing submit
   const handleSubmit = async (e) => {
     e.preventDefault()
 

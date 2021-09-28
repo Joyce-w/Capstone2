@@ -3,6 +3,7 @@ import './Signup.css';
 import { useHistory } from "react-router-dom"
 import PlantsApi from "../api";
 import { Link } from 'react-router-dom';
+import useErrorHandling from "../hooks/useErrorHandling";
 
 function Signup() {
 
@@ -10,7 +11,10 @@ function Signup() {
 	"username" :"",
 	"email": "",
 	"password":""
-}
+  }
+  
+  // useErrorHandling hook to display necessary error messages
+  const [error, setErrorMsg] = useErrorHandling(null);
 
   const history = useHistory();
   const [formData, setFormData] = useState(inital_state);
@@ -23,21 +27,22 @@ function Signup() {
     }))
   }
 
+  // Handle signup credentials after pressing submit
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    // const { username, email, pw } = formData;
-    let res = await PlantsApi.registerUser(formData);
-    if (res) {
-      setFormData(inital_state)
-      history.push('/');     
-    };
+    e.preventDefault();
+    setErrorMsg(PlantsApi.registerUser(formData), `/`, setFormData(inital_state) )
+    
   }
+
+
+
 
   return (
     <div className="Signup">
         
       <form className="Signup-form" onSubmit={ handleSubmit }>
-              <h1> New User Registeration </h1>
+        <h1> New User Registeration </h1>
+          {error && <p>{ error }</p>}
               <label htmlFor="username">Username</label>
                 <input
                   type="text"

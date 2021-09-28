@@ -1,6 +1,6 @@
 // import "./UserLists.css";
-import { useEffect, useState, useContext } from 'react';
-import { useHistory, useParams, Link, Redirect } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useHistory, useParams, Link } from 'react-router-dom';
 import { Trash, PencilLine } from "phosphor-react";
 import PlantsApi from "./api";
 import "./List.css"
