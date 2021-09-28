@@ -2,34 +2,40 @@
     display: flex;
     justify-content: center;
     flex-direction: row;
+    flex-wrap: wrap;
 
 }
 
-.card {
-    width: 20%;
+.quizResults-card {
+    width:20%;
     margin: 1em;
+    width: auto;
 }
 
-
-@media screen and (max-width: 1024px) {
-    .card {
-        width: 50%;
-        margin: 1em;
-    }
+.quizResults-overlay {
+    position: absolute;
+    bottom: 3px;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5);
+    /* Black see-through */
+    color: #f1f1f1;
+    width: 100%;
+    transition: .5s ease;
+    opacity: 0;
+    color: white;
+    font-size: 1em;
+    padding: 5% 0;
+    text-align: center;
 }
 
-@media screen and (max-width: 375px) {
+.container:hover .quizResults-overlay {
+    opacity: 1;
+}
 
-    .quizResults-List {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        margin: auto;
-
-    }
-    
-    .card {
-        width: 80%;
-        margin: auto;
-    }
+.quizResults-image {
+    margin:none;
+    display: block;
+    width: 20em;
+    height: auto;
+    border-radius: 10px;
 }

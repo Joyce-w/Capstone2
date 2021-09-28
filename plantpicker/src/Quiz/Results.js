@@ -33,11 +33,11 @@ function Results({data}) {
                 {allPlants.length === 0 ? <span>
                     <h3>There doesn't seem to be a match. <Link to="/quiz"><p>Try again? </p></Link> </h3></span> :
                     allPlants.map(p =>
-                        <div className="card" key={p.id}>
+                        <div className="quizResults-card" key={p.id}>
                             <Link to={`/plants/${p.id}` }>
                             <div class="container">
-                                <img src={ p.img } alt={p.plant_name} class="image"></img>
-                                    <div class="overlay">
+                                <img src={ p.img } alt={p.plant_name} classNaME="image"></img>
+                                    <div class="quizResults-overlay">
                                         <h3 className="card-title">{ p.plant_name}</h3>
                                     </div>
                             </div>

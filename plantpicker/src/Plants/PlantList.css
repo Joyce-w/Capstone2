@@ -1,5 +1,4 @@
 
-
 .PlantList-List{
     column-count:  4;
     column-gap: 1em;
@@ -14,32 +13,33 @@
     margin: 0 0 1em;
  }
 
- .image {
-     display: block;
-     width: 100%;
-     height: auto;
-     border-radius: 10px;
- }
 
- .overlay {
-     position: absolute;
-     bottom: 0;
-     background: rgb(0, 0, 0);
-     background: rgba(0, 0, 0, 0.5);
-     /* Black see-through */
-     color: #f1f1f1;
-     width: 100%;
-     transition: .5s ease;
-     opacity: 0;
-     color: white;
-     font-size: 20px;
-     padding: 5% 0;
-     text-align: center;
- }
+.image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
 
- .container:hover .overlay {
-     opacity: 1;
- } 
+.overlay {
+    position: absolute;
+    bottom: 0;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5);
+    /* Black see-through */
+    color: #f1f1f1;
+    width: 100%;
+    transition: .5s ease;
+    opacity: 0;
+    color: white;
+    font-size: 1em;
+    padding: 5% 0;
+    text-align: center;
+}
+
+.container:hover .overlay {
+    opacity: 1;
+} 
 
 
 /**MEDIA QUERIES**/
@@ -49,11 +49,19 @@
         column-gap: 1em;
         margin: auto 10%;
     }
+        .card {
+            width: 50%;
+            margin: 1em;
+        }
 }
 @media screen and (max-width: 375px) {
     .PlantList-List {
         column-count: 1;
-        column-gap: 1em;
+        column-gap: .5em;
         margin: auto 10%;
     }
+        .card {
+            width: 50%;
+            margin: 1em;
+        }
 }
