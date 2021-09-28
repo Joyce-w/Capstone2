@@ -1,76 +1,35 @@
 .quizResults-List {
     display: flex;
     justify-content: center;
-    column-count: 4;
-    column-gap: 1em;
-    margin: auto 10%;
-}
-
-.plusCircle {
-    position: absolute;
-    color: #74B49B;
-    right: 1%;
-    top: 1%;
-    transition: transform 1s 0s ease-in;
-}
-
-.plusCircle:hover {
-    transform: rotate(360deg);
+    flex-direction: row;
 
 }
 
-/* Overlay div */
-.container {
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 0 1em;
+.card {
+    width: 20%;
+    margin: 1em;
 }
 
-.image {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-}
 
-.overlay {
-    position: absolute;
-    bottom: 0;
-    background: rgb(0, 0, 0);
-    background: rgba(0, 0, 0, 0.5);
-    /* Black see-through */
-    color: #f1f1f1;
-    width: 100%;
-    transition: .5s ease;
-    opacity: 0;
-    color: white;
-    font-size: 20px;
-    padding: 3em 0;
-    text-align: center;
-}
-
-.container:hover .overlay {
-    opacity: 1;
-}
-
-a{
-    margin: auto 1;
-}
-
-/**MEDIA QUERIES**/
 @media screen and (max-width: 1024px) {
-    .quizResults-List {
-        column-count: 2;
-        column-gap: 1em;
-        margin: auto 10%;
+    .card {
+        width: 50%;
+        margin: 1em;
     }
 }
 
 @media screen and (max-width: 375px) {
+
     .quizResults-List {
-        column-count: 1;
-        column-gap: 1em;
-        margin: auto 10%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin: auto;
+
+    }
+    
+    .card {
+        width: 80%;
+        margin: auto;
     }
 }

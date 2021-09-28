@@ -60,12 +60,12 @@ li a {
 
 .logo {
     font-size: 30px;
-    transition: 0.7s all;
+    transition: 0.4s all;
 
 } 
 .logo:hover {
     font-size: 33px;
-    transition: 0.7s all;
+    transition: 0.4s all;
 } 
 
 
@@ -78,6 +78,6 @@ li a {
 
 @media screen and (max-width: 1024px) {
     .logo {
-        font-size: 20px;
+        font-size: xx-large;
     }
 }

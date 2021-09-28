@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import "./QuizForm.css";
 
 function QuizForm({getData}) {
     
@@ -60,25 +61,22 @@ function QuizForm({getData}) {
     const history = useHistory();
     function handleSubmit(e) {
         e.preventDefault();
-        
-        // let positions = pos.sort().join('')
 
-        // setQuizAnswers((quizAnswers) => ({
-        //     ...quizAnswers,
-        //     "pos": positions
-        // }))
-        // getData(quizAnswers, positions)
         getData(quizAnswers, pos)
-
         history.push('/results')
 
     }
 
     return (
         <>
-            <form onSubmit={(e)=> handleSubmit(e) }>
+            <div className="Quiz-header">
+                <p >Answer the questions to the best of your ability to generate results that align most with your preferences.</p>
+                                
+            </div>
+
+            <form className="Quiz-Form" onSubmit={(e)=> handleSubmit(e) }>
                 {step === 0 && <section>
-                    <label>Where do you plan on placing your plant?</label>
+                    <label className="Form-question">Where do you plan on placing your plant?</label>
                     <div>
                         <input
                             type="checkbox"
@@ -119,7 +117,7 @@ function QuizForm({getData}) {
 
                 
                 {step === 1 && <section>
-                    <label>How much lighting will that it get?</label>
+                    <label className="Form-question">How is the lighting in the location you plant on placing your new plant?</label>
 
 
                     <div>
@@ -141,7 +139,7 @@ function QuizForm({getData}) {
                 </section>}
 
                 {step === 2 && <section>
-                    <label>Are there kids around?</label>
+                    <label className="Form-question">Are there kids around?</label>
                         <div>
                         <input type="radio"
                             id="kids"
@@ -173,7 +171,7 @@ function QuizForm({getData}) {
                 </section>}
 
                 {step === 3 && <section>
-                    <label>Are there pets around?</label>
+                    <label className="Form-question">Are there pets around?</label>
                         <div>
                         <input type="radio"
                             id="pets"
@@ -204,7 +202,7 @@ function QuizForm({getData}) {
                 </section>}
  
                 {step === 4 && <section>
-                    <label>Do you want a flowering plant?</label>
+                    <label className="Form-question">Do you want a flowering plant?</label>
                         <div>
                         <input type="radio"
                             id="flowering"
@@ -236,7 +234,7 @@ function QuizForm({getData}) {
 
 
                 {step === 5 && <section>
-                    <label>How are you with watering?</label>
+                    <label className="Form-question">How are you with watering?</label>
                         <div>
                             <input type="radio"
                                 id="watering"
@@ -275,7 +273,7 @@ function QuizForm({getData}) {
                         </div>                
                 </section>}
 
-                {step > 0 &&  <button type="button" onClick={ prevStep }>Previous</button>}
+                {/* {step > 0 &&  <button type="button" onClick={ prevStep }>Previous</button>} */}
                 {step < 6 ? <button type="button" onClick={nextStep}>Next</button> :
                     <button>Submit Form</button>
                 }

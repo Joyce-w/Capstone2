@@ -1,0 +1,24 @@
+.Quiz-header{
+margin-top: 5%;
+}
+.Quiz-Form {
+    margin: auto;
+    margin-top: 3%;
+    font-size: 1.2em;
+}
+
+.Form-question{
+    font-size: 1.3em;
+}
+
+.Quiz-Form button{
+    font-size: 1em;
+    /* border: 1px solid black; */
+    margin: 0.5em;
+    padding: 0.2em 0.7em;
+    border-radius: 10px;
+}
+
+.Quiz-Form button:hover{
+    font-size: 1.1em;
+}

@@ -21,17 +21,6 @@ const NavBar = ({isLoggedIn, loginUser} ) => {
                             <li className="links"><Link to="/login">Login</Link></li>
                         }
             </ul>
-
-        {/* <nav role='navigation'>
-            <ul>
-                <li><Link to="/plants">Browse Plants</Link></li>
-                    {isLoggedIn && <li><Link to="/user-lists">My Plant List</Link></li>}
-                        {isLoggedIn ?
-                            <li onClick={logoutUser}><Link to="/">Logout</Link></li> :
-                            <li><Link to="/login">Login</Link></li>
-                        }
-            </ul>
-        </nav>   */}
         </div>
     </div>
 
