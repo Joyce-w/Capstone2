@@ -1,27 +1,30 @@
 // import "./UserLists.css";
-import { useEffect, useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import PlantsApi from "../api";
 import { decodeToken } from "react-jwt";
 import { Note } from "phosphor-react";
-import List from ".."
 import "./UserLists.css"
+import useErrorHandling from '../hooks/useErrorHandling';
 
 function UserLists({ isLoggedIn }) {
     const [user, setUser] = useState({})
-  
+    const history = useHistory();
+
     //retrieve token from local storage and decode
     let userToken = decodeToken(localStorage.getItem('token')) || null;
-    
+
     useEffect(() => {
         async function getUser(currUser) {
             const res = await PlantsApi.getUser(currUser);
             setUser({
-                "user_id": res.user.id,
+                "id": res.user.id,
                 "username": res.user.username,
                 "plant_list": res.plant_lists
             })
+
         }
+    
         getUser(userToken.username)
 
     }, [])
@@ -43,11 +46,14 @@ function UserLists({ isLoggedIn }) {
     const handleChange = (e) => {
         setListName(e.target.value)
     }
-    
-    const handleNewList = async (e) => {
+
+      // useErrorHandling hook to display necessary error messages
+    const [error, setErrorMsg] = useErrorHandling(null);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        await PlantsApi.createList(listName, user.user_id);
-        window.reload();
+        console.log('submit data', listName, user.id)
+    setErrorMsg(PlantsApi.createList(listName, user.id), `/user-lists`, window.location.reload())
     }
     
     return (
@@ -59,7 +65,7 @@ function UserLists({ isLoggedIn }) {
 
 
             <div className="content">
-                <form className="UserLists-form" onSubmit={(e) =>handleNewList(e)}>
+                <form className="UserLists-form" onSubmit={(e) =>handleSubmit(e)}>
                     <label htmlFor="listName">Make a new list:</label>
                     <input
                         type="text"

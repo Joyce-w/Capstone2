@@ -6,14 +6,18 @@ const {BadRequestError} = require("../ExpressError");
 //require plant model
 const PlantList = require("../models/plantList");
 const filterPlants = require('../helpers/filterPlants');
-const { ensureLoggedIn } = require("../middleware/middleware")
+const { ensureLoggedIn, ensureCorrectUser } = require("../middleware/middleware")
 
 const router = new express.Router();
 
 /** Creates a new list that stores plants for a user */
-router.post('/create', ensureLoggedIn, async function (req, res, next) {
+router.post('/create', ensureLoggedIn, ensureCorrectUser, async function (req, res, next) {
     try {
-        const {  list_name, user_id } = req.body;
+        const { list_name, user_id } = req.body;
+        if (!list_name || !user_id) {
+            throw new BadRequestError()
+        }
+
         let plants = await PlantList.create(list_name, user_id);
         return res.status(201).json(plants);
     } catch (e) {
@@ -32,7 +36,7 @@ router.get("/", async function (req, res, next) {
 })
 
 /**GET a single plant list based on list_id */
-router.get("/:list_id", async function (req, res, next) {
+router.get("/:list_id",ensureLoggedIn, async function (req, res, next) {
     try {
         let plantList = await PlantList.getList(req.params.list_id);
         return res.json(plantList);
@@ -41,7 +45,8 @@ router.get("/:list_id", async function (req, res, next) {
     }
 })
 
-router.patch("/:list_id", async function (req, res, next) {
+// updates a current list name
+router.patch("/:list_id",  ensureLoggedIn, async function (req, res, next) {
     try {
         const { id, list_name } = req.body;
         let updateList = await PlantList.updateList(id, list_name);
@@ -53,7 +58,7 @@ router.patch("/:list_id", async function (req, res, next) {
 })
 
 //**Deletes entire list */
-router.delete("/:list_id", async function (req, res, next) {
+router.delete("/:list_id",  ensureLoggedIn, async function (req, res, next) {
     try {
         await PlantList.delete(req.params.list_id);
         return res.json({message: `List deleted`})
@@ -89,13 +94,6 @@ router.delete("/:list_id/:plant_id", async function (req, res, next) {
         next(e);
     }
 });
-
-
-/**
- * The folowing routes were created but have not been used yet in the application 
- * */
-
-
 
 
 module.exports = router;

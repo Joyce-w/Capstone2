@@ -51,7 +51,7 @@ class PlantsApi {
   static async registerUser(formData) {
 
     let res = await this.request(`auth/register`, formData, "post")
-
+    
     //if there is a res set the token to localStorage
     if (res) {
       localStorage.setItem('token', res.token);
@@ -74,6 +74,19 @@ class PlantsApi {
   }
 
   /**Get user info if loggedin */
+  static async logoutUser() {
+    
+    let res = await this.request(`auth/logout`, {}, "post");
+
+    //if there is a res set the token to localStorage
+    if (res) {
+      localStorage.setItem('token', res.token);
+      PlantsApi.token = null;
+    }
+    return res;
+  }
+
+  /**Get user info if loggedin */
   static async getUser(username) {
     
     let res = await this.request(`users/${username}`);
@@ -84,10 +97,12 @@ class PlantsApi {
   /********************** Plant List Routes *********************/
   static async getUserLists(username) {
 
+    // gets all the lists of a specific user
     let res = await this.request(`users/${username}/plant-list`);
     return res;
   }
   
+  //creates a list for a user
   static async createList(title, user) {
     let data = {
       list_name: title,
@@ -97,6 +112,7 @@ class PlantsApi {
     let res = await this.request(`lists/create`, data, "post");
   }
 
+  // edit the list title
   static async editListTitle(list_id, new_title) {
     let data = {
       id: list_id,
@@ -116,6 +132,7 @@ class PlantsApi {
     
   }
 
+  //delete an existing list
   static async deleteList(list_id) {
     let res = await this.request(`lists/${list_id}`, {}, "delete")
     return res;

@@ -4,6 +4,7 @@ import { useHistory, useParams, Link } from 'react-router-dom';
 import { Trash, PencilLine } from "phosphor-react";
 import PlantsApi from "../api";
 import "./List.css"
+import { decodeToken } from "react-jwt";
 
 function List() {
     const { list_id } = useParams();
@@ -13,11 +14,23 @@ function List() {
 
     const history = useHistory();
 
+    let userToken = decodeToken(localStorage.getItem('token')) || null;
+
     useEffect(() => {
+
+
+ 
         // Gets a list of plants based off a list id
         async function getList(id) {
             //get list of plants pertaining to the list_id 
             const res = await PlantsApi.getList(id);
+
+        //ensure the list belongs to the user 
+        // if the username does not match the owner of the list, redirect to homepage
+        if (userToken.username !== res.username) {
+            history.push("/")
+        }
+
             // save list data
             setListInfo(res);
             //gets plant data from res
@@ -39,7 +52,7 @@ function List() {
 
     //Delete entire list
     const deleteList = (async () => {
-        await PlantsApi.deleteList(list_id)
+        await PlantsApi.deleteList(list_id);
         //redirect back to user list
         history.push(`/user-lists/`)
     })

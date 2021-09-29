@@ -43,8 +43,8 @@ function Plant() {
     
     //get plant list based off username
     const [usersPlantList, setUsersPlantList] = useState(null)
-    
-    const history = useHistory();
+
+
     useEffect(() => {
         async function getUser(currUser) {
             const res = await PlantsApi.getUser(currUser);
@@ -58,7 +58,6 @@ function Plant() {
         } else {
             getUser(userToken.username)
         }
-
 
     }, [])
 
