@@ -4,7 +4,8 @@ This capstone was inspired by the new plant parents that emerged during the pand
 
  ### Plant + Pot Preview
 
-[Plant + Pot Preview](plant+pot.gif) 
+![Plant + Pot Preview](/plant+pot.gif) 
+## [Plant + Pot](https://plant-plus-pot.surge.sh)
 
 ### Installation and Setup Instructions
 
