@@ -110,6 +110,8 @@ class PlantsApi {
     }
 
     let res = await this.request(`lists/create`, data, "post");
+    console.log('results apit', res)
+    return res;
   }
 
   // edit the list title

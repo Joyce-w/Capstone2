@@ -22,13 +22,14 @@ function App() {
 
   //check if a user has previously logged in
   useEffect(() => {
-    const loggedInUser = localStorage.getItem('token');
-    if (loggedInUser == undefined) {
-      setIsLoggedIn(false)
-      setCurrUser(null);
+    const loggedInUser = localStorage.getItem('token') || undefined;
+
+    console.log('loggedinusr',loggedInUser)
+    if (!undefined || !null) {
+      console.log(decodeToken(loggedInUser))
+    setIsLoggedIn(true)
     } else {
-      setCurrUser(decodeToken(loggedInUser.username));
-      setIsLoggedIn(true)
+      setIsLoggedIn(false)
     }
   }, [])
 

@@ -51,9 +51,7 @@ function UserLists({ isLoggedIn }) {
     const [error, setErrorMsg] = useErrorHandling(null);
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log('submit data', listName, user.id)
-    setErrorMsg(PlantsApi.createList(listName, user.id), `/user-lists`, window.location.reload())
+    setErrorMsg(PlantsApi.createList(listName, user.id), `/user-lists`)
     }
     
     return (

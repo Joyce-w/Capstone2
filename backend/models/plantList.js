@@ -24,7 +24,7 @@ class PlantList {
             INSERT INTO user_lists
             (list_name, user_id)
             VALUES ($1, $2)
-            RETURNING user_id, list_name;
+            RETURNING id, user_id, list_name;
         `, [title, user])
         return newList.rows;
     }
