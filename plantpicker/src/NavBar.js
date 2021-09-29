@@ -4,7 +4,7 @@ import PlantsApi from "./api";
 
 
 const NavBar = ({isLoggedIn, loginUser} ) => {
-
+    console.log('isloggedin', isLoggedIn)
     const logoutUser = async () => {
         localStorage.clear();
         await PlantsApi.logoutUser();

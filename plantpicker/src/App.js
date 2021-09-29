@@ -18,19 +18,20 @@ import Results from "./Quiz/Results"
 function App() {
 
   const [currUser, setCurrUser] = useState(null)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   //check if a user has previously logged in
   useEffect(() => {
     const loggedInUser = localStorage.getItem('token');
-    if (loggedInUser) {
+    if (loggedInUser == undefined) {
+      setIsLoggedIn(false)
+      setCurrUser(null);
+    } else {
+      setCurrUser(decodeToken(loggedInUser.username));
       setIsLoggedIn(true)
-      setCurrUser(decodeToken(localStorage.getItem('token')).username);
     }
   }, [])
 
-
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   //updates whether user is loggedin or not
   const loginUser = () => {
