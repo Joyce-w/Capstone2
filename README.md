@@ -2,10 +2,10 @@
 # Plant + Pot
 This capstone was inspired by the new plant parents that emerged during the pandemic. Some may already have a green thumb while others are just starting. Plant + Pot visitors can take a quiz to determine what kind of plants are suited for their environment. Visitors can also create an account and create a list to save plants for certain rooms/people.
 
- ### Plant + Pot Preview
+ ### ## [Live Demo: Plant + Pot](https://plant-plus-pot.surge.sh)
 
 ![Plant + Pot Preview](/plant+pot.gif) 
-## [Plant + Pot](https://plant-plus-pot.surge.sh)
+
 
 ### Installation and Setup Instructions
 
