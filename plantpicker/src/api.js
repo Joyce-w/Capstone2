@@ -67,7 +67,7 @@ class PlantsApi {
 
     //if there is a res set the token to localStorage
     if (res) {
-      localStorage.setItem('token', res.token);
+      localStorage.setItem('token', JSON.stringify(res.token));
       PlantsApi.token = res.token;
     }
     return res;
@@ -80,7 +80,7 @@ class PlantsApi {
 
     //if there is a res set the token to localStorage
     if (res) {
-      localStorage.setItem('token', res.token);
+      // localStorage.setItem('token', res.token);
       PlantsApi.token = null;
     }
     return res;
