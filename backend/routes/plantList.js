@@ -36,7 +36,7 @@ router.get("/", async function (req, res, next) {
 })
 
 /**GET a single plant list based on list_id */
-router.get("/:list_id",ensureLoggedIn, async function (req, res, next) {
+router.get("/:list_id", ensureLoggedIn, async function (req, res, next) {
     try {
         let plantList = await PlantList.getList(req.params.list_id);
         return res.json(plantList);
