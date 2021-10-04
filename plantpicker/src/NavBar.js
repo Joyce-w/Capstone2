@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import "./NavBar.css"
 import PlantsApi from "./api";
+import { useContext, useEffect } from "react";
+import UserContext from "./UserContext";
+
+const NavBar = () => {
+    
+    const { isLoggedIn, loginUser } = useContext(UserContext);
 
 
-const NavBar = ({isLoggedIn, loginUser} ) => {
-    console.log('isloggedin', isLoggedIn)
     const logoutUser = async () => {
         localStorage.clear();
         await PlantsApi.logoutUser();

@@ -8,8 +8,9 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
  */
 
 class PlantsApi {
-  static token = localStorage.getItem('token') || null;
+  static token = JSON.parse(localStorage.getItem('token')) || undefined;
 
+  
     static async request(endpoint, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
 

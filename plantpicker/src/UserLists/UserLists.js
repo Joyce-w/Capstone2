@@ -1,6 +1,6 @@
 // import "./UserLists.css";
 import { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PlantsApi from "../api";
 import { decodeToken } from "react-jwt";
 import { Note } from "phosphor-react";
@@ -9,22 +9,23 @@ import useErrorHandling from '../hooks/useErrorHandling';
 
 function UserLists({ isLoggedIn }) {
     const [user, setUser] = useState({})
-    const history = useHistory();
+    const [plantList, setPlantList] = useState([])
 
     //retrieve token from local storage and decode
-    let userToken = decodeToken(localStorage.getItem('token')) || null;
+    
+    let userToken = decodeToken(localStorage.getItem('token')) || undefined;
+    console.log(userToken)
 
     useEffect(() => {
         async function getUser(currUser) {
             const res = await PlantsApi.getUser(currUser);
+            console.log('res', res.plant_lists)
+            setPlantList(res.plant_lists)
             setUser({
                 "id": res.user.id,
-                "username": res.user.username,
-                "plant_list": res.plant_lists
+                "username": res.user.username
             })
-
         }
-    
         getUser(userToken.username)
 
     }, [])
@@ -51,7 +52,7 @@ function UserLists({ isLoggedIn }) {
     const [error, setErrorMsg] = useErrorHandling(null);
 
     const handleSubmit = async (e) => {
-    setErrorMsg(PlantsApi.createList(listName, user.id), `/user-lists`)
+        setErrorMsg(PlantsApi.createList(listName, user.id))
     }
     
     return (
@@ -81,9 +82,8 @@ function UserLists({ isLoggedIn }) {
 
             <div className="userLists">
 
-                
-                {user && user.plant_list ?
-                    user.plant_list.map((list, idx) => 
+                {plantList ?
+                    plantList.map((list, idx) => 
                         <div className="UserLists-lists"key={ list.list_id}>
                             <Link to={`/user-lists/${list.list_id}`}> {idx+1}. { list.list_name}</Link>
                     </div>) :

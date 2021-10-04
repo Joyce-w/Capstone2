@@ -17,20 +17,24 @@ import Results from "./Quiz/Results"
 
 function App() {
 
-  const [currUser, setCurrUser] = useState(null)
+  // const [currUser, setCurrUser] = useState(null)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   //check if a user has previously logged in
   useEffect(() => {
     const loggedInUser = JSON.parse(localStorage.getItem('token')) || undefined;
-    console.log(loggedInUser?.username)
-    console.log('loggedinusr',loggedInUser)
-    if (!undefined || !null) {
-      console.log(decodeToken(loggedInUser))
-    setIsLoggedIn(true)
-    } else {
-      setIsLoggedIn(false)
+
+    function getToken(locUser) {
+      console.log('loggedInUser', locUser)
+      
+      if (locUser === undefined) {
+        setIsLoggedIn(false)
+      } else {
+        setIsLoggedIn(true)
+      }
+ 
     }
+      getToken(loggedInUser)
   }, [])
 
 
@@ -60,10 +64,10 @@ function App() {
 
   return (
     <div className="App">
-      <UserContext.Provider value={ {isLoggedIn} }>
+      <UserContext.Provider value={ {isLoggedIn, loginUser} }>
         <BrowserRouter>
           
-        <NavBar isLoggedIn={isLoggedIn} loginUser={ loginUser }/>
+        <NavBar/>
         <Route exact path="/">
           <Home/>
         </Route>
