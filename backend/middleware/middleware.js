@@ -42,22 +42,22 @@ function ensureLoggedIn(req, res, next) {
  *  If not, raises Unauthorized.
  */
 
-function ensureCorrectUser(req, res, next) {
-  try {
-    const user = res.locals.user;
+// function ensureCorrectUser(req, res, next) {
+//   try {
+//     const user = res.locals.user;
 
-    if (req.body.user_id !== user.id) {
-      throw new UnauthorizedError();
-    }
-    return next();
-  } catch (err) {
-    return next(err);
-  }
-}
+//     if (req.body.user_id !== user.id) {
+//       throw new UnauthorizedError();
+//     }
+//     return next();
+//   } catch (err) {
+//     return next(err);
+//   }
+// }
 
 
 module.exports = {
   authenticateJWT,
   ensureLoggedIn,
-  ensureCorrectUser
+  // ensureCorrectUser
 };
