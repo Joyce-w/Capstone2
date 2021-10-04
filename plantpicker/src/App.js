@@ -1,3 +1,5 @@
+'use strict'
+
 import './App.css';
 import { useState, useEffect } from 'react';
 import { decodeToken } from "react-jwt";
@@ -22,14 +24,15 @@ function App() {
 
   //check if a user has previously logged in
   useEffect(() => {
-    const loggedInUser = JSON.parse(localStorage.getItem('token')) || undefined;
+
+    const loggedInUser = (localStorage.getItem('token') !== undefined) ? JSON.parse(localStorage.getItem('token')) : undefined;
 
     function getToken(locUser) {
-      console.log('loggedInUser', locUser)
       
       if (locUser === undefined) {
         setIsLoggedIn(false)
       } else {
+        
         setIsLoggedIn(true)
       }
  
