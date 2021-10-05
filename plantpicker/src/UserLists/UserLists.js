@@ -1,34 +1,35 @@
 // import "./UserLists.css";
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PlantsApi from "../api";
 import { decodeToken } from "react-jwt";
-import { Note } from "phosphor-react";
+import { Note, User } from "phosphor-react";
 import "./UserLists.css"
 import useErrorHandling from '../hooks/useErrorHandling';
+import UserContext from '../UserContext';
 
 function UserLists({ isLoggedIn }) {
     const [user, setUser] = useState({})
     const [plantList, setPlantList] = useState([])
 
+    const { token } = useContext(UserContext);
     //retrieve token from local storage and decode
-    
-    let userToken = decodeToken(localStorage.getItem('token')) || undefined;
-    console.log(userToken)
+    // let userToken = decodeToken(JSON.parse(localStorage.getItem('token'))) || undefined;
 
     useEffect(() => {
-        async function getUser(currUser) {
-            const res = await PlantsApi.getUser(currUser);
-            console.log('res', res.plant_lists)
+        async function getUser() {
+            let user = decodeToken(JSON.parse(token));
+
+            const res = await PlantsApi.getUser(user.username);
             setPlantList(res.plant_lists)
             setUser({
                 "id": res.user.id,
                 "username": res.user.username
             })
         }
-        getUser(userToken.username)
+        getUser()
 
-    }, [])
+    }, [token])
 
     //Toggles dropdown for new list form
     const handleNewForm = (e) => {

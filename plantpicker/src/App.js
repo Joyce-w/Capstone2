@@ -15,36 +15,27 @@ import UserList from "./UserLists/UserLists";
 import List from "./UserLists/List"
 import QuizForm from './Quiz/QuizForm';
 import Results from "./Quiz/Results"
+import PlantsApi from './api';
 
 
 function App() {
 
-  // const [currUser, setCurrUser] = useState(null)
+  const [token, setToken] = useState(localStorage.getItem('token'));
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  //check if a user has previously logged in
-  useEffect(() => {
-
-    const loggedInUser = (localStorage.getItem('token') !== undefined) ? JSON.parse(localStorage.getItem('token')) : undefined;
-
-    function getToken(locUser) {
-      
-      if (locUser === undefined) {
-        setIsLoggedIn(false)
-      } else {
-        
-        setIsLoggedIn(true)
-      }
- 
-    }
-      getToken(loggedInUser)
-  }, [])
-
-
-  //updates whether user is loggedin or not
-  const loginUser = () => {
-    setIsLoggedIn(!isLoggedIn)
+  //handles localstorage, api, token when logging out
+  const logoutUser = async () => {
+    setIsLoggedIn(false);
+    setToken(null)
+    localStorage.clear();
+    await PlantsApi.logoutUser();
   }
+
+  const loginUser = async () => {
+    setIsLoggedIn(true);
+    setToken(localStorage.getItem('token'))
+  }
+
 
   
   const [data, setData] = useState(null)
@@ -67,10 +58,10 @@ function App() {
 
   return (
     <div className="App">
-      <UserContext.Provider value={ {isLoggedIn, loginUser} }>
+      <UserContext.Provider value={ {token, isLoggedIn} }>
         <BrowserRouter>
           
-        <NavBar/>
+          <NavBar token={token} setIsLoggedIn={setIsLoggedIn} logoutUser={logoutUser}/>
         <Route exact path="/">
           <Home/>
         </Route>
@@ -80,7 +71,7 @@ function App() {
           <Register/>
         </Route>
         <Route exact path="/login">
-          <Login loginUser={loginUser}/>
+            <Login loginUser={loginUser}/>
         </Route>
 
         {/* Plant Components */}
